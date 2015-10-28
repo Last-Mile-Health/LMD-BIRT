@@ -717,34 +717,16 @@ where ( not tcs.community is null ) or ( not tcs.community like '' );]]></xml-pr
         </simple-master-page>
     </page-setup>
     <body>
-        <grid id="8">
-            <property name="height">0.333in</property>
-            <property name="width">5.968in</property>
-            <column id="9"/>
-            <row id="10">
-                <property name="verticalAlign">text-bottom</property>
-                <property name="height">0.333in</property>
-                <cell id="11">
-                    <property name="verticalAlign">top</property>
-                    <label id="12">
-                        <property name="fontFamily">sans-serif</property>
-                        <property name="fontWeight">bold</property>
-                        <property name="textUnderline">underline</property>
-                        <property name="textAlign">center</property>
-                        <text-property name="text"></text-property>
-                    </label>
-                </cell>
-            </row>
-        </grid>
         <table name="table1" id="13">
-            <property name="width">100%</property>
+            <property name="width">7.9375in</property>
             <property name="dataSet">territoryCommunityStaff</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">county</property>
                     <text-property name="displayName">county</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["county"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["county"] + " /"</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">district</property>
@@ -758,91 +740,341 @@ where ( not tcs.community is null ) or ( not tcs.community like '' );]]></xml-pr
                     <expression name="expression" type="javascript">dataSetRow["community"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">chw</property>
+                    <text-property name="displayName">chw</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chw"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwID</property>
+                    <text-property name="displayName">chwID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwID"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">chwGender</property>
+                    <text-property name="displayName">chwGender</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwGender"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwDatePositionBegan</property>
+                    <text-property name="displayName">chwDatePositionBegan</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwDatePositionBegan"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">chwDatePositionEnded</property>
+                    <text-property name="displayName">chwDatePositionEnded</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwDatePositionEnded"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">householdRegisteredMapped</property>
+                    <expression name="expression" type="javascript">dataSetRow["householdRegistered"] + " / "</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">countyDistrictBinding</property>
+                    <expression name="expression" type="javascript">dataSetRow["county"] + " / " + dataSetRow["district"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">chwDateEmployed</property>
+                    <expression name="expression" type="javascript">dataSetRow["chwDatePositionBegan"] + " to " + dataSetRow["chwDatePositionEnded"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">chwlCcs</property>
+                    <expression name="expression" type="javascript">dataSetRow["chwl"] + ", " + dataSetRow["ccs"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">chwl</property>
+                    <text-property name="displayName">chwl</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwl"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ccs</property>
+                    <text-property name="displayName">ccs</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccs"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <property name="pageBreakInterval">50</property>
             <column id="35">
-                <property name="width">33.3%</property>
+                <property name="width">0.020833333333333332in</property>
             </column>
             <column id="36">
-                <property name="width">33.3%</property>
+                <property name="width">0.020833333333333332in</property>
+            </column>
+            <column id="159">
+                <property name="width">1.7083333333333333in</property>
             </column>
             <column id="37">
-                <property name="width">33.4%</property>
+                <property name="width">1.25in</property>
+            </column>
+            <column id="117">
+                <property name="width">0.4479166666666667in</property>
+            </column>
+            <column id="77">
+                <property name="width">1.28125in</property>
+            </column>
+            <column id="87">
+                <property name="width">0.6875in</property>
+            </column>
+            <column id="97">
+                <property name="width">0.4479166666666667in</property>
+            </column>
+            <column id="105">
+                <property name="width">1.0104166666666667in</property>
+            </column>
+            <column id="170">
+                <property name="width">1.0625in</property>
             </column>
             <header>
                 <row id="14">
-                    <cell id="15">
-                        <label id="45">
-                            <text-property name="text">county</text-property>
-                        </label>
-                    </cell>
+                    <property name="height">0.041666666666666664in</property>
+                    <cell id="15"/>
                     <cell id="16"/>
+                    <cell id="152"/>
                     <cell id="17"/>
+                    <cell id="110"/>
+                    <cell id="70"/>
+                    <cell id="80"/>
+                    <cell id="90"/>
+                    <cell id="98"/>
+                    <cell id="163"/>
                 </row>
             </header>
             <group id="18">
                 <property name="groupName">countyGroup</property>
                 <expression name="keyExpr" type="javascript">row["county"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["county"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
                 <header>
                     <row id="19">
+                        <property name="borderBottomStyle">none</property>
+                        <property name="borderLeftStyle">none</property>
+                        <property name="borderRightStyle">none</property>
+                        <property name="borderTopStyle">none</property>
+                        <property name="height">0.2604166666666667in</property>
                         <cell id="20">
-                            <data id="46">
-                                <property name="resultSetColumn">county</property>
-                            </data>
+                            <property name="textAlign">center</property>
                         </cell>
-                        <cell id="21"/>
-                        <cell id="22"/>
+                        <cell id="21">
+                            <property name="textAlign">center</property>
+                        </cell>
+                        <cell id="153">
+                            <property name="textAlign">center</property>
+                            <label id="67">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">County / District</text-property>
+                            </label>
+                        </cell>
+                        <cell id="22">
+                            <label id="69">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">Community</text-property>
+                            </label>
+                        </cell>
+                        <cell id="111">
+                            <label id="106">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">#HH</text-property>
+                            </label>
+                        </cell>
+                        <cell id="71">
+                            <label id="78">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">CHW</text-property>
+                            </label>
+                        </cell>
+                        <cell id="81">
+                            <label id="88">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">CHW ID</text-property>
+                            </label>
+                        </cell>
+                        <cell id="91">
+                            <label id="126">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">Gender</text-property>
+                            </label>
+                        </cell>
+                        <cell id="99">
+                            <label id="136">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <text-property name="text">Date(s) Employed</text-property>
+                            </label>
+                        </cell>
+                        <cell id="164">
+                            <label id="173">
+                                <property name="fontWeight">bold</property>
+                                <text-property name="text">CHW-L, CCS</text-property>
+                            </label>
+                        </cell>
                     </row>
                 </header>
                 <footer>
                     <row id="23">
                         <cell id="24"/>
                         <cell id="25"/>
+                        <cell id="157"/>
                         <cell id="26"/>
+                        <cell id="115"/>
+                        <cell id="75"/>
+                        <cell id="85"/>
+                        <cell id="95"/>
+                        <cell id="103"/>
+                        <cell id="168"/>
                     </row>
                 </footer>
             </group>
             <group id="56">
                 <property name="groupName">districtGroup</property>
                 <expression name="keyExpr" type="javascript">row["district"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["district"]</expression>
+                </structure>
                 <property name="hideDetail">false</property>
                 <header>
                     <row id="57">
+                        <property name="borderBottomStyle">none</property>
+                        <property name="borderLeftStyle">none</property>
+                        <property name="borderRightStyle">none</property>
+                        <property name="borderTopStyle">none</property>
+                        <property name="height">0.2604166666666667in</property>
                         <cell id="58">
+                            <data id="46">
+                                <property name="fontWeight">bold</property>
+                                <property name="color">white</property>
+                                <property name="resultSetColumn">county</property>
+                            </data>
+                        </cell>
+                        <cell id="59">
                             <data id="65">
+                                <property name="fontWeight">bold</property>
+                                <property name="color">white</property>
                                 <property name="resultSetColumn">district</property>
                             </data>
                         </cell>
-                        <cell id="59"/>
+                        <cell id="154">
+                            <data id="161">
+                                <property name="textAlign">center</property>
+                                <property name="resultSetColumn">countyDistrictBinding</property>
+                            </data>
+                        </cell>
                         <cell id="60"/>
+                        <cell id="112"/>
+                        <cell id="72"/>
+                        <cell id="82"/>
+                        <cell id="92"/>
+                        <cell id="100"/>
+                        <cell id="165"/>
                     </row>
                 </header>
                 <footer>
                     <row id="61">
                         <cell id="62"/>
                         <cell id="63"/>
+                        <cell id="156"/>
                         <cell id="64"/>
+                        <cell id="114"/>
+                        <cell id="74"/>
+                        <cell id="84"/>
+                        <cell id="94"/>
+                        <cell id="102"/>
+                        <cell id="167"/>
                     </row>
                 </footer>
             </group>
             <detail>
                 <row id="27">
-                    <cell id="28">
+                    <property name="height">0.3958333333333333in</property>
+                    <cell id="28"/>
+                    <cell id="29"/>
+                    <cell id="155"/>
+                    <cell id="30">
                         <data id="66">
+                            <property name="textAlign">left</property>
                             <property name="resultSetColumn">community</property>
                         </data>
                     </cell>
-                    <cell id="29"/>
-                    <cell id="30"/>
+                    <cell id="113">
+                        <data id="143">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">householdRegisteredMapped</property>
+                        </data>
+                    </cell>
+                    <cell id="73">
+                        <data id="79">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">chw</property>
+                        </data>
+                    </cell>
+                    <cell id="83">
+                        <data id="89">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">chwID</property>
+                        </data>
+                    </cell>
+                    <cell id="93">
+                        <data id="127">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">chwGender</property>
+                        </data>
+                    </cell>
+                    <cell id="101">
+                        <data id="176">
+                            <property name="resultSetColumn">chwDatePositionBegan</property>
+                        </data>
+                        <data id="177">
+                            <property name="resultSetColumn">chwDatePositionEnded</property>
+                        </data>
+                    </cell>
+                    <cell id="166">
+                        <data id="179">
+                            <property name="resultSetColumn">chwl</property>
+                        </data>
+                        <data id="180">
+                            <property name="resultSetColumn">ccs</property>
+                        </data>
+                    </cell>
                 </row>
             </detail>
             <footer>
                 <row id="31">
                     <cell id="32"/>
                     <cell id="33"/>
+                    <cell id="158"/>
                     <cell id="34"/>
+                    <cell id="116"/>
+                    <cell id="76"/>
+                    <cell id="86"/>
+                    <cell id="96"/>
+                    <cell id="104"/>
+                    <cell id="169"/>
                 </row>
             </footer>
         </table>
+        <label id="171"/>
+        <label id="172"/>
     </body>
 </report>
