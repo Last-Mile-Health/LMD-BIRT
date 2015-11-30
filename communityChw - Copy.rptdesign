@@ -708,7 +708,116 @@
                     <property name="nativeDataType">91</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[select * from view_territoryCommunityStaff;]]></xml-property>
+            <xml-property name="queryText"><![CDATA[select 
+      c.country,
+      c.countyID, 
+      c.county,
+      c.healthDistrictID, 
+      c.healthDistrict,
+      c.districtID,
+      c.district,
+      c.communityID,
+      c.community,
+      
+      t.mappingHouseholdCount,
+	    t.householdRegistered,
+	
+	    t.dateChwCommunityAssocBegan,
+	    t.dateChwCommunityAssocEnded,
+	
+	    t.chwID,
+	    t.chw,
+	    t.chwDateOfBirth,
+	    t.chwGender,
+	    t.chwDatePositionBegan,
+	    t.chwDatePositionEnded,
+	
+	    t.chwChwlDateSupervisionBegan,
+	    t.chwChwlDateSupervisionEnded,
+	
+	    t.chwlID,
+	    t.chwl,
+	    t.abbreviatedChwl,     
+	    t.chwlDateOfBirth,
+	    t.chwlGender,
+	    t.chwlDatePositionBegan,
+	    t.chwlDatePositionEnded,
+	
+	    t.chwlCcsDateSupervisionBegan,
+	    t.chwlCcsDateSupervisionEnded,
+	
+	    t.ccsID,
+	    t.ccs,
+	    t.abbreviatedCcs,
+	    t.ccsDateOfBirth,
+	    t.ccsGender,
+	    t.ccsDatePositionBegan,
+	    t.ccsDatePositionEnded
+      
+from view_territoryCommunityStaff as c
+  left outer join (
+                    
+    select 
+    
+      tcs.country,
+	    tcs.county,
+      tcs.countyID,
+	    tcs.healthDistrict,
+      tcs.healthDistrictID,
+	    tcs.district,
+      tcs.districtID,
+	    tcs.community,
+      tcs.communityID,
+
+	    tcs.mappingHouseholdCount,
+	    tcs.householdRegistered,
+	
+	    tcs.dateChwCommunityAssocBegan,
+	    tcs.dateChwCommunityAssocEnded,
+	
+	    tcs.chwID,
+	    tcs.chw,
+	    tcs.chwDateOfBirth,
+	    tcs.chwGender,
+	    date_format( tcs.chwDatePositionBegan, '%b %e, %Y' ) as chwDatePositionBegan,
+	    date_format( tcs.chwDatePositionEnded, '%b %e, %Y' ) as chwDatePositionEnded,
+	
+	    date_format( tcs.chwChwlDateSupervisionBegan, '%b %e, %Y' ) as chwChwlDateSupervisionBegan,
+	    date_format( tcs.chwChwlDateSupervisionEnded, '%b %e, %Y' ) as chwChwlDateSupervisionEnded,
+	
+	    tcs.chwlID,
+	    tcs.chwl,
+	    concat(	substring( substring_index( tcs.chwl, " ", 1 ), 1, 1 ), '. ',
+          	  substring_index( tcs.chwl, " ", -1 ) ) 		as abbreviatedChwl,     
+	    tcs.chwlDateOfBirth,
+	    tcs.chwlGender,
+	    tcs.chwlDatePositionBegan,
+	    tcs.chwlDatePositionEnded,
+	
+	    date_format( tcs.chwlCcsDateSupervisionBegan, '%b %e, %Y' ) as chwlCcsDateSupervisionBegan,
+	    date_format( tcs.chwlCcsDateSupervisionEnded, '%b %e, %Y' ) as chwlCcsDateSupervisionEnded,
+	
+	    tcs.ccsID,
+	    tcs.ccs,
+	    concat(	substring( substring_index( tcs.ccs, " ", 1 ), 1, 1 ), '. ',
+          	  substring_index( tcs.ccs, " ", -1 ) ) 		as abbreviatedCcs,
+	  tcs.ccsDateOfBirth,
+	  tcs.ccsGender,
+	  tcs.ccsDatePositionBegan,
+	  tcs.ccsDatePositionEnded
+
+from view_territoryCommunityStaff as tcs
+where (	( tcs.dateChwCommunityAssocEnded  is null ) and
+        ( tcs.chwDatePositionEnded        is null ) and
+        ( tcs.chwChwlDateSupervisionEnded is null ) and
+        ( tcs.chwlDatePositionEnded       is null ) and
+        ( tcs.chwlCcsDateSupervisionEnded is null ) and
+        ( tcs.ccsDatePositionEnded        is null ) )
+  
+  ) as t on c.communityID = t.communityID
+where 	( ( c.county like 'Rivercess' ) or ( c.county like 'Grand Gedeh' ) ) and
+		( ( not c.community is null ) or ( not c.community like '' ) )
+group by c.country, c.countyID, c.healthDistrictID, c.districtID, c.communityID]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
