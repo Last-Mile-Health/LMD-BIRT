@@ -106,18 +106,6 @@
                     <text-property name="heading">householdRegisteredTotal</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">dateChwCommunityAssocBegan</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">dateChwCommunityAssocBegan</text-property>
-                    <text-property name="heading">dateChwCommunityAssocBegan</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">dateChwCommunityAssocEnded</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">dateChwCommunityAssocEnded</text-property>
-                    <text-property name="heading">dateChwCommunityAssocEnded</text-property>
-                </structure>
-                <structure>
                     <property name="columnName">chwID</property>
                     <property name="analysis">measure</property>
                     <text-property name="displayName">chwID</text-property>
@@ -327,131 +315,121 @@
                     </structure>
                     <structure>
                         <property name="position">13</property>
-                        <property name="name">dateChwCommunityAssocBegan</property>
-                        <property name="dataType">date</property>
-                    </structure>
-                    <structure>
-                        <property name="position">14</property>
-                        <property name="name">dateChwCommunityAssocEnded</property>
-                        <property name="dataType">date</property>
-                    </structure>
-                    <structure>
-                        <property name="position">15</property>
                         <property name="name">chwID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">14</property>
                         <property name="name">chw</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">15</property>
                         <property name="name">chwDateOfBirth</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">18</property>
+                        <property name="position">16</property>
                         <property name="name">chwGender</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">19</property>
+                        <property name="position">17</property>
                         <property name="name">chwDatePositionBegan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">20</property>
+                        <property name="position">18</property>
                         <property name="name">chwDatePositionEnded</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">21</property>
+                        <property name="position">19</property>
                         <property name="name">chwChwlDateSupervisionBegan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">22</property>
+                        <property name="position">20</property>
                         <property name="name">chwChwlDateSupervisionEnded</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">23</property>
+                        <property name="position">21</property>
                         <property name="name">chwlID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">24</property>
+                        <property name="position">22</property>
                         <property name="name">chwl</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">25</property>
+                        <property name="position">23</property>
                         <property name="name">abbreviatedChwl</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">26</property>
+                        <property name="position">24</property>
                         <property name="name">chwlDateOfBirth</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">27</property>
+                        <property name="position">25</property>
                         <property name="name">chwlGender</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">28</property>
+                        <property name="position">26</property>
                         <property name="name">chwlDatePositionBegan</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">29</property>
+                        <property name="position">27</property>
                         <property name="name">chwlDatePositionEnded</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">30</property>
+                        <property name="position">28</property>
                         <property name="name">chwlCcsDateSupervisionBegan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">31</property>
+                        <property name="position">29</property>
                         <property name="name">chwlCcsDateSupervisionEnded</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">32</property>
+                        <property name="position">30</property>
                         <property name="name">ccsID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">33</property>
+                        <property name="position">31</property>
                         <property name="name">ccs</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">34</property>
+                        <property name="position">32</property>
                         <property name="name">abbreviatedCcs</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">35</property>
+                        <property name="position">33</property>
                         <property name="name">ccsDateOfBirth</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">36</property>
+                        <property name="position">34</property>
                         <property name="name">ccsGender</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">37</property>
+                        <property name="position">35</property>
                         <property name="name">ccsDatePositionBegan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">38</property>
+                        <property name="position">36</property>
                         <property name="name">ccsDatePositionEnded</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -545,181 +523,167 @@
                 </structure>
                 <structure>
                     <property name="position">13</property>
-                    <property name="name">dateChwCommunityAssocBegan</property>
-                    <property name="nativeName">dateChwCommunityAssocBegan</property>
-                    <property name="dataType">date</property>
-                    <property name="nativeDataType">91</property>
-                </structure>
-                <structure>
-                    <property name="position">14</property>
-                    <property name="name">dateChwCommunityAssocEnded</property>
-                    <property name="nativeName">dateChwCommunityAssocEnded</property>
-                    <property name="dataType">date</property>
-                    <property name="nativeDataType">91</property>
-                </structure>
-                <structure>
-                    <property name="position">15</property>
                     <property name="name">chwID</property>
                     <property name="nativeName">chwID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">14</property>
                     <property name="name">chw</property>
                     <property name="nativeName">chw</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">15</property>
                     <property name="name">chwDateOfBirth</property>
                     <property name="nativeName">chwDateOfBirth</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">18</property>
+                    <property name="position">16</property>
                     <property name="name">chwGender</property>
                     <property name="nativeName">chwGender</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">19</property>
+                    <property name="position">17</property>
                     <property name="name">chwDatePositionBegan</property>
                     <property name="nativeName">chwDatePositionBegan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">20</property>
+                    <property name="position">18</property>
                     <property name="name">chwDatePositionEnded</property>
                     <property name="nativeName">chwDatePositionEnded</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">21</property>
+                    <property name="position">19</property>
                     <property name="name">chwChwlDateSupervisionBegan</property>
                     <property name="nativeName">chwChwlDateSupervisionBegan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">22</property>
+                    <property name="position">20</property>
                     <property name="name">chwChwlDateSupervisionEnded</property>
                     <property name="nativeName">chwChwlDateSupervisionEnded</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">23</property>
+                    <property name="position">21</property>
                     <property name="name">chwlID</property>
                     <property name="nativeName">chwlID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">24</property>
+                    <property name="position">22</property>
                     <property name="name">chwl</property>
                     <property name="nativeName">chwl</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">25</property>
+                    <property name="position">23</property>
                     <property name="name">abbreviatedChwl</property>
                     <property name="nativeName">abbreviatedChwl</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">26</property>
+                    <property name="position">24</property>
                     <property name="name">chwlDateOfBirth</property>
                     <property name="nativeName">chwlDateOfBirth</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">27</property>
+                    <property name="position">25</property>
                     <property name="name">chwlGender</property>
                     <property name="nativeName">chwlGender</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">28</property>
+                    <property name="position">26</property>
                     <property name="name">chwlDatePositionBegan</property>
                     <property name="nativeName">chwlDatePositionBegan</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">29</property>
+                    <property name="position">27</property>
                     <property name="name">chwlDatePositionEnded</property>
                     <property name="nativeName">chwlDatePositionEnded</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">30</property>
+                    <property name="position">28</property>
                     <property name="name">chwlCcsDateSupervisionBegan</property>
                     <property name="nativeName">chwlCcsDateSupervisionBegan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">31</property>
+                    <property name="position">29</property>
                     <property name="name">chwlCcsDateSupervisionEnded</property>
                     <property name="nativeName">chwlCcsDateSupervisionEnded</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">32</property>
+                    <property name="position">30</property>
                     <property name="name">ccsID</property>
                     <property name="nativeName">ccsID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">33</property>
+                    <property name="position">31</property>
                     <property name="name">ccs</property>
                     <property name="nativeName">ccs</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">34</property>
+                    <property name="position">32</property>
                     <property name="name">abbreviatedCcs</property>
                     <property name="nativeName">abbreviatedCcs</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">35</property>
+                    <property name="position">33</property>
                     <property name="name">ccsDateOfBirth</property>
                     <property name="nativeName">ccsDateOfBirth</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">36</property>
+                    <property name="position">34</property>
                     <property name="name">ccsGender</property>
                     <property name="nativeName">ccsGender</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">37</property>
+                    <property name="position">35</property>
                     <property name="name">ccsDatePositionBegan</property>
                     <property name="nativeName">ccsDatePositionBegan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">38</property>
+                    <property name="position">36</property>
                     <property name="name">ccsDatePositionEnded</property>
                     <property name="nativeName">ccsDatePositionEnded</property>
                     <property name="dataType">string</property>
@@ -739,8 +703,6 @@
       mappingHouseholdCount,
       householdRegistered,
       householdRegisteredTotal,
-      dateChwCommunityAssocBegan,
-      dateChwCommunityAssocEnded,
 
       chwID,
       chw,
@@ -769,7 +731,7 @@
       date_format( ccsDatePositionBegan, '%b %e, %Y' ) as ccsDatePositionBegan,
       date_format( ccsDatePositionEnded, '%b %e, %Y' ) as ccsDatePositionEnded
       
-from view_territoryCommunityStaffHouseholdRegistered;]]></xml-property>
+from view_territoryCommunityStaffHouseholdRegistered]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -1080,13 +1042,13 @@ else {&#13;
             </list-property>
             <property name="pageBreakInterval">50</property>
             <column id="35">
-                <property name="width">0.020833333333333332in</property>
+                <property name="width">0.010416666666666666in</property>
             </column>
             <column id="36">
-                <property name="width">0.020833333333333332in</property>
+                <property name="width">0.010416666666666666in</property>
             </column>
             <column id="159">
-                <property name="width">7.90625in</property>
+                <property name="width">7.927083333333333in</property>
             </column>
             <header>
                 <row id="14">
