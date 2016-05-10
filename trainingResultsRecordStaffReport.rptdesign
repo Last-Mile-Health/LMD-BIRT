@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
+    <text-property name="title">BIRT — Training Results Record</text-property>
     <list-property name="propertyBindings">
         <structure>
             <property name="name">queryText</property>
@@ -20,6 +21,54 @@
     <property name="cheatSheet">org.eclipse.birt.report.designer.ui.cheatsheet.simplelisting</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="trainingType" id="379">
+            <text-property name="promptText">trainingType</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="dataSetName">trainingType</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["trainingType"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["trainingType"]</expression>
+            <expression name="sortByColumn">dataSetRow["trainingType"]</expression>
+            <property name="sortDirection">asc</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">ALL</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">multi-value</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">false</property>
+            <structure name="format">
+                <property name="category">></property>
+                <property name="pattern">></property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="active" id="381">
+            <text-property name="promptText">Staff still active?</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="dataSetName">active</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["active"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["active"]</expression>
+            <expression name="sortByColumn">dataSetRow["active"]</expression>
+            <property name="sortDirection">desc</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">ALL</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">multi-value</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">false</property>
+            <structure name="format">
+                <property name="category">&lt;</property>
+                <property name="pattern">&lt;</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="lastmile_chwdb" id="27">
             <list-property name="privateDriverProperties">
@@ -39,7 +88,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://www.lastmiledata.org:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -307,6 +356,30 @@
                     </structure>
                 </list-property>
             </structure>
+            <method name="beforeOpen"><![CDATA[/* The case where the trainingType and the active parameter is NOT ALL.  Here, you'll need a WHERE clause and an AND operator
+	appended to the SQL statement.
+*/
+if ( ( params[ "trainingType" ].value[ 0 ] != 'ALL' ) &amp;&amp; ( params[ "active" ].value[ 0 ] != 'ALL' ) ) {
+
+	this.queryText = this.queryText + " where ( r.trainingType in ('" + params[ "trainingType" ].value.join("','") + "') )";
+	
+	this.queryText = this.queryText + " and ( r.active in ('" + params[ "active" ].value.join("','") + "') )";
+	
+	
+} 
+/* The case where the just the trainingType paramter is NOT ALL or just the active parameter is NOT ALL.  Just append a
+	WHERE clause to the SQL statement for whichever one is NOT ALL.
+*/
+else if ( params[ "trainingType" ].value[ 0 ] != 'ALL' ) {
+
+	this.queryText = this.queryText + " where ( r.trainingType in ('" + params[ "trainingType" ].value.join("','") + "') )";
+
+} else if ( params[ "active" ].value[ 0 ] != 'ALL' )  {
+
+	this.queryText = this.queryText + " where ( r.active in ('" + params[ "active" ].value.join("','") + "') )";
+
+}
+]]></method>
             <property name="dataSource">lastmile_chwdb</property>
             <list-property name="resultSet">
                 <structure>
@@ -509,6 +582,144 @@
 		r.active
 from view_trainingResultsRecordStaffReport as r]]></xml-property>
         </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="trainingType" id="378">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">trainingType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">trainingType</text-property>
+                    <text-property name="heading">trainingType</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">trainingType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">lastmile_chwdb</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">trainingType</property>
+                    <property name="nativeName">trainingType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select
+		trainingType
+		
+from view_trainingResultsRecordStaffReport
+where 	( upper( trim( trainingType ) ) like 'CHW%' ) or
+		( upper( trim( trainingType ) ) like 'LMA%' )
+group by trainingType
+order by trainingType asc]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>trainingType</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>25</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>trainingType</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>trainingType</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="active" id="380">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">active</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">active</text-property>
+                    <text-property name="heading">active</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">active</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">lastmile_chwdb</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">active</property>
+                    <property name="nativeName">active</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+		active
+from view_trainingresultsrecordstaffreport
+where 	( upper( trim( trainingType ) ) like 'CHW%' ) or
+		( upper( trim( trainingType ) ) like 'LMA%' )
+group by active
+order by active desc]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>active</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>3</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>active</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>active</design:label>
+            <design:formattingHints>
+              <design:displaySize>3</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
     </data-sets>
     <styles>
         <style name="report" id="24">
@@ -614,7 +825,7 @@ from view_trainingResultsRecordStaffReport as r]]></xml-property>
         </simple-master-page>
     </page-setup>
     <body>
-        <table id="4">
+        <table name="TrainingResultsRecord" id="4">
             <property name="width">7.927083333333333in</property>
             <property name="dataSet">view_trainingResultsRecordStaffReport</property>
             <list-property name="boundDataColumns">
