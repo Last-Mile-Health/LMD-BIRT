@@ -23,7 +23,7 @@
     <property name="imageDPI">96</property>
     <parameters>
         <scalar-parameter name="trainingType" id="379">
-            <text-property name="promptText">trainingType</text-property>
+            <text-property name="promptText">Training Type</text-property>
             <property name="valueType">dynamic</property>
             <property name="dataSetName">trainingType</property>
             <expression name="valueExpr" type="javascript">dataSetRow["trainingType"]</expression>
@@ -88,7 +88,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://www.lastmiledata.org:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -682,7 +682,7 @@ order by trainingType asc]]></xml-property>
             </list-property>
             <xml-property name="queryText"><![CDATA[select 
 		active
-from view_trainingresultsrecordstaffreport
+from view_trainingResultsRecordStaffReport
 where 	( upper( trim( trainingType ) ) like 'CHW%' ) or
 		( upper( trim( trainingType ) ) like 'LMA%' )
 group by active
