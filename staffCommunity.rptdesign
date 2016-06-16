@@ -5,6 +5,45 @@
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="staff" id="438">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">All</value>
+            </simple-property-list>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">All</property>
+                    <property name="label">All</property>
+                </structure>
+                <structure>
+                    <property name="value">Unknown</property>
+                    <property name="label">Unknown</property>
+                </structure>
+                <structure>
+                    <property name="value">Unknown CCS</property>
+                    <property name="label">Unknown CCS</property>
+                </structure>
+                <structure>
+                    <property name="value">Unknown CHW-L</property>
+                    <property name="label">Unknown CHW-L</property>
+                </structure>
+                <structure>
+                    <property name="value">Unknown CHW</property>
+                    <property name="label">Unknown CHW</property>
+                </structure>
+            </list-property>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7">
             <list-property name="privateDriverProperties">
@@ -24,7 +63,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://www.lastmiledata.org:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -258,6 +297,25 @@
                     </structure>
                 </list-property>
             </structure>
+            <method name="beforeOpen"><![CDATA[if ( params[ "staff" ] == "Unknown CCS" ) {
+
+	this.queryText = this.queryText + " where ( ccs is null ) or ( trim( ccs ) like '' ) ";
+	
+} else if ( params[ "staff" ] == "Unknown CHW-L" ) {
+
+	this.queryText = this.queryText + " where ( chwl is null ) or ( trim( chwl ) like '' ) ";
+	
+} else if ( params[ "staff" ] == "Unknown CHW" ) {
+
+	this.queryText = this.queryText + " where ( chw is null ) or ( trim( chw ) like '' ) ";
+	
+}
+else if ( params[ "staff" ] == "Unknown" ) {
+
+	this.queryText = this.queryText + " where ( ( ccs is null ) or ( trim( ccs ) like '' ) ) or ( ( chwl is null ) or ( trim( chwl ) like '' ) ) or ( ( chw is null ) or ( trim( chw ) like '' ) ) ";
+	
+}
+]]></method>
             <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
@@ -427,10 +485,7 @@
       	healthDistrict,
       	county
 
-from view_staffSupervisionCommunityActiveReport
--- where 	( chw is null	) 	or ( trim( chw 	) like '' ) or
---		( chwl is null 	)	or ( trim( chwl ) like '' ) or
---		( ccs is null 	) 	or ( trim( ccs 	) like '' )]]></xml-property>
+from view_staffSupervisionCommunityActiveReport]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
