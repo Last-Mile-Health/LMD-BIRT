@@ -1,0 +1,1468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaUser">lastmile_admin</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="view_staffSupervisionCommunityActiveReport" id="104">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ccsID</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">ccsID</text-property>
+                    <text-property name="heading">ccsID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ccs</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ccs</text-property>
+                    <text-property name="heading">ccs</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ccsDateOfBirth</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ccsDateOfBirth</text-property>
+                    <text-property name="heading">ccsDateOfBirth</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ccsGender</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ccsGender</text-property>
+                    <text-property name="heading">ccsGender</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ccsPhoneNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ccsPhoneNumber</text-property>
+                    <text-property name="heading">ccsPhoneNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwlID</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">chwlID</text-property>
+                    <text-property name="heading">chwlID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwl</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwl</text-property>
+                    <text-property name="heading">chwl</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwlDateOfBirth</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwlDateOfBirth</text-property>
+                    <text-property name="heading">chwlDateOfBirth</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwlGender</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwlGender</text-property>
+                    <text-property name="heading">chwlGender</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwlPhoneNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwlPhoneNumber</text-property>
+                    <text-property name="heading">chwlPhoneNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwID</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">chwID</text-property>
+                    <text-property name="heading">chwID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chw</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chw</text-property>
+                    <text-property name="heading">chw</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwDateOfBirth</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwDateOfBirth</text-property>
+                    <text-property name="heading">chwDateOfBirth</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwGender</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwGender</text-property>
+                    <text-property name="heading">chwGender</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwPhoneNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwPhoneNumber</text-property>
+                    <text-property name="heading">chwPhoneNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">communityID</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">communityID</text-property>
+                    <text-property name="heading">communityID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">community</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">community</text-property>
+                    <text-property name="heading">community</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">district</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">district</text-property>
+                    <text-property name="heading">district</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">healthDistrict</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">healthDistrict</text-property>
+                    <text-property name="heading">healthDistrict</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">county</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">county</text-property>
+                    <text-property name="heading">county</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ccsID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ccs</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ccsDateOfBirth</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">ccsGender</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">ccsPhoneNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">chwlID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">chwl</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">chwlDateOfBirth</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">chwlGender</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">chwlPhoneNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">chwID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">chw</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">chwDateOfBirth</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">chwGender</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">chwPhoneNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">communityID</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">community</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">district</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">healthDistrict</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">county</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ccsID</property>
+                    <property name="nativeName">ccsID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ccs</property>
+                    <property name="nativeName">ccs</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ccsDateOfBirth</property>
+                    <property name="nativeName">ccsDateOfBirth</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ccsGender</property>
+                    <property name="nativeName">ccsGender</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">ccsPhoneNumber</property>
+                    <property name="nativeName">ccsPhoneNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">chwlID</property>
+                    <property name="nativeName">chwlID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">chwl</property>
+                    <property name="nativeName">chwl</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">chwlDateOfBirth</property>
+                    <property name="nativeName">chwlDateOfBirth</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">chwlGender</property>
+                    <property name="nativeName">chwlGender</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">chwlPhoneNumber</property>
+                    <property name="nativeName">chwlPhoneNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">chwID</property>
+                    <property name="nativeName">chwID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">chw</property>
+                    <property name="nativeName">chw</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">chwDateOfBirth</property>
+                    <property name="nativeName">chwDateOfBirth</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">chwGender</property>
+                    <property name="nativeName">chwGender</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">chwPhoneNumber</property>
+                    <property name="nativeName">chwPhoneNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">communityID</property>
+                    <property name="nativeName">communityID</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">community</property>
+                    <property name="nativeName">community</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">district</property>
+                    <property name="nativeName">district</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">healthDistrict</property>
+                    <property name="nativeName">healthDistrict</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">county</property>
+                    <property name="nativeName">county</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select
+
+		ccsID,
+		ccs,
+      	ccsDateOfBirth,
+      	ccsGender,
+      	ccsPhoneNumber,
+      
+      	chwlID, 
+      	chwl, 
+      	chwlDateOfBirth, 
+      	chwlGender,
+      	chwlPhoneNumber,
+
+      	chwID, 
+      	chw, 
+      	chwDateOfBirth, 
+      	chwGender, 
+      	chwPhoneNumber,
+      
+      	communityID,
+      	community,
+      	district,
+      	healthDistrict,
+      	county
+
+from view_staffSupervisionCommunityActiveReport
+-- where 	( chw is null	) 	or ( trim( chw 	) like '' ) or
+--		( chwl is null 	)	or ( trim( chwl ) like '' ) or
+--		( ccs is null 	) 	or ( trim( ccs 	) like '' )]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ccsID</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ccsID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ccsID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ccs</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>101</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ccs</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ccs</design:label>
+            <design:formattingHints>
+              <design:displaySize>101</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ccsDateOfBirth</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ccsDateOfBirth</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ccsDateOfBirth</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ccsGender</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ccsGender</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ccsGender</design:label>
+            <design:formattingHints>
+              <design:displaySize>1</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ccsPhoneNumber</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>25</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ccsPhoneNumber</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ccsPhoneNumber</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwlID</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwlID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwlID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwl</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>101</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwl</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwl</design:label>
+            <design:formattingHints>
+              <design:displaySize>101</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwlDateOfBirth</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwlDateOfBirth</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwlDateOfBirth</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwlGender</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwlGender</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwlGender</design:label>
+            <design:formattingHints>
+              <design:displaySize>1</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwlPhoneNumber</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>25</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwlPhoneNumber</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwlPhoneNumber</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwID</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwID</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chw</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>101</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chw</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chw</design:label>
+            <design:formattingHints>
+              <design:displaySize>101</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwDateOfBirth</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwDateOfBirth</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwDateOfBirth</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwGender</design:name>
+              <design:position>14</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwGender</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwGender</design:label>
+            <design:formattingHints>
+              <design:displaySize>1</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwPhoneNumber</design:name>
+              <design:position>15</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>25</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwPhoneNumber</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwPhoneNumber</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>communityID</design:name>
+              <design:position>16</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1024</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>communityID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>communityID</design:label>
+            <design:formattingHints>
+              <design:displaySize>1024</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>community</design:name>
+              <design:position>17</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1024</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>community</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>community</design:label>
+            <design:formattingHints>
+              <design:displaySize>1024</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>district</design:name>
+              <design:position>18</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1024</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>district</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>district</design:label>
+            <design:formattingHints>
+              <design:displaySize>1024</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>healthDistrict</design:name>
+              <design:position>19</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1024</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>healthDistrict</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>healthDistrict</design:label>
+            <design:formattingHints>
+              <design:displaySize>1024</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>county</design:name>
+              <design:position>20</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>county</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>county</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <grid id="418">
+                    <property name="width">7.84375in</property>
+                    <column id="419">
+                        <property name="width">2in</property>
+                    </column>
+                    <column id="420">
+                        <property name="width">5.84375in</property>
+                    </column>
+                    <row id="421">
+                        <cell id="422">
+                            <text id="424">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="423">
+                            <grid id="425">
+                                <property name="width">3.3125in</property>
+                                <column id="426">
+                                    <property name="width">2.0208333333333335in</property>
+                                </column>
+                                <column id="427">
+                                    <property name="width">0.10416666666666667in</property>
+                                </column>
+                                <column id="428">
+                                    <property name="width">1.1875in</property>
+                                </column>
+                                <row id="429">
+                                    <cell id="430">
+                                        <auto-text id="431">
+                                            <property name="textAlign">right</property>
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="432">
+                                        <text id="433">
+                                            <property name="textAlign">center</property>
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="434">
+                                        <auto-text id="435">
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="23">
+            <property name="width">7.947916666666667in</property>
+            <property name="dataSet">view_staffSupervisionCommunityActiveReport</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ccsID</property>
+                    <text-property name="displayName">ccsID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccsID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">ccs</property>
+                    <text-property name="displayName">ccs</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccs"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ccsDateOfBirth</property>
+                    <text-property name="displayName">ccsDateOfBirth</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccsDateOfBirth"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">ccsGender</property>
+                    <text-property name="displayName">ccsGender</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccsGender"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ccsPhoneNumber</property>
+                    <text-property name="displayName">ccsPhoneNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ccsPhoneNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwlID</property>
+                    <text-property name="displayName">chwlID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwlID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">chwl</property>
+                    <text-property name="displayName">chwl</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwl"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwlDateOfBirth</property>
+                    <text-property name="displayName">chwlDateOfBirth</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwlDateOfBirth"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">chwlGender</property>
+                    <text-property name="displayName">chwlGender</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwlGender"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwlPhoneNumber</property>
+                    <text-property name="displayName">chwlPhoneNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwlPhoneNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwID</property>
+                    <text-property name="displayName">chwID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">chw</property>
+                    <text-property name="displayName">chw</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chw"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwDateOfBirth</property>
+                    <text-property name="displayName">chwDateOfBirth</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwDateOfBirth"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">chwGender</property>
+                    <text-property name="displayName">chwGender</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwGender"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">chwPhoneNumber</property>
+                    <text-property name="displayName">chwPhoneNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["chwPhoneNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">communityID</property>
+                    <text-property name="displayName">communityID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["communityID"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">community</property>
+                    <text-property name="displayName">community</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["community"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">district</property>
+                    <text-property name="displayName">district</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["district"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">healthDistrict</property>
+                    <text-property name="displayName">healthDistrict</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["healthDistrict"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">county</property>
+                    <text-property name="displayName">county</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["county"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="33">
+                <property name="width">0.010416666666666666in</property>
+            </column>
+            <column id="34">
+                <property name="width">7.9375in</property>
+            </column>
+            <header>
+                <row id="24">
+                    <property name="height">0.010416666666666666in</property>
+                    <cell id="25"/>
+                    <cell id="26"/>
+                </row>
+            </header>
+            <group id="35">
+                <property name="groupName">county</property>
+                <expression name="keyExpr" type="javascript">row["county"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["county"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <row id="36">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="37"/>
+                        <cell id="38"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="39">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="40"/>
+                        <cell id="41"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="43">
+                <property name="groupName">ccs</property>
+                <expression name="keyExpr" type="javascript">row["ccs"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">if ( row["ccs"] == null ) { &#13;
+	displayString ="CCS UNKNOWN"&#13;
+} else { displayString =row["ccs"] }</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <row id="44">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="45"/>
+                        <cell id="46"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="47">
+                        <property name="height">0.03125in</property>
+                        <cell id="48"/>
+                        <cell id="49"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="51">
+                <property name="groupName">chwl</property>
+                <expression name="keyExpr" type="javascript">row["chwl"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">if ( row["chwl"] == null ) { &#13;
+	displayString ="CHWL UNKNOWN"&#13;
+} else { displayString =row["chwl"] }</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <row id="52">
+                        <property name="height">1.28125in</property>
+                        <cell id="53">
+                            <data id="213">
+                                <property name="resultSetColumn">chwl</property>
+                            </data>
+                        </cell>
+                        <cell id="54">
+                            <grid id="137">
+                                <property name="height">1.2916666666666667in</property>
+                                <property name="width">7.802083333333333in</property>
+                                <column id="138">
+                                    <property name="width">7.802083333333333in</property>
+                                </column>
+                                <row id="139">
+                                    <property name="height">0.25in</property>
+                                    <cell id="140">
+                                        <label id="145">
+                                            <property name="fontSize">12pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Staff-Community Listings</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="141">
+                                    <property name="height">0.22916666666666666in</property>
+                                    <cell id="142">
+                                        <text-data id="160">
+                                            <property name="fontSize">11pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <expression name="valueExpr">if ( row["county"] == null ) { &#13;
+	displayString ="County UNKNOWN"&#13;
+} else { displayString =row["county"] + " County"}</expression>
+                                            <property name="contentType">html</property>
+                                        </text-data>
+                                    </cell>
+                                </row>
+                                <row id="143">
+                                    <property name="height">0.22916666666666666in</property>
+                                    <cell id="144">
+                                        <text-data id="164">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <expression name="valueExpr">if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CCS: " + row["ccs"] + ", CCS ID: " + row["ccsID"];&#13;
+    &#13;
+} else if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] == null ) ) {&#13;
+    &#13;
+    displayString =  "CCS: " + row["ccs"] + ", CCS ID: UNKNOWN";&#13;
+&#13;
+} else if ( ( row["ccs"] == null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CCS: UNKNOWN, CCS ID: " + row["ccsID"];&#13;
+} else {&#13;
+ &#13;
+    displayString ="CCS: UNKNOWN, CCS ID: UNKNOWN";&#13;
+}</expression>
+                                            <property name="contentType">html</property>
+                                        </text-data>
+                                    </cell>
+                                </row>
+                                <row id="162">
+                                    <property name="height">0.3020833333333333in</property>
+                                    <cell id="163">
+                                        <text-data id="165">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <expression name="valueExpr">if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CHW-L: " + row["chwl"] + ", CHW-L ID: " + row["chwlID"];&#13;
+    &#13;
+} else if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] == null ) ) {&#13;
+    &#13;
+    displayString =  "CHW-L: " + row["chwl"] + ", CHW-L ID: UNKNOWN";&#13;
+&#13;
+} else if ( ( row["chwl"] == null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CHW-L: UNKNOWN, CHW-L ID: " + row["chwlID"];&#13;
+    &#13;
+} else {&#13;
+ &#13;
+    displayString ="CHW-L: UNKNOWN, CHW-L ID: UNKNOWN";&#13;
+   &#13;
+}</expression>
+                                            <property name="contentType">html</property>
+                                        </text-data>
+                                    </cell>
+                                </row>
+                                <row id="166">
+                                    <property name="height">0.28125in</property>
+                                    <cell id="167">
+                                        <grid id="169">
+                                            <property name="width">7.802083333333333in</property>
+                                            <column id="170">
+                                                <property name="width">1.3020833333333333in</property>
+                                            </column>
+                                            <column id="171">
+                                                <property name="width">0.6041666666666666in</property>
+                                            </column>
+                                            <column id="172">
+                                                <property name="width">0.5in</property>
+                                            </column>
+                                            <column id="173">
+                                                <property name="width">0.8854166666666666in</property>
+                                            </column>
+                                            <column id="174">
+                                                <property name="width">0.8333333333333334in</property>
+                                            </column>
+                                            <column id="175">
+                                                <property name="width">1.625in</property>
+                                            </column>
+                                            <column id="176">
+                                                <property name="width">0.7708333333333334in</property>
+                                            </column>
+                                            <column id="177">
+                                                <property name="width">1.28125in</property>
+                                            </column>
+                                            <row id="178">
+                                                <cell id="179">
+                                                    <label id="205">
+                                                        <property name="fontWeight">bold</property>
+                                                        <text-property name="text">CHW</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="180">
+                                                    <label id="206">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">center</property>
+                                                        <text-property name="text">CHW ID</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="181">
+                                                    <label id="207">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">center</property>
+                                                        <text-property name="text">Gender</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="182">
+                                                    <label id="208">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">center</property>
+                                                        <text-property name="text">Birth Date</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="183">
+                                                    <label id="209">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">center</property>
+                                                        <text-property name="text">Phone</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="184">
+                                                    <label id="210">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">left</property>
+                                                        <text-property name="text">Community</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="185">
+                                                    <label id="211">
+                                                        <property name="fontWeight">bold</property>
+                                                        <property name="textAlign">left</property>
+                                                        <text-property name="text">ID</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="186">
+                                                    <label id="212">
+                                                        <property name="fontWeight">bold</property>
+                                                        <text-property name="text">Health District</text-property>
+                                                    </label>
+                                                </cell>
+                                            </row>
+                                        </grid>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="55">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="56"/>
+                        <cell id="57"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="120">
+                <property name="groupName">chw</property>
+                <expression name="keyExpr" type="javascript">row["chw"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">if ( row["chw"] == null ) { &#13;
+	displayString ="CHW UNKNOWN"&#13;
+} else { displayString =row["chw"] }</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">auto</property>
+                <header>
+                    <row id="121">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="122">
+                            <data id="127">
+                                <property name="resultSetColumn">chw</property>
+                            </data>
+                        </cell>
+                        <cell id="123"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="124">
+                        <property name="height">0.010416666666666666in</property>
+                        <cell id="125"/>
+                        <cell id="126"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="27">
+                    <property name="height">0.21875in</property>
+                    <cell id="28"/>
+                    <cell id="29">
+                        <grid id="76">
+                            <property name="height">0.19791666666666666in</property>
+                            <property name="width">7.802083333333333in</property>
+                            <column id="77">
+                                <property name="width">1.3020833333333333in</property>
+                            </column>
+                            <column id="78">
+                                <property name="width">0.6041666666666666in</property>
+                            </column>
+                            <column id="79">
+                                <property name="width">0.5in</property>
+                            </column>
+                            <column id="80">
+                                <property name="width">0.8854166666666666in</property>
+                            </column>
+                            <column id="81">
+                                <property name="width">0.8333333333333334in</property>
+                            </column>
+                            <column id="97">
+                                <property name="width">1.625in</property>
+                            </column>
+                            <column id="101">
+                                <property name="width">0.7708333333333334in</property>
+                            </column>
+                            <column id="82">
+                                <property name="width">1.28125in</property>
+                            </column>
+                            <row id="83">
+                                <property name="height">0.19791666666666666in</property>
+                                <cell id="84">
+                                    <data id="109">
+                                        <property name="resultSetColumn">chw</property>
+                                    </data>
+                                </cell>
+                                <cell id="85">
+                                    <data id="110">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">chwID</property>
+                                    </data>
+                                </cell>
+                                <cell id="86">
+                                    <data id="111">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">chwGender</property>
+                                    </data>
+                                </cell>
+                                <cell id="87">
+                                    <data id="112">
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">chwDateOfBirth</property>
+                                    </data>
+                                </cell>
+                                <cell id="88">
+                                    <data id="113">
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">chwPhoneNumber</property>
+                                    </data>
+                                </cell>
+                                <cell id="96">
+                                    <data id="114">
+                                        <property name="resultSetColumn">community</property>
+                                    </data>
+                                </cell>
+                                <cell id="100">
+                                    <data id="115">
+                                        <property name="resultSetColumn">communityID</property>
+                                    </data>
+                                </cell>
+                                <cell id="89">
+                                    <data id="116">
+                                        <property name="resultSetColumn">healthDistrict</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="30">
+                    <property name="height">0.010416666666666666in</property>
+                    <cell id="31"/>
+                    <cell id="32"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>
