@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
+    <text-property name="title">BIRT — Staff-Community Listings</text-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
     <parameters>
         <scalar-parameter name="staff" id="438">
+            <text-property name="promptText">Staff</text-property>
             <property name="valueType">static</property>
             <property name="dataType">string</property>
             <property name="distinct">true</property>
@@ -20,19 +22,7 @@
                 </structure>
                 <structure>
                     <property name="value">Unknown</property>
-                    <property name="label">Unknown</property>
-                </structure>
-                <structure>
-                    <property name="value">Unknown CCS</property>
-                    <property name="label">Unknown CCS</property>
-                </structure>
-                <structure>
-                    <property name="value">Unknown CHW-L</property>
-                    <property name="label">Unknown CHW-L</property>
-                </structure>
-                <structure>
-                    <property name="value">Unknown CHW</property>
-                    <property name="label">Unknown CHW</property>
+                    <property name="label">Unknown CCS, CHW-L, CHW</property>
                 </structure>
             </list-property>
             <property name="paramType">simple</property>
@@ -297,20 +287,7 @@
                     </structure>
                 </list-property>
             </structure>
-            <method name="beforeOpen"><![CDATA[if ( params[ "staff" ] == "Unknown CCS" ) {
-
-	this.queryText = this.queryText + " where ( ccs is null ) or ( trim( ccs ) like '' ) ";
-	
-} else if ( params[ "staff" ] == "Unknown CHW-L" ) {
-
-	this.queryText = this.queryText + " where ( chwl is null ) or ( trim( chwl ) like '' ) ";
-	
-} else if ( params[ "staff" ] == "Unknown CHW" ) {
-
-	this.queryText = this.queryText + " where ( chw is null ) or ( trim( chw ) like '' ) ";
-	
-}
-else if ( params[ "staff" ] == "Unknown" ) {
+            <method name="beforeOpen"><![CDATA[if ( params[ "staff" ] == "Unknown" ) {
 
 	this.queryText = this.queryText + " where ( ( ccs is null ) or ( trim( ccs ) like '' ) ) or ( ( chwl is null ) or ( trim( chwl ) like '' ) ) or ( ( chw is null ) or ( trim( chw ) like '' ) ) ";
 	
@@ -452,7 +429,7 @@ else if ( params[ "staff" ] == "Unknown" ) {
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">19</property>
+                    <property name="position">20</property>
                     <property name="name">county</property>
                     <property name="nativeName">county</property>
                     <property name="dataType">string</property>
@@ -1020,12 +997,14 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                     <text-property name="displayName">ccsID</text-property>
                     <expression name="expression" type="javascript">dataSetRow["ccsID"]</expression>
                     <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">ccs</property>
                     <text-property name="displayName">ccs</text-property>
                     <expression name="expression" type="javascript">dataSetRow["ccs"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">ccsDateOfBirth</property>
@@ -1056,6 +1035,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                     <text-property name="displayName">chwl</text-property>
                     <expression name="expression" type="javascript">dataSetRow["chwl"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">chwlDateOfBirth</property>
@@ -1080,6 +1060,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                     <text-property name="displayName">chwID</text-property>
                     <expression name="expression" type="javascript">dataSetRow["chwID"]</expression>
                     <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">chw</property>
@@ -1153,7 +1134,9 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                 <property name="groupName">county</property>
                 <expression name="keyExpr" type="javascript">row["county"]</expression>
                 <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["county"]</expression>
+                    <expression name="expressionValue" type="javascript">if ( row["county"] == null ) { &#13;
+	displayString ="County Unknown"&#13;
+} else { displayString =row["county"] }</expression>
                 </structure>
                 <property name="hideDetail">false</property>
                 <property name="pageBreakBefore">always-excluding-first</property>
@@ -1177,7 +1160,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                 <expression name="keyExpr" type="javascript">row["ccs"]</expression>
                 <structure name="toc">
                     <expression name="expressionValue" type="javascript">if ( row["ccs"] == null ) { &#13;
-	displayString ="CCS UNKNOWN"&#13;
+	displayString ="CCS Unknown"&#13;
 } else { displayString =row["ccs"] }</expression>
                 </structure>
                 <property name="hideDetail">false</property>
@@ -1191,7 +1174,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                 </header>
                 <footer>
                     <row id="47">
-                        <property name="height">0.03125in</property>
+                        <property name="height">0.010416666666666666in</property>
                         <cell id="48"/>
                         <cell id="49"/>
                     </row>
@@ -1202,19 +1185,15 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                 <expression name="keyExpr" type="javascript">row["chwl"]</expression>
                 <structure name="toc">
                     <expression name="expressionValue" type="javascript">if ( row["chwl"] == null ) { &#13;
-	displayString ="CHWL UNKNOWN"&#13;
+	displayString ="CHW-L Unknown"&#13;
 } else { displayString =row["chwl"] }</expression>
                 </structure>
                 <property name="hideDetail">false</property>
                 <property name="pageBreakBefore">always-excluding-first</property>
                 <header>
                     <row id="52">
-                        <property name="height">1.28125in</property>
-                        <cell id="53">
-                            <data id="213">
-                                <property name="resultSetColumn">chwl</property>
-                            </data>
-                        </cell>
+                        <property name="height">1.3541666666666667in</property>
+                        <cell id="53"/>
                         <cell id="54">
                             <grid id="137">
                                 <property name="height">1.2916666666666667in</property>
@@ -1226,7 +1205,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                                     <property name="height">0.25in</property>
                                     <cell id="140">
                                         <label id="145">
-                                            <property name="fontSize">12pt</property>
+                                            <property name="fontSize">13pt</property>
                                             <property name="fontWeight">bold</property>
                                             <property name="textAlign">center</property>
                                             <text-property name="text">Staff-Community Listings</text-property>
@@ -1234,65 +1213,134 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                                     </cell>
                                 </row>
                                 <row id="141">
-                                    <property name="height">0.22916666666666666in</property>
+                                    <property name="height">0.25in</property>
                                     <cell id="142">
                                         <text-data id="160">
-                                            <property name="fontSize">11pt</property>
+                                            <property name="fontSize">12pt</property>
                                             <property name="fontWeight">bold</property>
                                             <property name="textAlign">center</property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">match</property>
+                                                    <property name="fontStyle">italic</property>
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="color">#FF0000</property>
+                                                    <expression name="testExpr" type="javascript">if ( row["county"] == null ) { &#13;
+	displayString ="County Unknown"&#13;
+} else { displayString =row["county"] + " County"}</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">"Unknown"</value>
+                                                    </simple-property-list>
+                                                </structure>
+                                            </list-property>
                                             <expression name="valueExpr">if ( row["county"] == null ) { &#13;
-	displayString ="County UNKNOWN"&#13;
+	displayString ="County Unknown"&#13;
 } else { displayString =row["county"] + " County"}</expression>
                                             <property name="contentType">html</property>
                                         </text-data>
                                     </cell>
                                 </row>
                                 <row id="143">
-                                    <property name="height">0.22916666666666666in</property>
+                                    <property name="height">0.25in</property>
                                     <cell id="144">
-                                        <text-data id="164">
+                                        <text-data id="475">
+                                            <property name="fontSize">11pt</property>
                                             <property name="fontWeight">bold</property>
                                             <property name="textAlign">center</property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">match</property>
+                                                    <property name="fontStyle">italic</property>
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="color">#FF0000</property>
+                                                    <expression name="testExpr" type="javascript">if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CCS: " + row["ccs"] + ", CCS ID: " + row["ccsID"];&#13;
+    &#13;
+} else if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] == null ) ) {&#13;
+    &#13;
+    displayString =  "CCS: " + row["ccs"] + ", CCS ID: Unknown";&#13;
+&#13;
+} else if ( ( row["ccs"] == null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CCS: Unknown, CCS ID: " + row["ccsID"];&#13;
+} else {&#13;
+ &#13;
+    displayString ="CCS: Unknown, CCS ID: Unknown";&#13;
+}</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">"Unknown"</value>
+                                                    </simple-property-list>
+                                                </structure>
+                                            </list-property>
                                             <expression name="valueExpr">if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
     &#13;
     displayString = "CCS: " + row["ccs"] + ", CCS ID: " + row["ccsID"];&#13;
     &#13;
 } else if ( ( row["ccs"] != null ) &amp;&amp; ( row["ccsID"] == null ) ) {&#13;
     &#13;
-    displayString =  "CCS: " + row["ccs"] + ", CCS ID: UNKNOWN";&#13;
+    displayString =  "CCS: " + row["ccs"] + ", CCS ID: Unknown";&#13;
 &#13;
 } else if ( ( row["ccs"] == null ) &amp;&amp; ( row["ccsID"] != null ) ) {&#13;
     &#13;
-    displayString = "CCS: UNKNOWN, CCS ID: " + row["ccsID"];&#13;
+    displayString = "CCS: Unknown, CCS ID: " + row["ccsID"];&#13;
 } else {&#13;
  &#13;
-    displayString ="CCS: UNKNOWN, CCS ID: UNKNOWN";&#13;
+    displayString ="CCS: Unknown, CCS ID: Unknown";&#13;
 }</expression>
                                             <property name="contentType">html</property>
                                         </text-data>
                                     </cell>
                                 </row>
                                 <row id="162">
-                                    <property name="height">0.3020833333333333in</property>
+                                    <property name="height">0.2916666666666667in</property>
                                     <cell id="163">
-                                        <text-data id="165">
+                                        <text-data id="476">
+                                            <property name="fontSize">11pt</property>
                                             <property name="fontWeight">bold</property>
-                                            <property name="textAlign">left</property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">match</property>
+                                                    <property name="fontStyle">italic</property>
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="color">#FF0000</property>
+                                                    <expression name="testExpr" type="javascript">if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CHW-L: " + row["chwl"] + ", CHW-L ID: " + row["chwlID"];&#13;
+    &#13;
+} else if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] == null ) ) {&#13;
+    &#13;
+    displayString =  "CHW-L: " + row["chwl"] + ", CHW-L ID: Unknown";&#13;
+&#13;
+} else if ( ( row["chwl"] == null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
+    &#13;
+    displayString = "CHW-L: Unknown, CHW-L ID: " + row["chwlID"];&#13;
+    &#13;
+} else {&#13;
+ &#13;
+    displayString ="CHW-L: Unknown, CHW-L ID: Unknown";&#13;
+   &#13;
+}</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">"Unknown"</value>
+                                                    </simple-property-list>
+                                                </structure>
+                                            </list-property>
                                             <expression name="valueExpr">if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
     &#13;
     displayString = "CHW-L: " + row["chwl"] + ", CHW-L ID: " + row["chwlID"];&#13;
     &#13;
 } else if ( ( row["chwl"] != null ) &amp;&amp; ( row["chwlID"] == null ) ) {&#13;
     &#13;
-    displayString =  "CHW-L: " + row["chwl"] + ", CHW-L ID: UNKNOWN";&#13;
+    displayString =  "CHW-L: " + row["chwl"] + ", CHW-L ID: Unknown";&#13;
 &#13;
 } else if ( ( row["chwl"] == null ) &amp;&amp; ( row["chwlID"] != null ) ) {&#13;
     &#13;
-    displayString = "CHW-L: UNKNOWN, CHW-L ID: " + row["chwlID"];&#13;
+    displayString = "CHW-L: Unknown, CHW-L ID: " + row["chwlID"];&#13;
     &#13;
 } else {&#13;
  &#13;
-    displayString ="CHW-L: UNKNOWN, CHW-L ID: UNKNOWN";&#13;
+    displayString ="CHW-L: Unknown, CHW-L ID: Unknown";&#13;
    &#13;
 }</expression>
                                             <property name="contentType">html</property>
@@ -1300,9 +1348,10 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                                     </cell>
                                 </row>
                                 <row id="166">
-                                    <property name="height">0.28125in</property>
+                                    <property name="height">0.25in</property>
                                     <cell id="167">
                                         <grid id="169">
+                                            <property name="height">0.21875in</property>
                                             <property name="width">7.802083333333333in</property>
                                             <column id="170">
                                                 <property name="width">1.3020833333333333in</property>
@@ -1329,6 +1378,7 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                                                 <property name="width">1.28125in</property>
                                             </column>
                                             <row id="178">
+                                                <property name="height">0.21875in</property>
                                                 <cell id="179">
                                                     <label id="205">
                                                         <property name="fontWeight">bold</property>
@@ -1404,20 +1454,96 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                 <expression name="keyExpr" type="javascript">row["chw"]</expression>
                 <structure name="toc">
                     <expression name="expressionValue" type="javascript">if ( row["chw"] == null ) { &#13;
-	displayString ="CHW UNKNOWN"&#13;
+	displayString ="CHW Unknown"&#13;
 } else { displayString =row["chw"] }</expression>
                 </structure>
                 <property name="hideDetail">false</property>
                 <property name="pageBreakBefore">auto</property>
                 <header>
                     <row id="121">
-                        <property name="height">0.010416666666666666in</property>
+                        <property name="height">0.2708333333333333in</property>
                         <cell id="122">
                             <data id="127">
                                 <property name="resultSetColumn">chw</property>
                             </data>
                         </cell>
-                        <cell id="123"/>
+                        <cell id="123">
+                            <grid id="76">
+                                <property name="height">0.25in</property>
+                                <property name="width">7.802083333333333in</property>
+                                <column id="77">
+                                    <property name="width">1.3020833333333333in</property>
+                                </column>
+                                <column id="78">
+                                    <property name="width">0.6041666666666666in</property>
+                                </column>
+                                <column id="79">
+                                    <property name="width">0.5in</property>
+                                </column>
+                                <column id="80">
+                                    <property name="width">0.8854166666666666in</property>
+                                </column>
+                                <column id="81">
+                                    <property name="width">0.8333333333333334in</property>
+                                </column>
+                                <column id="97">
+                                    <property name="width">1.625in</property>
+                                </column>
+                                <column id="101">
+                                    <property name="width">0.7708333333333334in</property>
+                                </column>
+                                <column id="82">
+                                    <property name="width">1.28125in</property>
+                                </column>
+                                <row id="83">
+                                    <property name="height">0.25in</property>
+                                    <cell id="84">
+                                        <data id="109">
+                                            <property name="resultSetColumn">chw</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="85">
+                                        <data id="110">
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">chwID</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="86">
+                                        <data id="111">
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">chwGender</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="87">
+                                        <data id="112">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">chwDateOfBirth</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="88">
+                                        <data id="113">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">chwPhoneNumber</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="96">
+                                        <data id="114">
+                                            <property name="resultSetColumn">community</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="100">
+                                        <data id="115">
+                                            <property name="resultSetColumn">communityID</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="89">
+                                        <data id="116">
+                                            <property name="resultSetColumn">healthDistrict</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
                     </row>
                 </header>
                 <footer>
@@ -1428,89 +1554,6 @@ from view_staffSupervisionCommunityActiveReport]]></xml-property>
                     </row>
                 </footer>
             </group>
-            <detail>
-                <row id="27">
-                    <property name="height">0.21875in</property>
-                    <cell id="28"/>
-                    <cell id="29">
-                        <grid id="76">
-                            <property name="height">0.19791666666666666in</property>
-                            <property name="width">7.802083333333333in</property>
-                            <column id="77">
-                                <property name="width">1.3020833333333333in</property>
-                            </column>
-                            <column id="78">
-                                <property name="width">0.6041666666666666in</property>
-                            </column>
-                            <column id="79">
-                                <property name="width">0.5in</property>
-                            </column>
-                            <column id="80">
-                                <property name="width">0.8854166666666666in</property>
-                            </column>
-                            <column id="81">
-                                <property name="width">0.8333333333333334in</property>
-                            </column>
-                            <column id="97">
-                                <property name="width">1.625in</property>
-                            </column>
-                            <column id="101">
-                                <property name="width">0.7708333333333334in</property>
-                            </column>
-                            <column id="82">
-                                <property name="width">1.28125in</property>
-                            </column>
-                            <row id="83">
-                                <property name="height">0.19791666666666666in</property>
-                                <cell id="84">
-                                    <data id="109">
-                                        <property name="resultSetColumn">chw</property>
-                                    </data>
-                                </cell>
-                                <cell id="85">
-                                    <data id="110">
-                                        <property name="textAlign">center</property>
-                                        <property name="resultSetColumn">chwID</property>
-                                    </data>
-                                </cell>
-                                <cell id="86">
-                                    <data id="111">
-                                        <property name="textAlign">center</property>
-                                        <property name="resultSetColumn">chwGender</property>
-                                    </data>
-                                </cell>
-                                <cell id="87">
-                                    <data id="112">
-                                        <property name="textAlign">left</property>
-                                        <property name="resultSetColumn">chwDateOfBirth</property>
-                                    </data>
-                                </cell>
-                                <cell id="88">
-                                    <data id="113">
-                                        <property name="textAlign">left</property>
-                                        <property name="resultSetColumn">chwPhoneNumber</property>
-                                    </data>
-                                </cell>
-                                <cell id="96">
-                                    <data id="114">
-                                        <property name="resultSetColumn">community</property>
-                                    </data>
-                                </cell>
-                                <cell id="100">
-                                    <data id="115">
-                                        <property name="resultSetColumn">communityID</property>
-                                    </data>
-                                </cell>
-                                <cell id="89">
-                                    <data id="116">
-                                        <property name="resultSetColumn">healthDistrict</property>
-                                    </data>
-                                </cell>
-                            </row>
-                        </grid>
-                    </cell>
-                </row>
-            </detail>
             <footer>
                 <row id="30">
                     <property name="height">0.010416666666666666in</property>
