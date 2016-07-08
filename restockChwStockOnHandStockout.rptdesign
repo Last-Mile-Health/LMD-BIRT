@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
+    <text-property name="title">BIRT — CHW Restock: Stock On Hand/Stockouts</text-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -24,7 +25,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://lastmiledata.org:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -91,6 +92,12 @@
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">healthDistrictList</text-property>
                     <text-property name="heading">healthDistrictList</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">healthFacilityList</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">healthFacilityList</text-property>
+                    <text-property name="heading">healthFacilityList</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">countyList</property>
@@ -736,491 +743,496 @@
                     </structure>
                     <structure>
                         <property name="position">11</property>
-                        <property name="name">countyList</property>
+                        <property name="name">healthFacilityList</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">12</property>
+                        <property name="name">countyList</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
                         <property name="name">chwRestockID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
+                        <property name="position">14</property>
                         <property name="name">restockChwlID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">15</property>
                         <property name="name">restockChwl</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">16</property>
                         <property name="name">restockChwID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">17</property>
                         <property name="name">restockCommunityID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">18</property>
                         <property name="name">meta_autoDate</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">18</property>
+                        <property name="position">19</property>
                         <property name="name">manualDate</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">19</property>
+                        <property name="position">20</property>
                         <property name="name">dateMatch</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">20</property>
+                        <property name="position">21</property>
                         <property name="name">stockOnHand_ACT25mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">21</property>
+                        <property name="position">22</property>
                         <property name="name">restockType_ACT25mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">22</property>
+                        <property name="position">23</property>
                         <property name="name">partialRestock_ACT25mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">23</property>
+                        <property name="position">24</property>
                         <property name="name">stockOutReason_ACT25mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">24</property>
+                        <property name="position">25</property>
                         <property name="name">fullStock_ACT25mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">25</property>
+                        <property name="position">26</property>
                         <property name="name">stockOnHand_ACT50mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">26</property>
+                        <property name="position">27</property>
                         <property name="name">restockType_ACT50mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">27</property>
+                        <property name="position">28</property>
                         <property name="name">partialRestock_ACT50mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">28</property>
+                        <property name="position">29</property>
                         <property name="name">stockOutReason_ACT50mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">29</property>
+                        <property name="position">30</property>
                         <property name="name">fullStock_ACT50mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">30</property>
+                        <property name="position">31</property>
                         <property name="name">stockOnHand_Paracetamol120mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">31</property>
+                        <property name="position">32</property>
                         <property name="name">restockType_Paracetamol120mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">32</property>
+                        <property name="position">33</property>
                         <property name="name">partialRestock_Paracetamol120mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">33</property>
+                        <property name="position">34</property>
                         <property name="name">stockOutReason_Paracetamol120mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">34</property>
+                        <property name="position">35</property>
                         <property name="name">fullStock_Paracetamol120mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">35</property>
+                        <property name="position">36</property>
                         <property name="name">stockOnHand_ORS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">36</property>
+                        <property name="position">37</property>
                         <property name="name">restockType_ORS</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">37</property>
+                        <property name="position">38</property>
                         <property name="name">partialRestock_ORS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">38</property>
+                        <property name="position">39</property>
                         <property name="name">stockOutReason_ORS</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">39</property>
+                        <property name="position">40</property>
                         <property name="name">fullStock_ORS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">40</property>
+                        <property name="position">41</property>
                         <property name="name">stockOnHand_ZincSulfate</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">41</property>
+                        <property name="position">42</property>
                         <property name="name">restockType_ZincSulfate</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">42</property>
+                        <property name="position">43</property>
                         <property name="name">partialRestock_ZincSulfate</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">43</property>
+                        <property name="position">44</property>
                         <property name="name">stockOutReason_ZincSulfate</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">44</property>
+                        <property name="position">45</property>
                         <property name="name">fullStock_ZincSulfate</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">45</property>
+                        <property name="position">46</property>
                         <property name="name">stockOnHand_amoxicillin250mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">46</property>
+                        <property name="position">47</property>
                         <property name="name">restockType_amoxicillin250mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">47</property>
+                        <property name="position">48</property>
                         <property name="name">partialRestock_amoxicillin250mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">48</property>
+                        <property name="position">49</property>
                         <property name="name">stockOutReason_amoxicillin250mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">49</property>
+                        <property name="position">50</property>
                         <property name="name">fullStock_amoxicillin250mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">50</property>
+                        <property name="position">51</property>
                         <property name="name">stockOnHand_amoxicillin125mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">51</property>
+                        <property name="position">52</property>
                         <property name="name">restockType_amoxicillin125mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">52</property>
+                        <property name="position">53</property>
                         <property name="name">partialRestock_amoxicillin125mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">53</property>
+                        <property name="position">54</property>
                         <property name="name">stockOutReason_amoxicillin125mg</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">54</property>
+                        <property name="position">55</property>
                         <property name="name">fullStock_amoxicillin125mg</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">55</property>
+                        <property name="position">56</property>
                         <property name="name">stockOnHand_muacStrap</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">56</property>
+                        <property name="position">57</property>
                         <property name="name">restockType_muacStrap</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">57</property>
+                        <property name="position">58</property>
                         <property name="name">stockOutReason_muacStrap</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">58</property>
+                        <property name="position">59</property>
                         <property name="name">fullStock_muacStrap</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">59</property>
+                        <property name="position">60</property>
                         <property name="name">stockOnHand_MalariaRDT</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">60</property>
+                        <property name="position">61</property>
                         <property name="name">restockType_MalariaRDT</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">61</property>
+                        <property name="position">62</property>
                         <property name="name">partialRestock_MalariaRDT</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">62</property>
+                        <property name="position">63</property>
                         <property name="name">stockOutReason_MalariaRDT</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">63</property>
+                        <property name="position">64</property>
                         <property name="name">fullStock_MalariaRDT</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">64</property>
+                        <property name="position">65</property>
                         <property name="name">stockOnHand_stethoscope</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">65</property>
+                        <property name="position">66</property>
                         <property name="name">restockType_stethoscope</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">66</property>
+                        <property name="position">67</property>
                         <property name="name">stockOutReason_stethoscope</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">67</property>
+                        <property name="position">68</property>
                         <property name="name">fullStock_stethoscope</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">68</property>
+                        <property name="position">69</property>
                         <property name="name">stockOnHand_digitalThermometer</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">69</property>
+                        <property name="position">70</property>
                         <property name="name">restockType_digitalThermometer</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">70</property>
+                        <property name="position">71</property>
                         <property name="name">stockOutReason_digitalThermometer</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">71</property>
+                        <property name="position">72</property>
                         <property name="name">fullStock_digitalThermometer</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">72</property>
+                        <property name="position">73</property>
                         <property name="name">stockOnHand_disposableGloves</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">73</property>
+                        <property name="position">74</property>
                         <property name="name">restockType_disposableGloves</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">74</property>
+                        <property name="position">75</property>
                         <property name="name">partialRestock_disposableGloves</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">75</property>
+                        <property name="position">76</property>
                         <property name="name">stockOutReason_disposableGloves</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">76</property>
+                        <property name="position">77</property>
                         <property name="name">fullStock_disposableGloves</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">77</property>
+                        <property name="position">78</property>
                         <property name="name">stockOnHand_plasticCup</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">78</property>
+                        <property name="position">79</property>
                         <property name="name">restockType_plasticCup</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">79</property>
+                        <property name="position">80</property>
                         <property name="name">stockOutReason_plasticCup</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">80</property>
+                        <property name="position">81</property>
                         <property name="name">fullStock_plasticCup</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">81</property>
+                        <property name="position">82</property>
                         <property name="name">stockOnHand_doseCard</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">82</property>
+                        <property name="position">83</property>
                         <property name="name">restockType_doseCard</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">83</property>
+                        <property name="position">84</property>
                         <property name="name">stockOutReason_doseCard</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">84</property>
+                        <property name="position">85</property>
                         <property name="name">fullStock_doseCard</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">85</property>
+                        <property name="position">86</property>
                         <property name="name">stockOnHand_ebolaScreeningTool</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">86</property>
+                        <property name="position">87</property>
                         <property name="name">restockType_ebolaScreeningTool</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">87</property>
+                        <property name="position">88</property>
                         <property name="name">stockOutReason_ebolaScreeningTool</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">88</property>
+                        <property name="position">89</property>
                         <property name="name">fullStock_ebolaScreeningTool</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">89</property>
+                        <property name="position">90</property>
                         <property name="name">stockOnHand_routineVisitForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">90</property>
+                        <property name="position">91</property>
                         <property name="name">restockType_routineVisitForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">91</property>
+                        <property name="position">92</property>
                         <property name="name">partialRestock_routineVisitForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">92</property>
+                        <property name="position">93</property>
                         <property name="name">stockOutReason_routineVisitForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">93</property>
+                        <property name="position">94</property>
                         <property name="name">fullStock_routineVisitForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">94</property>
+                        <property name="position">95</property>
                         <property name="name">stockOnHand_sickChildForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">95</property>
+                        <property name="position">96</property>
                         <property name="name">restockType_sickChildForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">96</property>
+                        <property name="position">97</property>
                         <property name="name">partialRestock_sickChildForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">97</property>
+                        <property name="position">98</property>
                         <property name="name">stockOutReason_sickChildForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">98</property>
+                        <property name="position">99</property>
                         <property name="name">fullStock_sickChildForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">99</property>
+                        <property name="position">100</property>
                         <property name="name">stockOnHand_chwWorkPlan</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">100</property>
+                        <property name="position">101</property>
                         <property name="name">restockType_chwWorkPlan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">101</property>
+                        <property name="position">102</property>
                         <property name="name">partialRestock_chwWorkPlan</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">102</property>
+                        <property name="position">103</property>
                         <property name="name">stockOutReason_chwWorkPlan</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">103</property>
+                        <property name="position">104</property>
                         <property name="name">fullStock_chwWorkPlan</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">104</property>
+                        <property name="position">105</property>
                         <property name="name">stockOnHand_CommunityReferralForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">105</property>
+                        <property name="position">106</property>
                         <property name="name">restockType_CommunityReferralForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">106</property>
+                        <property name="position">107</property>
                         <property name="name">partialRestock_CommunityReferralForm</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">107</property>
+                        <property name="position">108</property>
                         <property name="name">stockOutReason_CommunityReferralForm</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">108</property>
+                        <property name="position">109</property>
                         <property name="name">fullStock_CommunityReferralForm</property>
                         <property name="dataType">integer</property>
                     </structure>
@@ -1300,685 +1312,692 @@
                 </structure>
                 <structure>
                     <property name="position">11</property>
+                    <property name="name">healthFacilityList</property>
+                    <property name="nativeName">healthFacilityList</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
                     <property name="name">countyList</property>
                     <property name="nativeName">countyList</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">13</property>
                     <property name="name">chwRestockID</property>
                     <property name="nativeName">chwRestockID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">14</property>
                     <property name="name">restockChwlID</property>
                     <property name="nativeName">restockChwlID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">15</property>
                     <property name="name">restockChwl</property>
                     <property name="nativeName">restockChwl</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">16</property>
                     <property name="name">restockChwID</property>
                     <property name="nativeName">restockChwID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">17</property>
                     <property name="name">restockCommunityID</property>
                     <property name="nativeName">restockCommunityID</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">18</property>
                     <property name="name">meta_autoDate</property>
                     <property name="nativeName">meta_autoDate</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">18</property>
+                    <property name="position">19</property>
                     <property name="name">manualDate</property>
                     <property name="nativeName">manualDate</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">19</property>
+                    <property name="position">20</property>
                     <property name="name">dateMatch</property>
                     <property name="nativeName">dateMatch</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">20</property>
+                    <property name="position">21</property>
                     <property name="name">stockOnHand_ACT25mg</property>
                     <property name="nativeName">stockOnHand_ACT25mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">21</property>
+                    <property name="position">22</property>
                     <property name="name">restockType_ACT25mg</property>
                     <property name="nativeName">restockType_ACT25mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">22</property>
+                    <property name="position">23</property>
                     <property name="name">partialRestock_ACT25mg</property>
                     <property name="nativeName">partialRestock_ACT25mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">23</property>
+                    <property name="position">24</property>
                     <property name="name">stockOutReason_ACT25mg</property>
                     <property name="nativeName">stockOutReason_ACT25mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">24</property>
+                    <property name="position">25</property>
                     <property name="name">fullStock_ACT25mg</property>
                     <property name="nativeName">fullStock_ACT25mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">25</property>
+                    <property name="position">26</property>
                     <property name="name">stockOnHand_ACT50mg</property>
                     <property name="nativeName">stockOnHand_ACT50mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">26</property>
+                    <property name="position">27</property>
                     <property name="name">restockType_ACT50mg</property>
                     <property name="nativeName">restockType_ACT50mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">27</property>
+                    <property name="position">28</property>
                     <property name="name">partialRestock_ACT50mg</property>
                     <property name="nativeName">partialRestock_ACT50mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">28</property>
+                    <property name="position">29</property>
                     <property name="name">stockOutReason_ACT50mg</property>
                     <property name="nativeName">stockOutReason_ACT50mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">29</property>
+                    <property name="position">30</property>
                     <property name="name">fullStock_ACT50mg</property>
                     <property name="nativeName">fullStock_ACT50mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">30</property>
+                    <property name="position">31</property>
                     <property name="name">stockOnHand_Paracetamol120mg</property>
                     <property name="nativeName">stockOnHand_Paracetamol120mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">31</property>
+                    <property name="position">32</property>
                     <property name="name">restockType_Paracetamol120mg</property>
                     <property name="nativeName">restockType_Paracetamol120mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">32</property>
+                    <property name="position">33</property>
                     <property name="name">partialRestock_Paracetamol120mg</property>
                     <property name="nativeName">partialRestock_Paracetamol120mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">33</property>
+                    <property name="position">34</property>
                     <property name="name">stockOutReason_Paracetamol120mg</property>
                     <property name="nativeName">stockOutReason_Paracetamol120mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">34</property>
+                    <property name="position">35</property>
                     <property name="name">fullStock_Paracetamol120mg</property>
                     <property name="nativeName">fullStock_Paracetamol120mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">35</property>
+                    <property name="position">36</property>
                     <property name="name">stockOnHand_ORS</property>
                     <property name="nativeName">stockOnHand_ORS</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">36</property>
+                    <property name="position">37</property>
                     <property name="name">restockType_ORS</property>
                     <property name="nativeName">restockType_ORS</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">37</property>
+                    <property name="position">38</property>
                     <property name="name">partialRestock_ORS</property>
                     <property name="nativeName">partialRestock_ORS</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">38</property>
+                    <property name="position">39</property>
                     <property name="name">stockOutReason_ORS</property>
                     <property name="nativeName">stockOutReason_ORS</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">39</property>
+                    <property name="position">40</property>
                     <property name="name">fullStock_ORS</property>
                     <property name="nativeName">fullStock_ORS</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">40</property>
+                    <property name="position">41</property>
                     <property name="name">stockOnHand_ZincSulfate</property>
                     <property name="nativeName">stockOnHand_ZincSulfate</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">41</property>
+                    <property name="position">42</property>
                     <property name="name">restockType_ZincSulfate</property>
                     <property name="nativeName">restockType_ZincSulfate</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">42</property>
+                    <property name="position">43</property>
                     <property name="name">partialRestock_ZincSulfate</property>
                     <property name="nativeName">partialRestock_ZincSulfate</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">43</property>
+                    <property name="position">44</property>
                     <property name="name">stockOutReason_ZincSulfate</property>
                     <property name="nativeName">stockOutReason_ZincSulfate</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">44</property>
+                    <property name="position">45</property>
                     <property name="name">fullStock_ZincSulfate</property>
                     <property name="nativeName">fullStock_ZincSulfate</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">45</property>
+                    <property name="position">46</property>
                     <property name="name">stockOnHand_amoxicillin250mg</property>
                     <property name="nativeName">stockOnHand_amoxicillin250mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">46</property>
+                    <property name="position">47</property>
                     <property name="name">restockType_amoxicillin250mg</property>
                     <property name="nativeName">restockType_amoxicillin250mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">47</property>
+                    <property name="position">48</property>
                     <property name="name">partialRestock_amoxicillin250mg</property>
                     <property name="nativeName">partialRestock_amoxicillin250mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">48</property>
+                    <property name="position">49</property>
                     <property name="name">stockOutReason_amoxicillin250mg</property>
                     <property name="nativeName">stockOutReason_amoxicillin250mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">49</property>
+                    <property name="position">50</property>
                     <property name="name">fullStock_amoxicillin250mg</property>
                     <property name="nativeName">fullStock_amoxicillin250mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">50</property>
+                    <property name="position">51</property>
                     <property name="name">stockOnHand_amoxicillin125mg</property>
                     <property name="nativeName">stockOnHand_amoxicillin125mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">51</property>
+                    <property name="position">52</property>
                     <property name="name">restockType_amoxicillin125mg</property>
                     <property name="nativeName">restockType_amoxicillin125mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">52</property>
+                    <property name="position">53</property>
                     <property name="name">partialRestock_amoxicillin125mg</property>
                     <property name="nativeName">partialRestock_amoxicillin125mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">53</property>
+                    <property name="position">54</property>
                     <property name="name">stockOutReason_amoxicillin125mg</property>
                     <property name="nativeName">stockOutReason_amoxicillin125mg</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">54</property>
+                    <property name="position">55</property>
                     <property name="name">fullStock_amoxicillin125mg</property>
                     <property name="nativeName">fullStock_amoxicillin125mg</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">55</property>
+                    <property name="position">56</property>
                     <property name="name">stockOnHand_muacStrap</property>
                     <property name="nativeName">stockOnHand_muacStrap</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">56</property>
+                    <property name="position">57</property>
                     <property name="name">restockType_muacStrap</property>
                     <property name="nativeName">restockType_muacStrap</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">57</property>
+                    <property name="position">58</property>
                     <property name="name">stockOutReason_muacStrap</property>
                     <property name="nativeName">stockOutReason_muacStrap</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">58</property>
+                    <property name="position">59</property>
                     <property name="name">fullStock_muacStrap</property>
                     <property name="nativeName">fullStock_muacStrap</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">59</property>
+                    <property name="position">60</property>
                     <property name="name">stockOnHand_MalariaRDT</property>
                     <property name="nativeName">stockOnHand_MalariaRDT</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">60</property>
+                    <property name="position">61</property>
                     <property name="name">restockType_MalariaRDT</property>
                     <property name="nativeName">restockType_MalariaRDT</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">61</property>
+                    <property name="position">62</property>
                     <property name="name">partialRestock_MalariaRDT</property>
                     <property name="nativeName">partialRestock_MalariaRDT</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">62</property>
+                    <property name="position">63</property>
                     <property name="name">stockOutReason_MalariaRDT</property>
                     <property name="nativeName">stockOutReason_MalariaRDT</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">63</property>
+                    <property name="position">64</property>
                     <property name="name">fullStock_MalariaRDT</property>
                     <property name="nativeName">fullStock_MalariaRDT</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">64</property>
+                    <property name="position">65</property>
                     <property name="name">stockOnHand_stethoscope</property>
                     <property name="nativeName">stockOnHand_stethoscope</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">65</property>
+                    <property name="position">66</property>
                     <property name="name">restockType_stethoscope</property>
                     <property name="nativeName">restockType_stethoscope</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">66</property>
+                    <property name="position">67</property>
                     <property name="name">stockOutReason_stethoscope</property>
                     <property name="nativeName">stockOutReason_stethoscope</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">67</property>
+                    <property name="position">68</property>
                     <property name="name">fullStock_stethoscope</property>
                     <property name="nativeName">fullStock_stethoscope</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">68</property>
+                    <property name="position">69</property>
                     <property name="name">stockOnHand_digitalThermometer</property>
                     <property name="nativeName">stockOnHand_digitalThermometer</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">69</property>
+                    <property name="position">70</property>
                     <property name="name">restockType_digitalThermometer</property>
                     <property name="nativeName">restockType_digitalThermometer</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">70</property>
+                    <property name="position">71</property>
                     <property name="name">stockOutReason_digitalThermometer</property>
                     <property name="nativeName">stockOutReason_digitalThermometer</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">71</property>
+                    <property name="position">72</property>
                     <property name="name">fullStock_digitalThermometer</property>
                     <property name="nativeName">fullStock_digitalThermometer</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">72</property>
+                    <property name="position">73</property>
                     <property name="name">stockOnHand_disposableGloves</property>
                     <property name="nativeName">stockOnHand_disposableGloves</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">73</property>
+                    <property name="position">74</property>
                     <property name="name">restockType_disposableGloves</property>
                     <property name="nativeName">restockType_disposableGloves</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">74</property>
+                    <property name="position">75</property>
                     <property name="name">partialRestock_disposableGloves</property>
                     <property name="nativeName">partialRestock_disposableGloves</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">75</property>
+                    <property name="position">76</property>
                     <property name="name">stockOutReason_disposableGloves</property>
                     <property name="nativeName">stockOutReason_disposableGloves</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">76</property>
+                    <property name="position">77</property>
                     <property name="name">fullStock_disposableGloves</property>
                     <property name="nativeName">fullStock_disposableGloves</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">77</property>
+                    <property name="position">78</property>
                     <property name="name">stockOnHand_plasticCup</property>
                     <property name="nativeName">stockOnHand_plasticCup</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">78</property>
+                    <property name="position">79</property>
                     <property name="name">restockType_plasticCup</property>
                     <property name="nativeName">restockType_plasticCup</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">79</property>
+                    <property name="position">80</property>
                     <property name="name">stockOutReason_plasticCup</property>
                     <property name="nativeName">stockOutReason_plasticCup</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">80</property>
+                    <property name="position">81</property>
                     <property name="name">fullStock_plasticCup</property>
                     <property name="nativeName">fullStock_plasticCup</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">81</property>
+                    <property name="position">82</property>
                     <property name="name">stockOnHand_doseCard</property>
                     <property name="nativeName">stockOnHand_doseCard</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">82</property>
+                    <property name="position">83</property>
                     <property name="name">restockType_doseCard</property>
                     <property name="nativeName">restockType_doseCard</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">83</property>
+                    <property name="position">84</property>
                     <property name="name">stockOutReason_doseCard</property>
                     <property name="nativeName">stockOutReason_doseCard</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">84</property>
+                    <property name="position">85</property>
                     <property name="name">fullStock_doseCard</property>
                     <property name="nativeName">fullStock_doseCard</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">85</property>
+                    <property name="position">86</property>
                     <property name="name">stockOnHand_ebolaScreeningTool</property>
                     <property name="nativeName">stockOnHand_ebolaScreeningTool</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">86</property>
+                    <property name="position">87</property>
                     <property name="name">restockType_ebolaScreeningTool</property>
                     <property name="nativeName">restockType_ebolaScreeningTool</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">87</property>
+                    <property name="position">88</property>
                     <property name="name">stockOutReason_ebolaScreeningTool</property>
                     <property name="nativeName">stockOutReason_ebolaScreeningTool</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">88</property>
+                    <property name="position">89</property>
                     <property name="name">fullStock_ebolaScreeningTool</property>
                     <property name="nativeName">fullStock_ebolaScreeningTool</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">89</property>
+                    <property name="position">90</property>
                     <property name="name">stockOnHand_routineVisitForm</property>
                     <property name="nativeName">stockOnHand_routineVisitForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">90</property>
+                    <property name="position">91</property>
                     <property name="name">restockType_routineVisitForm</property>
                     <property name="nativeName">restockType_routineVisitForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">91</property>
+                    <property name="position">92</property>
                     <property name="name">partialRestock_routineVisitForm</property>
                     <property name="nativeName">partialRestock_routineVisitForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">92</property>
+                    <property name="position">93</property>
                     <property name="name">stockOutReason_routineVisitForm</property>
                     <property name="nativeName">stockOutReason_routineVisitForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">93</property>
+                    <property name="position">94</property>
                     <property name="name">fullStock_routineVisitForm</property>
                     <property name="nativeName">fullStock_routineVisitForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">94</property>
+                    <property name="position">95</property>
                     <property name="name">stockOnHand_sickChildForm</property>
                     <property name="nativeName">stockOnHand_sickChildForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">95</property>
+                    <property name="position">96</property>
                     <property name="name">restockType_sickChildForm</property>
                     <property name="nativeName">restockType_sickChildForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">96</property>
+                    <property name="position">97</property>
                     <property name="name">partialRestock_sickChildForm</property>
                     <property name="nativeName">partialRestock_sickChildForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">97</property>
+                    <property name="position">98</property>
                     <property name="name">stockOutReason_sickChildForm</property>
                     <property name="nativeName">stockOutReason_sickChildForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">98</property>
+                    <property name="position">99</property>
                     <property name="name">fullStock_sickChildForm</property>
                     <property name="nativeName">fullStock_sickChildForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">99</property>
+                    <property name="position">100</property>
                     <property name="name">stockOnHand_chwWorkPlan</property>
                     <property name="nativeName">stockOnHand_chwWorkPlan</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">100</property>
+                    <property name="position">101</property>
                     <property name="name">restockType_chwWorkPlan</property>
                     <property name="nativeName">restockType_chwWorkPlan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">101</property>
+                    <property name="position">102</property>
                     <property name="name">partialRestock_chwWorkPlan</property>
                     <property name="nativeName">partialRestock_chwWorkPlan</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">102</property>
+                    <property name="position">103</property>
                     <property name="name">stockOutReason_chwWorkPlan</property>
                     <property name="nativeName">stockOutReason_chwWorkPlan</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">103</property>
+                    <property name="position">104</property>
                     <property name="name">fullStock_chwWorkPlan</property>
                     <property name="nativeName">fullStock_chwWorkPlan</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">104</property>
+                    <property name="position">105</property>
                     <property name="name">stockOnHand_CommunityReferralForm</property>
                     <property name="nativeName">stockOnHand_CommunityReferralForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">105</property>
+                    <property name="position">106</property>
                     <property name="name">restockType_CommunityReferralForm</property>
                     <property name="nativeName">restockType_CommunityReferralForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">106</property>
+                    <property name="position">107</property>
                     <property name="name">partialRestock_CommunityReferralForm</property>
                     <property name="nativeName">partialRestock_CommunityReferralForm</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">107</property>
+                    <property name="position">108</property>
                     <property name="name">stockOutReason_CommunityReferralForm</property>
                     <property name="nativeName">stockOutReason_CommunityReferralForm</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">108</property>
+                    <property name="position">109</property>
                     <property name="name">fullStock_CommunityReferralForm</property>
                     <property name="nativeName">fullStock_CommunityReferralForm</property>
                     <property name="dataType">integer</property>
@@ -1996,6 +2015,7 @@
 		chwCommunityStatusList,
 		districtList,
 		healthDistrictList,
+		healthFacilityList,
 		countyList,
       
       	chwRestockID,
@@ -4396,10 +4416,57 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="rightMargin">0.16666666666666666in</property>
             <page-footer>
-                <text id="3">
-                    <property name="contentType">html</property>
-                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
-                </text>
+                <grid id="530">
+                    <property name="width">7.84375in</property>
+                    <column id="531">
+                        <property name="width">2in</property>
+                    </column>
+                    <column id="532">
+                        <property name="width">5.84375in</property>
+                    </column>
+                    <row id="533">
+                        <cell id="534">
+                            <text id="535">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="423">
+                            <grid id="536">
+                                <property name="width">3.3125in</property>
+                                <column id="537">
+                                    <property name="width">2.0208333333333335in</property>
+                                </column>
+                                <column id="538">
+                                    <property name="width">0.10416666666666667in</property>
+                                </column>
+                                <column id="428">
+                                    <property name="width">1.1875in</property>
+                                </column>
+                                <row id="539">
+                                    <cell id="540">
+                                        <auto-text id="541">
+                                            <property name="textAlign">right</property>
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="542">
+                                        <text id="543">
+                                            <property name="textAlign">center</property>
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="544">
+                                        <auto-text id="545">
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
             </page-footer>
         </simple-master-page>
     </page-setup>
@@ -4409,22 +4476,10 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
             <property name="dataSet">view_chwRestockReport</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">chwlID</property>
-                    <text-property name="displayName">chwlID</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["chwlID"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
                     <property name="name">chwl</property>
                     <text-property name="displayName">chwl</text-property>
                     <expression name="expression" type="javascript">dataSetRow["chwl"]</expression>
                     <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">chwID</property>
-                    <text-property name="displayName">chwID</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["chwID"]</expression>
-                    <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="name">chw</property>
@@ -5059,16 +5114,23 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">chwID_1</property>
+                    <property name="name">chwID</property>
                     <text-property name="displayName">chwID</text-property>
                     <expression name="expression" type="javascript">dataSetRow["chwID"]</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="name">chwlID_1</property>
+                    <property name="name">chwlID</property>
                     <text-property name="displayName">chwlID</text-property>
                     <expression name="expression" type="javascript">dataSetRow["chwlID"]</expression>
                     <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">healthFacilityList</property>
+                    <text-property name="displayName">healthFacilityList</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["healthFacilityList"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
             </list-property>
             <list-property name="sort">
@@ -5108,7 +5170,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                 </header>
                 <footer>
                     <row id="55">
-                        <property name="height">0.010416666666666666in</property>
+                        <property name="height">0.03125in</property>
                         <cell id="56"/>
                         <cell id="57"/>
                     </row>
@@ -5131,7 +5193,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                 </header>
                 <footer>
                     <row id="63">
-                        <property name="height">0.020833333333333332in</property>
+                        <property name="height">0.03125in</property>
                         <cell id="64"/>
                         <cell id="65"/>
                     </row>
@@ -5147,17 +5209,17 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                 <property name="pageBreakBefore">always-excluding-first</property>
                 <header>
                     <row id="68">
-                        <property name="height">3.0833333333333335in</property>
+                        <property name="height">3.0104166666666665in</property>
                         <cell id="69"/>
                         <cell id="70">
                             <grid id="99">
-                                <property name="height">3.0416666666666665in</property>
+                                <property name="height">2.9791666666666665in</property>
                                 <column id="100"/>
                                 <row id="101">
-                                    <property name="height">3.0416666666666665in</property>
+                                    <property name="height">2.9791666666666665in</property>
                                     <cell id="102">
                                         <grid id="125">
-                                            <property name="height">2.9791666666666665in</property>
+                                            <property name="height">2.90625in</property>
                                             <column id="126"/>
                                             <row id="127">
                                                 <property name="height">0.23958333333333334in</property>
@@ -5171,10 +5233,10 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                 </cell>
                                             </row>
                                             <row id="505">
-                                                <property name="height">0.22916666666666666in</property>
+                                                <property name="height">0.20833333333333334in</property>
                                                 <cell id="506">
                                                     <text-data id="122">
-                                                        <property name="fontSize">11pt</property>
+                                                        <property name="fontSize">10pt</property>
                                                         <property name="fontWeight">bold</property>
                                                         <property name="textAlign">center</property>
                                                         <expression name="valueExpr">if ( row["countyList"] == null ) { displayString ="County: Unknown" } else { displayString = "County: " + row["countyList"] }</expression>
@@ -5183,18 +5245,18 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                 </cell>
                                             </row>
                                             <row id="129">
-                                                <property name="height">0.5208333333333334in</property>
+                                                <property name="height">0.4791666666666667in</property>
                                                 <cell id="130">
                                                     <property name="textAlign">center</property>
                                                     <grid id="204">
-                                                        <property name="height">0.4791666666666667in</property>
+                                                        <property name="height">0.46875in</property>
                                                         <column id="205"/>
                                                         <column id="206"/>
                                                         <row id="207">
-                                                            <property name="height">0.22916666666666666in</property>
+                                                            <property name="height">0.2604166666666667in</property>
                                                             <cell id="208">
                                                                 <grid id="473">
-                                                                    <property name="height">0.22916666666666666in</property>
+                                                                    <property name="height">0.20833333333333334in</property>
                                                                     <property name="width">3.84375in</property>
                                                                     <column id="474">
                                                                         <property name="width">0.4791666666666667in</property>
@@ -5209,10 +5271,10 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         <property name="width">0.6666666666666666in</property>
                                                                     </column>
                                                                     <row id="478">
-                                                                        <property name="height">0.22916666666666666in</property>
+                                                                        <property name="height">0.20833333333333334in</property>
                                                                         <cell id="479">
                                                                             <label id="484">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <text-property name="text">CHW:</text-property>
@@ -5220,7 +5282,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         </cell>
                                                                         <cell id="480">
                                                                             <data id="485">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <property name="resultSetColumn">chw</property>
@@ -5228,15 +5290,14 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         </cell>
                                                                         <cell id="481">
                                                                             <label id="488">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">right</property>
                                                                                 <text-property name="text">CHW ID:</text-property>
                                                                             </label>
                                                                         </cell>
                                                                         <cell id="482">
-                                                                            <data id="489">
-                                                                                <property name="fontSize">11pt</property>
+                                                                            <data id="528">
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <property name="resultSetColumn">chwID</property>
@@ -5256,16 +5317,16 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         <property name="width">1.90625in</property>
                                                                     </column>
                                                                     <column id="493">
-                                                                        <property name="width">0.8229166666666666in</property>
+                                                                        <property name="width">0.8125in</property>
                                                                     </column>
                                                                     <column id="494">
-                                                                        <property name="width">0.4791666666666667in</property>
+                                                                        <property name="width">0.4895833333333333in</property>
                                                                     </column>
                                                                     <row id="495">
                                                                         <property name="height">0.22916666666666666in</property>
                                                                         <cell id="496">
                                                                             <label id="501">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <text-property name="text">CHW-L:</text-property>
@@ -5273,7 +5334,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         </cell>
                                                                         <cell id="497">
                                                                             <data id="502">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <property name="resultSetColumn">chwl</property>
@@ -5281,15 +5342,14 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                         </cell>
                                                                         <cell id="498">
                                                                             <label id="503">
-                                                                                <property name="fontSize">11pt</property>
+                                                                                <property name="fontSize">10pt</property>
                                                                                 <property name="fontWeight">bold</property>
-                                                                                <property name="textAlign">center</property>
+                                                                                <property name="textAlign">right</property>
                                                                                 <text-property name="text">CHW-L ID:</text-property>
                                                                             </label>
                                                                         </cell>
                                                                         <cell id="499">
-                                                                            <data id="504">
-                                                                                <property name="fontSize">11pt</property>
+                                                                            <data id="529">
                                                                                 <property name="fontWeight">bold</property>
                                                                                 <property name="textAlign">left</property>
                                                                                 <property name="resultSetColumn">chwlID</property>
@@ -5300,21 +5360,44 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                             </cell>
                                                         </row>
                                                         <row id="210">
-                                                            <property name="height">0.22916666666666666in</property>
+                                                            <property name="height">0.20833333333333334in</property>
                                                             <cell id="211">
                                                                 <text-data id="218">
-                                                                    <property name="fontSize">11pt</property>
+                                                                    <property name="fontSize">10pt</property>
                                                                     <property name="fontWeight">bold</property>
                                                                     <property name="textAlign">left</property>
+                                                                    <list-property name="highlightRules">
+                                                                        <structure>
+                                                                            <property name="operator">match</property>
+                                                                            <property name="fontWeight">bold</property>
+                                                                            <property name="color">#FF0000</property>
+                                                                            <expression name="testExpr" type="javascript">if ( row["healthFacilityList"] == null ) { displayString = "Health Facility: Unknown" } else { displayString = "Health Facility: " + row["healthFacilityList"] }</expression>
+                                                                            <simple-property-list name="value1">
+                                                                                <value type="javascript">"Unknown"</value>
+                                                                            </simple-property-list>
+                                                                        </structure>
+                                                                    </list-property>
                                                                     <expression name="valueExpr">if ( row["healthFacilityList"] == null ) { displayString = "Health Facility: Unknown" } else { displayString = "Health Facility: " + row["healthFacilityList"] }</expression>
                                                                     <property name="contentType">html</property>
                                                                 </text-data>
                                                             </cell>
                                                             <cell id="212">
                                                                 <text-data id="217">
-                                                                    <property name="fontSize">11pt</property>
+                                                                    <property name="fontSize">10pt</property>
                                                                     <property name="fontWeight">bold</property>
                                                                     <property name="textAlign">left</property>
+                                                                    <list-property name="highlightRules">
+                                                                        <structure>
+                                                                            <property name="operator">match</property>
+                                                                            <property name="fontStyle">italic</property>
+                                                                            <property name="fontWeight">bold</property>
+                                                                            <property name="color">#FF0000</property>
+                                                                            <expression name="testExpr" type="javascript">if ( row["healthDistrictList"] == null ) { displayString = "Health District: Unknown" } else { displayString = "Health District: " + row["healthDistrictList"] }</expression>
+                                                                            <simple-property-list name="value1">
+                                                                                <value type="javascript">"Unknown"</value>
+                                                                            </simple-property-list>
+                                                                        </structure>
+                                                                    </list-property>
                                                                     <expression name="valueExpr">if ( row["healthDistrictList"] == null ) { displayString = "Health District: Unknown" } else { displayString = "Health District: " + row["healthDistrictList"] }</expression>
                                                                     <property name="contentType">html</property>
                                                                 </text-data>
@@ -5327,19 +5410,31 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                 <property name="height">0.21875in</property>
                                                 <cell id="152">
                                                     <text-data id="150">
-                                                        <property name="fontSize">11pt</property>
+                                                        <property name="fontSize">10pt</property>
                                                         <property name="fontWeight">bold</property>
                                                         <property name="textAlign">left</property>
-                                                        <expression name="valueExpr">if ( row["chwCommunityStatusList"] == null ) { displayString = "Community Unknown" } else { displayString = "Community " + row["chwCommunityStatusList"] }</expression>
+                                                        <list-property name="highlightRules">
+                                                            <structure>
+                                                                <property name="operator">match</property>
+                                                                <property name="fontStyle">italic</property>
+                                                                <property name="fontWeight">bold</property>
+                                                                <property name="color">#FF0000</property>
+                                                                <expression name="testExpr" type="javascript">if ( row["chwCommunityStatusList"] == null ) { displayString = "Community Unknown" } else { displayString = "Community " + row["chwCommunityStatusList"] }</expression>
+                                                                <simple-property-list name="value1">
+                                                                    <value type="javascript">"Unknown"</value>
+                                                                </simple-property-list>
+                                                            </structure>
+                                                        </list-property>
+                                                        <expression name="valueExpr">if ( row["chwCommunityStatusList"] == null ) { displayString = "Community Unknown" } else { displayString = "Community" + row["chwCommunityStatusList"] }</expression>
                                                         <property name="contentType">html</property>
                                                     </text-data>
                                                 </cell>
                                             </row>
                                             <row id="153">
-                                                <property name="height">1.7708333333333333in</property>
+                                                <property name="height">1.7604166666666667in</property>
                                                 <cell id="154">
                                                     <grid id="156">
-                                                        <property name="height">1.75in</property>
+                                                        <property name="height">1.7291666666666667in</property>
                                                         <property name="width">7.947916666666667in</property>
                                                         <column id="157">
                                                             <property name="width">0.9166666666666666in</property>
@@ -5434,24 +5529,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="borderTopStyle">none</property>
                                                                 <text id="343">
                                                                     <property name="backgroundColor">#FFFFFF</property>
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		220px;
-			left:		85px;
+			top: 		217px;
+			left:		88px;
 			-webkit-transform:rotate(270deg)">ACT 25mg</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="181">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="344">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		115px;
+			top: 		218px;
+			left:		123px;
 			-webkit-transform:rotate(270deg)">ACT 50mg</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5459,12 +5556,13 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="345">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		125px;
+			top: 		191px;
+			left:		130px;
 			-webkit-transform:rotate(270deg)">Paracetamol 120mg</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5476,38 +5574,40 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="borderRightStyle">none</property>
                                                                 <property name="borderTopStyle">none</property>
                                                                 <text id="267">
-                                                                    <property name="fontWeight">bold</property>
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		200px;
-			-webkit-transform:rotate(270deg)">ORS</div>]]></text-property>
+			top: 		184px;
+			left:		158px;
+			-webkit-transform:rotate(270deg)">Oral Rehydration Soln</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="184">
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="347">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		220px;
+			top: 		213px;
+			left:		222px;
 			-webkit-transform:rotate(270deg)">Zinc Sulfate</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="185">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="348">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		230px;
+			top: 		195px;
+			left:		240px;
 			-webkit-transform:rotate(270deg)">Amoxicillin 250mg</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5515,24 +5615,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="349">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		260px;
+			top: 		195px;
+			left:		275px;
 			-webkit-transform:rotate(270deg)">Amoxicillin 125mg</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="187">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="350">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		320px;
+			top: 		215px;
+			left:		330px;
 			-webkit-transform:rotate(270deg)">Muac Strap</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5540,24 +5642,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="351">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		350px;
+			top: 		210px;
+			left:		360px;
 			-webkit-transform:rotate(270deg)">Malaria RDT</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="189">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="352">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		385px;
+			top: 		212px;
+			left:		398px;
 			-webkit-transform:rotate(270deg)">Stethoscope</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5565,24 +5669,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="353">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		400px;
+			top: 		190px;
+			left:		409px;
 			-webkit-transform:rotate(270deg)">Digital Thermometer</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="191">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="354">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		445px;
+			top: 		193px;
+			left:		449px;
 			-webkit-transform:rotate(270deg)">Disposable Gloves</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5590,24 +5696,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="355">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		500px;
+			top: 		213px;
+			left:		505px;
 			-webkit-transform:rotate(270deg)">Plastic Cup</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="193">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="356">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		535px;
+			top: 		216px;
+			left:		542px;
 			-webkit-transform:rotate(270deg)">Dose Card</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5615,24 +5723,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="346">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
 			top: 		187px;
-			left:		540px;
+			left:		547px;
 			-webkit-transform:rotate(270deg)">Ebola Screening Tool</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="195">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="357">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		600px;
+			top: 		210px;
+			left:		605px;
 			-webkit-transform:rotate(270deg)">Routine Visit</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5640,24 +5750,26 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="358">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		640px;
+			top: 		220px;
+			left:		647px;
 			-webkit-transform:rotate(270deg)">Sick Child</div>]]></text-property>
                                                                 </text>
                                                             </cell>
                                                             <cell id="197">
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="359">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
 			top: 		200px;
-			left:		660px;
+			left:		663px;
 			-webkit-transform:rotate(270deg)">CHW Work Plan</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5665,12 +5777,13 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="backgroundColor">#FFFFFF</property>
                                                                 <property name="fontWeight">bold</property>
                                                                 <text id="360">
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="contentType">html</property>
                                                                     <text-property name="content"><![CDATA[<div style="
 			padding:	0px;
 			position:	absolute;
-			top: 		187px;
-			left:		685px;
+			top: 		191px;
+			left:		690px;
 			-webkit-transform:rotate(270deg)">Community Referral</div>]]></text-property>
                                                                 </text>
                                                             </cell>
@@ -5680,14 +5793,15 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                             <property name="borderLeftStyle">none</property>
                                                             <property name="borderRightStyle">none</property>
                                                             <property name="borderTopStyle">none</property>
-                                                            <property name="height">0.21875in</property>
+                                                            <property name="height">0.20833333333333334in</property>
                                                             <cell id="294">
                                                                 <property name="fontWeight">bold</property>
                                                                 <property name="textAlign">center</property>
-                                                                <property name="verticalAlign">bottom</property>
                                                                 <label id="314">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
                                                                     <property name="textAlign">right</property>
-                                                                    <text-property name="text">UOM</text-property>
+                                                                    <text-property name="text">UOM:</text-property>
                                                                 </label>
                                                             </cell>
                                                             <cell id="340">
@@ -5705,12 +5819,31 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="borderLeftStyle">none</property>
                                                                 <property name="borderRightStyle">none</property>
                                                                 <property name="borderTopStyle">none</property>
+                                                                <property name="textAlign">center</property>
+                                                                <label id="507">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bli</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="296">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="508">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bli</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="297">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="509">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bot</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="298">
                                                                 <property name="backgroundColor">#FFFFFF</property>
@@ -5719,51 +5852,147 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                                                 <property name="borderLeftStyle">none</property>
                                                                 <property name="borderRightStyle">none</property>
                                                                 <property name="borderTopStyle">none</property>
+                                                                <label id="510">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Sac</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="299">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="511">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bli</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="300">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="512">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bot</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="301">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="513">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Bot</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="302">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="514">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="303">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="515">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Box</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="304">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="517">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="305">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="518">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="306">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="520">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Pair</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="307">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="521">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="308">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="522">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="309">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="523">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="310">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="524">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="311">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="525">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="312">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="526">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                             <cell id="313">
                                                                 <property name="fontWeight">bold</property>
+                                                                <label id="527">
+                                                                    <property name="fontSize">9pt</property>
+                                                                    <property name="fontWeight">normal</property>
+                                                                    <property name="textAlign">center</property>
+                                                                    <text-property name="text">Ea</text-property>
+                                                                </label>
                                                             </cell>
                                                         </row>
                                                         <row id="430">
@@ -5883,7 +6112,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                 </header>
                 <footer>
                     <row id="71">
-                        <property name="height">0.020833333333333332in</property>
+                        <property name="height">0.03125in</property>
                         <cell id="72"/>
                         <cell id="73"/>
                     </row>
@@ -5901,7 +6130,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                     <cell id="45">
                         <grid id="219">
                             <property name="textAlign">center</property>
-                            <property name="height">0.4479166666666667in</property>
+                            <property name="height">0.46875in</property>
                             <property name="width">7.979166666666667in</property>
                             <column id="220">
                                 <property name="textAlign">left</property>
@@ -5982,7 +6211,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                         <property name="fontStyle">italic</property>
                                         <property name="color">#808080</property>
                                         <property name="textAlign">right</property>
-                                        <text-property name="text">Stock Level</text-property>
+                                        <text-property name="text">Stock Level:</text-property>
                                     </label>
                                 </cell>
                                 <cell id="363">
@@ -6917,7 +7146,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
             </detail>
             <footer>
                 <row id="46">
-                    <property name="height">0.010416666666666666in</property>
+                    <property name="height">0.03125in</property>
                     <cell id="47"/>
                     <cell id="48"/>
                 </row>
