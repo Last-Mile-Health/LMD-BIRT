@@ -3,6 +3,48 @@
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
     <text-property name="title">BIRT — CHW Restock</text-property>
     <property name="units">in</property>
+    <method name="initialize"><![CDATA[chwlID_nextItem	= [];
+chwID_nextItem 	= [];
+
+stockOnHand_ACT25mg_nextItem = [];
+
+/* This only holds if the previous restock was a full restock (not partial) and the full stock value (top off) has not 
+	changed since the previous restock. */
+	
+	
+function restock_consumption( restockType, fullStock, partialRestock, stockOnHand ) {
+
+	return fullStock - stockOnHand;
+
+}
+
+function restock_currentStockLevel( restockType, fullStock, partialRestock, stockOnHand ) {
+
+    switch ( restockType ) {
+
+        case "full":
+
+                returnValue = fullStock;
+                break; 
+
+        case "partial":
+        
+                returnValue = partialRestock + stockOnHand;
+                break; 
+
+        case "none":
+
+                returnValue = stockOnHand;
+                break;
+
+        default:    
+            
+                returnValue = stockOnHand;
+    }
+    
+    return returnValue;
+    
+}]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
@@ -1238,6 +1280,10 @@
                     </structure>
                 </list-property>
             </structure>
+            <method name="onFetch"><![CDATA[chwlID_nextItem[chwlID_nextItem.length]	= row["chwlID"];
+chwID_nextItem[chwID_nextItem.length] 	= row["chwID"];
+
+stockOnHand_ACT25mg_nextItem[stockOnHand_ACT25mg_nextItem.length] = row["stockOnHand_ACT25mg"];]]></method>
             <property name="dataSource">lastmile_chwdb</property>
             <list-property name="resultSet">
                 <structure>
@@ -5132,7 +5178,24 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">stockOnHand_ACT25mg_nextval</property>
+                    <expression name="expression" type="javascript">if( ( stockOnHand_ACT25mg_nextItem[ row.__rownum + 1 ] == null ) || ! ( ( chwlID_nextItem[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextItem[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+	&#13;
+	nextVal = null;&#13;
+	&#13;
+}&#13;
+else {&#13;
+&#13;
+	nextVal = stockOnHand_ACT25mg_nextItem[ row.__rownum + 1 ];&#13;
+	&#13;
+}</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
+            <method name="onPrepare"><![CDATA[/* previousItem = []; */
+]]></method>
             <list-property name="sort">
                 <structure>
                     <expression name="key" type="javascript">row["manualDate"]</expression>
@@ -6121,17 +6184,40 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
             </group>
             <detail>
                 <row id="43">
+                    <method name="onCreate"><![CDATA[/* 	In the new row's onCreate method, load all the previous row's item values 
+	into the previousItem array.  This way we can compare to the last restock
+	event's values to properly calculate consumption.
+*/
+
+/* Maybe try and empty the array */
+/* previousItem = []; */
+
+/*
+
+var restockType_ACT25mg = 		row["restockType_ACT25mg"]; 
+var fullStock_ACT25mg = 		row["fullStock_ACT25mg"]; 
+var partialRestock_ACT25mg =	row["partialRestock_ACT25mg"]; 
+var	stockOnHand_ACT25mg =		row["stockOnHand_ACT25mg"];
+
+previousItem.push( new Array( 	restockType_ACT25mg,
+								fullStock_ACT25mg, 
+								partialRestock_ACT25mg, 
+								stockOnHand_ACT25mg
+	
+));
+
+*/]]></method>
                     <property name="borderBottomStyle">none</property>
                     <property name="borderLeftStyle">none</property>
                     <property name="borderRightStyle">none</property>
                     <property name="borderTopStyle">none</property>
                     <property name="textAlign">center</property>
-                    <property name="height">0.5833333333333334in</property>
+                    <property name="height">0.9166666666666666in</property>
                     <cell id="44"/>
                     <cell id="45">
                         <grid id="219">
                             <property name="textAlign">center</property>
-                            <property name="height">0.46875in</property>
+                            <property name="height">0.8854166666666666in</property>
                             <property name="width">7.979166666666667in</property>
                             <column id="220">
                                 <property name="textAlign">left</property>
@@ -6530,6 +6616,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="verticalAlign">middle</property>
                                     <label id="546">
                                         <property name="fontSize">9pt</property>
+                                        <property name="fontStyle">italic</property>
                                         <property name="textAlign">right</property>
                                         <text-property name="text">Stock on Hand</text-property>
                                     </label>
@@ -6810,6 +6897,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="280">
+                                        <property name="fontSize">9pt</property>
                                         <list-property name="highlightRules">
                                             <structure>
                                                 <property name="operator">eq</property>
@@ -6855,6 +6943,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="282">
+                                        <property name="fontSize">9pt</property>
                                         <list-property name="highlightRules">
                                             <structure>
                                                 <property name="operator">eq</property>
@@ -6877,6 +6966,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="288">
+                                        <property name="fontSize">9pt</property>
                                         <list-property name="highlightRules">
                                             <structure>
                                                 <property name="operator">eq</property>
@@ -6922,6 +7012,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="285">
+                                        <property name="fontSize">9pt</property>
                                         <list-property name="highlightRules">
                                             <structure>
                                                 <property name="operator">eq</property>
@@ -6967,6 +7058,7 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="287">
+                                        <property name="fontSize">9pt</property>
                                         <list-property name="highlightRules">
                                             <structure>
                                                 <property name="operator">eq</property>
@@ -6980,6 +7072,395 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                                         </list-property>
                                         <property name="resultSetColumn">stockOnHand_CommunityReferralForm</property>
                                     </data>
+                                </cell>
+                            </row>
+                            <row id="547">
+                                <property name="height">0.21875in</property>
+                                <cell id="548">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="569">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="fontStyle">italic</property>
+                                        <property name="textAlign">right</property>
+                                        <text-property name="text">Consumption</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="549">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="550">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text-data id="594">
+                                        <property name="fontSize">9pt</property>
+                                        <expression name="valueExpr">restock_consumption(		row["restockType_ACT25mg"] , &#13;
+									row["fullStock_ACT25mg"] , &#13;
+									row["partialRestock_ACT25mg"] , &#13;
+									row["stockOnHand_ACT25mg"] 	)</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="551">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text-data id="595">
+                                        <property name="fontSize">9pt</property>
+                                        <expression name="valueExpr">restock_consumption(		row["restockType_ACT25mg"] , &#13;
+									row["fullStock_ACT25mg"] , &#13;
+									row["partialRestock_ACT25mg"] , &#13;
+									row["stockOnHand_ACT25mg"] 	)</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="552">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <data id="620">
+                                        <property name="resultSetColumn">stockOnHand_ACT25mg_nextval</property>
+                                    </data>
+                                </cell>
+                                <cell id="553">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="554">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="555">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="556">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="557">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="558">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="559">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="560">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="561">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="562">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="563">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="564">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="565">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="566">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="567">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="568">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                            </row>
+                            <row id="570">
+                                <property name="height">0.21875in</property>
+                                <cell id="571">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="592">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="fontStyle">italic</property>
+                                        <property name="textAlign">right</property>
+                                        <text-property name="text">Stock Level</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="572">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="573">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text-data id="596">
+                                        <property name="fontSize">9pt</property>
+                                        <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_ACT25mg"] , &#13;
+										row["fullStock_ACT25mg"] , &#13;
+										row["partialRestock_ACT25mg"] , &#13;
+										row["stockOnHand_ACT25mg"]  	)</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="574">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text-data id="597">
+                                        <property name="fontSize">9pt</property>
+                                        <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_ACT25mg"] , &#13;
+										row["fullStock_ACT25mg"] , &#13;
+										row["partialRestock_ACT25mg"] , &#13;
+										row["stockOnHand_ACT25mg"]  	)</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="575">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="576">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="577">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="578">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="579">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="580">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="581">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="582">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="583">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="584">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="585">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="586">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="587">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="588">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="589">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="590">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
+                                </cell>
+                                <cell id="591">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="verticalAlign">middle</property>
                                 </cell>
                             </row>
                             <row id="390">
