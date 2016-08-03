@@ -3,13 +3,23 @@
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
     <text-property name="title">BIRT — CHW Restock</text-property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[chwlID_nextItem	= [];
-chwID_nextItem 	= [];
+    <method name="initialize"><![CDATA[/* 	Need to define an array for the chwlID and chwID, along with every item in 
+	the report to handle case of overstock.  This is probably going to suck up some serious RAM. */
+	
+chwlID_nextRow						= [];
+chwID_nextRow 						= [];
 
-stockOnHand_ACT25mg_nextItem = [];
+stockOnHand_ACT25mg_nextRow 		= [];
+restockType_ACT25mg_nextRow 		= [];
+partialRestock_ACT25mg_nextRow 		= [];
+stockOutReason_ACT25mg_nextRow 		= [];
+fullStock_ACT25mg_nextRow 			= [];
 
-/* This only holds if the previous restock was a full restock (not partial) and the full stock value (top off) has not 
-	changed since the previous restock. */
+stockOnHand_ACT50mg_nextRow 		= [];
+restockType_ACT50mg_nextRow 		= [];
+partialRestock_ACT50mg_nextRow 		= [];
+stockOutReason_ACT50mg_nextRow 		= [];
+fullStock_ACT50mg_nextRow 			= [];
 	
 	
 function restock_consumption( restockType, fullStock, partialRestock, stockOnHand ) {
@@ -1280,10 +1290,20 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     </structure>
                 </list-property>
             </structure>
-            <method name="onFetch"><![CDATA[chwlID_nextItem[chwlID_nextItem.length]	= row["chwlID"];
-chwID_nextItem[chwID_nextItem.length] 	= row["chwID"];
+            <method name="onFetch"><![CDATA[chwlID_nextRow[chwlID_nextRow.length]										= row["chwlID"];
+chwID_nextRow[chwID_nextRow.length] 										= row["chwID"];
 
-stockOnHand_ACT25mg_nextItem[stockOnHand_ACT25mg_nextItem.length] = row["stockOnHand_ACT25mg"];]]></method>
+stockOnHand_ACT25mg_nextRow[stockOnHand_ACT25mg_nextRow.length] 			= row[ "stockOnHand_ACT25mg" ];
+restockType_ACT25mg_nextRow[restockType_ACT25mg_nextRow.length] 			= row[ "restockType_ACT25mg" ];
+partialRestock_ACT25mg_nextRow[partialRestock_ACT25mg_nextRow.length] 	= row[ "partialRestock_ACT25mg" ];
+stockOutReason_ACT25mg_nextRow[stockOutReason_ACT25mg_nextRow.length] 	= row[ "stockOutReason_ACT25mg" ];
+fullStock_ACT25mg_nextRow[fullStock_ACT25mg_nextRow.length] 				= row[ "fullStock_ACT25mg" ];
+
+stockOnHand_ACT50mg_nextRow[stockOnHand_ACT50mg_nextRow.length] 			= row[ "stockOnHand_ACT50mg" ];
+restockType_ACT50mg_nextRow[restockType_ACT50mg_nextRow.length] 			= row[ "restockType_ACT50mg" ];
+partialRestock_ACT50mg_nextRow[partialRestock_ACT50mg_nextRow.length] 	= row[ "partialRestock_ACT50mg" ];
+stockOutReason_ACT50mg_nextRow[stockOutReason_ACT50mg_nextRow.length] 	= row[ "stockOutReason_ACT50mg" ];
+fullStock_ACT50mg_nextRow[fullStock_ACT50mg_nextRow.length] 				= row[ "fullStock_ACT50mg" ];]]></method>
             <property name="dataSource">lastmile_chwdb</property>
             <list-property name="resultSet">
                 <structure>
@@ -5179,17 +5199,143 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">stockOnHand_ACT25mg_nextval</property>
-                    <expression name="expression" type="javascript">if( ( stockOnHand_ACT25mg_nextItem[ row.__rownum + 1 ] == null ) || ! ( ( chwlID_nextItem[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextItem[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
-	&#13;
-	nextVal = null;&#13;
-	&#13;
-}&#13;
-else {&#13;
+                    <property name="name">consumption_ACT25mg</property>
+                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+if(  fullStock_ACT25mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+    if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+       &#13;
+        consumptionVal = null;&#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+   &#13;
+    }&#13;
+    &#13;
+/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+        &#13;
+    }&#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+    &#13;
+    consumptionVal = restock_currentStockLevel( restockType_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                fullStock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                partialRestock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                stockOnHand_ACT25mg_nextRow[ row.__rownum + 1 ] ) &#13;
+                    - row["stockOnHand_ACT25mg"];&#13;
+    &#13;
+} else {&#13;
 &#13;
-	nextVal = stockOnHand_ACT25mg_nextItem[ row.__rownum + 1 ];&#13;
-	&#13;
-}</expression>
+    consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+ &#13;
+};&#13;
+&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = null;&#13;
+};/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+if(  fullStock_ACT25mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+    if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+       &#13;
+        consumptionVal = null;&#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+   &#13;
+    }&#13;
+    &#13;
+/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+        &#13;
+    }&#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
+    &#13;
+    consumptionVal = restock_currentStockLevel( restockType_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                fullStock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                partialRestock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                stockOnHand_ACT25mg_nextRow[ row.__rownum + 1 ] ) &#13;
+                    - row["stockOnHand_ACT25mg"];&#13;
+    &#13;
+} else {&#13;
+&#13;
+    consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+ &#13;
+};&#13;
+&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = null;&#13;
+};</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_ACT50mg</property>
+                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+if(  fullStock_ACT50mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+    if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
+       &#13;
+        consumptionVal = null;&#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
+   &#13;
+    }&#13;
+    &#13;
+/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
+        &#13;
+    }&#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
+    &#13;
+    consumptionVal = restock_currentStockLevel( restockType_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                fullStock_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                partialRestock_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                stockOnHand_ACT50mg_nextRow[ row.__rownum + 1 ] ) &#13;
+                    - row["stockOnHand_ACT50mg"];&#13;
+    &#13;
+} else {&#13;
+&#13;
+    consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
+ &#13;
+};&#13;
+&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = null;&#13;
+};</expression>
                     <property name="dataType">integer</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -7100,19 +7246,15 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                 </cell>
                                 <cell id="550">
                                     <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="fontSize">9pt</property>
                                     <property name="borderBottomStyle">none</property>
                                     <property name="borderLeftStyle">none</property>
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
-                                    <text-data id="594">
-                                        <property name="fontSize">9pt</property>
-                                        <expression name="valueExpr">restock_consumption(		row["restockType_ACT25mg"] , &#13;
-									row["fullStock_ACT25mg"] , &#13;
-									row["partialRestock_ACT25mg"] , &#13;
-									row["stockOnHand_ACT25mg"] 	)</expression>
-                                        <property name="contentType">html</property>
-                                    </text-data>
+                                    <data id="623">
+                                        <property name="resultSetColumn">consumption_ACT25mg</property>
+                                    </data>
                                 </cell>
                                 <cell id="551">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7121,14 +7263,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
-                                    <text-data id="595">
+                                    <data id="624">
                                         <property name="fontSize">9pt</property>
-                                        <expression name="valueExpr">restock_consumption(		row["restockType_ACT25mg"] , &#13;
-									row["fullStock_ACT25mg"] , &#13;
-									row["partialRestock_ACT25mg"] , &#13;
-									row["stockOnHand_ACT25mg"] 	)</expression>
-                                        <property name="contentType">html</property>
-                                    </text-data>
+                                        <property name="resultSetColumn">consumption_ACT50mg</property>
+                                    </data>
                                 </cell>
                                 <cell id="552">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7137,9 +7275,6 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
-                                    <data id="620">
-                                        <property name="resultSetColumn">stockOnHand_ACT25mg_nextval</property>
-                                    </data>
                                 </cell>
                                 <cell id="553">
                                     <property name="backgroundColor">#FFFFFF</property>
