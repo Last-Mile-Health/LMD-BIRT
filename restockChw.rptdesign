@@ -20,6 +20,103 @@ restockType_ACT50mg_nextRow 		= [];
 partialRestock_ACT50mg_nextRow 		= [];
 stockOutReason_ACT50mg_nextRow 		= [];
 fullStock_ACT50mg_nextRow 			= [];
+
+stockOnHand_Paracetamol120mg_nextRow 		= [];
+restockType_Paracetamol120mg_nextRow 		= [];
+partialRestock_Paracetamol120mg_nextRow 		= [];
+stockOutReason_Paracetamol120mg_nextRow 		= [];                   
+fullStock_Paracetamol120mg_nextRow 		= [];
+
+stockOnHand_ORS_nextRow 		= [];
+restockType_ORS_nextRow 		= [];                  
+partialRestock_ORS_nextRow 		= [];
+stockOutReason_ORS_nextRow 		= [];                  
+fullStock_ORS_nextRow 		= [];
+
+stockOnHand_ZincSulfate_nextRow 		= [];
+restockType_ZincSulfate_nextRow 		= [];
+partialRestock_ZincSulfate_nextRow 		= [];
+stockOutReason_ZincSulfate_nextRow 		= [];
+fullStock_ZincSulfate_nextRow 		= [];
+
+stockOnHand_amoxicillin250mg_nextRow = [];
+restockType_amoxicillin250mg_nextRow = [];
+partialRestock_amoxicillin250mg_nextRow = [];
+stockOutReason_amoxicillin250mg_nextRow = [];
+fullStock_amoxicillin250mg_nextRow = [];
+
+stockOnHand_amoxicillin125mg_nextRow = [];
+restockType_amoxicillin125mg_nextRow = [];
+partialRestock_amoxicillin125mg_nextRow = [];
+stockOutReason_amoxicillin125mg_nextRow = [];
+fullStock_amoxicillin125mg_nextRow = [];
+
+stockOnHand_muacStrap_nextRow = [];
+restockType_muacStrap_nextRow = [];
+stockOutReason_muacStrap_nextRow = [];
+fullStock_muacStrap_nextRow = [];
+
+stockOnHand_MalariaRDT_nextRow = [];
+restockType_MalariaRDT_nextRow = [];
+partialRestock_MalariaRDT_nextRow = [];
+stockOutReason_MalariaRDT_nextRow = [];
+fullStock_MalariaRDT_nextRow = [];
+
+stockOnHand_stethoscope_nextRow = [];
+restockType_stethoscope_nextRow = [];
+stockOutReason_stethoscope_nextRow = [];
+fullStock_stethoscope_nextRow = [];
+
+stockOnHand_digitalThermometer_nextRow = [];
+restockType_digitalThermometer_nextRow = [];
+stockOutReason_digitalThermometer_nextRow = [];
+fullStock_digitalThermometer_nextRow = [];
+
+stockOnHand_disposableGloves_nextRow = [];
+restockType_disposableGloves_nextRow = [];
+partialRestock_disposableGloves_nextRow = [];
+stockOutReason_disposableGloves_nextRow = [];
+fullStock_disposableGloves_nextRow = [];
+
+
+stockOnHand_plasticCup_nextRow = [];
+restockType_plasticCup_nextRow = [];
+stockOutReason_plasticCup_nextRow = [];
+fullStock_plasticCup_nextRow = [];
+
+stockOnHand_doseCard_nextRow = [];
+restockType_doseCard_nextRow = [];
+stockOutReason_doseCard_nextRow = [];
+fullStock_doseCard_nextRow = [];
+
+stockOnHand_ebolaScreeningTool_nextRow = [];
+restockType_ebolaScreeningTool_nextRow = [];
+stockOutReason_ebolaScreeningTool_nextRow = [];
+fullStock_ebolaScreeningTool_nextRow = [];
+
+stockOnHand_routineVisitForm_nextRow = [];
+restockType_routineVisitForm_nextRow = [];
+partialRestock_routineVisitForm_nextRow = [];
+stockOutReason_routineVisitForm_nextRow = [];
+fullStock_routineVisitForm_nextRow = [];
+
+stockOnHand_sickChildForm_nextRow = [];
+restockType_sickChildForm_nextRow = [];
+partialRestock_sickChildForm_nextRow = [];
+stockOutReason_sickChildForm_nextRow = [];
+fullStock_sickChildForm_nextRow = [];
+
+stockOnHand_chwWorkPlan_nextRow = [];
+restockType_chwWorkPlan_nextRow = [];
+partialRestock_chwWorkPlan_nextRow = [];
+stockOutReason_chwWorkPlan_nextRow = [];
+fullStock_chwWorkPlan_nextRow = [];
+
+stockOnHand_CommunityReferralForm_nextRow = [];
+restockType_CommunityReferralForm_nextRow = [];
+partialRestock_CommunityReferralForm_nextRow = [];
+stockOutReason_CommunityReferralForm_nextRow = [];
+fullStock_CommunityReferralForm_nextRow = [];
 	
 	
 function restock_consumption( restockType, fullStock, partialRestock, stockOnHand ) {
@@ -1290,20 +1387,117 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     </structure>
                 </list-property>
             </structure>
-            <method name="onFetch"><![CDATA[chwlID_nextRow[chwlID_nextRow.length]										= row["chwlID"];
-chwID_nextRow[chwID_nextRow.length] 										= row["chwID"];
+            <method name="onFetch"><![CDATA[chwlID_nextRow[chwlID_nextRow.length]																=row["chwlID"];
+chwID_nextRow[chwID_nextRow.length] 																=row["chwID"];
 
-stockOnHand_ACT25mg_nextRow[stockOnHand_ACT25mg_nextRow.length] 			= row[ "stockOnHand_ACT25mg" ];
-restockType_ACT25mg_nextRow[restockType_ACT25mg_nextRow.length] 			= row[ "restockType_ACT25mg" ];
-partialRestock_ACT25mg_nextRow[partialRestock_ACT25mg_nextRow.length] 	= row[ "partialRestock_ACT25mg" ];
-stockOutReason_ACT25mg_nextRow[stockOutReason_ACT25mg_nextRow.length] 	= row[ "stockOutReason_ACT25mg" ];
-fullStock_ACT25mg_nextRow[fullStock_ACT25mg_nextRow.length] 				= row[ "fullStock_ACT25mg" ];
+stockOnHand_ACT25mg_nextRow[stockOnHand_ACT25mg_nextRow.length] 									=row[ "stockOnHand_ACT25mg" ];
+restockType_ACT25mg_nextRow[restockType_ACT25mg_nextRow.length] 									=row[ "restockType_ACT25mg" ];
+partialRestock_ACT25mg_nextRow[partialRestock_ACT25mg_nextRow.length] 								=row[ "partialRestock_ACT25mg" ];
+stockOutReason_ACT25mg_nextRow[stockOutReason_ACT25mg_nextRow.length] 								=row[ "stockOutReason_ACT25mg" ];
+fullStock_ACT25mg_nextRow[fullStock_ACT25mg_nextRow.length] 										=row[ "fullStock_ACT25mg" ];
 
-stockOnHand_ACT50mg_nextRow[stockOnHand_ACT50mg_nextRow.length] 			= row[ "stockOnHand_ACT50mg" ];
-restockType_ACT50mg_nextRow[restockType_ACT50mg_nextRow.length] 			= row[ "restockType_ACT50mg" ];
-partialRestock_ACT50mg_nextRow[partialRestock_ACT50mg_nextRow.length] 	= row[ "partialRestock_ACT50mg" ];
-stockOutReason_ACT50mg_nextRow[stockOutReason_ACT50mg_nextRow.length] 	= row[ "stockOutReason_ACT50mg" ];
-fullStock_ACT50mg_nextRow[fullStock_ACT50mg_nextRow.length] 				= row[ "fullStock_ACT50mg" ];]]></method>
+stockOnHand_ACT50mg_nextRow[stockOnHand_ACT50mg_nextRow.length] 									=row[ "stockOnHand_ACT50mg" ];
+restockType_ACT50mg_nextRow[restockType_ACT50mg_nextRow.length] 									=row[ "restockType_ACT50mg" ];
+partialRestock_ACT50mg_nextRow[partialRestock_ACT50mg_nextRow.length] 								=row[ "partialRestock_ACT50mg" ];
+stockOutReason_ACT50mg_nextRow[stockOutReason_ACT50mg_nextRow.length] 								=row[ "stockOutReason_ACT50mg" ];
+fullStock_ACT50mg_nextRow[fullStock_ACT50mg_nextRow.length] 										=row[ "fullStock_ACT50mg" ];
+
+stockOnHand_Paracetamol120mg_nextRow[stockOnHand_Paracetamol120mg_nextRow.length]					=row["stockOnHand_Paracetamol120mg"];
+restockType_Paracetamol120mg_nextRow[restockType_Paracetamol120mg_nextRow.length]					=row["restockType_Paracetamol120mg"];
+partialRestock_Paracetamol120mg_nextRow[partialRestock_Paracetamol120mg_nextRow.length]				=row["partialRestock_Paracetamol120mg"];
+stockOutReason_Paracetamol120mg_nextRow[stockOutReason_Paracetamol120mg_nextRow.length]				=row["stockOutReason_Paracetamol120mg"];
+fullStock_Paracetamol120mg_nextRow[fullStock_Paracetamol120mg_nextRow.length]						=row["fullStock_Paracetamol120mg"];
+
+stockOnHand_ORS_nextRow[stockOnHand_ORS_nextRow.length]												=row["stockOnHand_ORS"];
+restockType_ORS_nextRow[restockType_ORS_nextRow.length]												=row["restockType_ORS"];
+partialRestock_ORS_nextRow[partialRestock_ORS_nextRow.length]										=row["partialRestock_ORS"];
+stockOutReason_ORS_nextRow[stockOutReason_ORS_nextRow.length]										=row["stockOutReason_ORS"];
+fullStock_ORS_nextRow[fullStock_ORS_nextRow.length]													=row["fullStock_ORS"];
+
+stockOnHand_ZincSulfate_nextRow[stockOnHand_ZincSulfate_nextRow.length]								=row["stockOnHand_ZincSulfate"];
+restockType_ZincSulfate_nextRow[restockType_ZincSulfate_nextRow.length]								=row["restockType_ZincSulfate"];
+partialRestock_ZincSulfate_nextRow[partialRestock_ZincSulfate_nextRow.length]						=row["partialRestock_ZincSulfate"];
+stockOutReason_ZincSulfate_nextRow[stockOutReason_ZincSulfate_nextRow.length]						=row["stockOutReason_ZincSulfate"];
+fullStock_ZincSulfate_nextRow[fullStock_ZincSulfate_nextRow.length]									=row["fullStock_ZincSulfate"];
+
+stockOnHand_amoxicillin250mg_nextRow[stockOnHand_amoxicillin250mg_nextRow.length]					=row["stockOnHand_amoxicillin250mg"];
+restockType_amoxicillin250mg_nextRow[restockType_amoxicillin250mg_nextRow.length]					=row["restockType_amoxicillin250mg"];
+partialRestock_amoxicillin250mg_nextRow[partialRestock_amoxicillin250mg_nextRow.length]				=row["partialRestock_amoxicillin250mg"];
+stockOutReason_amoxicillin250mg_nextRow[stockOutReason_amoxicillin250mg_nextRow.length]				=row["stockOutReason_amoxicillin250mg"];
+fullStock_amoxicillin250mg_nextRow[fullStock_amoxicillin250mg_nextRow.length]						=row["fullStock_amoxicillin250mg"];
+
+stockOnHand_amoxicillin125mg_nextRow[stockOnHand_amoxicillin125mg_nextRow.length]					=row["stockOnHand_amoxicillin125mg"];
+restockType_amoxicillin125mg_nextRow[restockType_amoxicillin125mg_nextRow.length]					=row["restockType_amoxicillin125mg"];
+partialRestock_amoxicillin125mg_nextRow[partialRestock_amoxicillin125mg_nextRow.length]				=row["partialRestock_amoxicillin125mg"];
+stockOutReason_amoxicillin125mg_nextRow[stockOutReason_amoxicillin125mg_nextRow.length]				=row["stockOutReason_amoxicillin125mg"];
+fullStock_amoxicillin125mg_nextRow[fullStock_amoxicillin125mg_nextRow.length]						=row["fullStock_amoxicillin125mg"];
+
+stockOnHand_muacStrap_nextRow[stockOnHand_muacStrap_nextRow.length]									=row["stockOnHand_muacStrap"];
+restockType_muacStrap_nextRow[restockType_muacStrap_nextRow.length]									=row["restockType_muacStrap"];
+stockOutReason_muacStrap_nextRow[stockOutReason_muacStrap_nextRow.length]							=row["stockOutReason_muacStrap"];
+fullStock_muacStrap_nextRow[fullStock_muacStrap_nextRow.length]										=row["fullStock_muacStrap"];
+
+stockOnHand_MalariaRDT_nextRow[stockOnHand_MalariaRDT_nextRow.length]								=row["stockOnHand_MalariaRDT"];
+restockType_MalariaRDT_nextRow[restockType_MalariaRDT_nextRow.length]								=row["restockType_MalariaRDT"];
+partialRestock_MalariaRDT_nextRow[partialRestock_MalariaRDT_nextRow.length]							=row["partialRestock_MalariaRDT"];
+stockOutReason_MalariaRDT_nextRow[stockOutReason_MalariaRDT_nextRow.length]							=row["stockOutReason_MalariaRDT"];
+fullStock_MalariaRDT_nextRow[fullStock_MalariaRDT_nextRow.length]									=row["fullStock_MalariaRDT"];
+
+stockOnHand_stethoscope_nextRow[stockOnHand_stethoscope_nextRow.length]								=row["stockOnHand_stethoscope"];
+restockType_stethoscope_nextRow[restockType_stethoscope_nextRow.length]								=row["restockType_stethoscope"];
+stockOutReason_stethoscope_nextRow[stockOutReason_stethoscope_nextRow.length]						=row["stockOutReason_stethoscope"];
+fullStock_stethoscope_nextRow[fullStock_stethoscope_nextRow.length]									=row["fullStock_stethoscope"];
+
+stockOnHand_digitalThermometer_nextRow[stockOnHand_digitalThermometer_nextRow.length]				=row["stockOnHand_digitalThermometer"];
+restockType_digitalThermometer_nextRow[restockType_digitalThermometer_nextRow.length]				=row["restockType_digitalThermometer"];
+stockOutReason_digitalThermometer_nextRow[stockOutReason_digitalThermometer_nextRow.length]			=row["stockOutReason_digitalThermometer"];
+fullStock_digitalThermometer_nextRow[fullStock_digitalThermometer_nextRow.length]					=row["fullStock_digitalThermometer"];
+
+stockOnHand_disposableGloves_nextRow[stockOnHand_disposableGloves_nextRow.length]					=row["stockOnHand_disposableGloves"];
+restockType_disposableGloves_nextRow[restockType_disposableGloves_nextRow.length]					=row["restockType_disposableGloves"];
+partialRestock_disposableGloves_nextRow[partialRestock_disposableGloves_nextRow.length]				=row["partialRestock_disposableGloves"];
+stockOutReason_disposableGloves_nextRow[stockOutReason_disposableGloves_nextRow.length]				=row["stockOutReason_disposableGloves"];
+fullStock_disposableGloves_nextRow[fullStock_disposableGloves_nextRow.length]						=row["fullStock_disposableGloves"];
+
+stockOnHand_plasticCup_nextRow[stockOnHand_plasticCup_nextRow.length]								=row["stockOnHand_plasticCup"];
+restockType_plasticCup_nextRow[restockType_plasticCup_nextRow.length]								=row["restockType_plasticCup"];
+stockOutReason_plasticCup_nextRow[stockOutReason_plasticCup_nextRow.length]							=row["stockOutReason_plasticCup"];
+fullStock_plasticCup_nextRow[fullStock_plasticCup_nextRow.length]									=row["fullStock_plasticCup"];
+
+stockOnHand_doseCard_nextRow[stockOnHand_doseCard_nextRow.length]									=row["stockOnHand_doseCard"];
+restockType_doseCard_nextRow[restockType_doseCard_nextRow.length]									=row["restockType_doseCard"];
+stockOutReason_doseCard_nextRow[stockOutReason_doseCard_nextRow.length]								=row["stockOutReason_doseCard"];
+fullStock_doseCard_nextRow[fullStock_doseCard_nextRow.length]										=row["fullStock_doseCard"];
+
+stockOnHand_ebolaScreeningTool_nextRow[stockOnHand_ebolaScreeningTool_nextRow.length]				=row["stockOnHand_ebolaScreeningTool"];
+restockType_ebolaScreeningTool_nextRow[restockType_ebolaScreeningTool_nextRow.length]				=row["restockType_ebolaScreeningTool"];
+stockOutReason_ebolaScreeningTool_nextRow[stockOutReason_ebolaScreeningTool_nextRow.length]			=row["stockOutReason_ebolaScreeningTool"];
+fullStock_ebolaScreeningTool_nextRow[fullStock_ebolaScreeningTool_nextRow.length]					=row["fullStock_ebolaScreeningTool"];
+
+stockOnHand_routineVisitForm_nextRow[stockOnHand_routineVisitForm_nextRow.length]					=row["stockOnHand_routineVisitForm"];
+restockType_routineVisitForm_nextRow[restockType_routineVisitForm_nextRow.length]					=row["restockType_routineVisitForm"];
+partialRestock_routineVisitForm_nextRow[partialRestock_routineVisitForm_nextRow.length]				=row["partialRestock_routineVisitForm"];
+stockOutReason_routineVisitForm_nextRow[stockOutReason_routineVisitForm_nextRow.length]				=row["stockOutReason_routineVisitForm"];
+fullStock_routineVisitForm_nextRow[fullStock_routineVisitForm_nextRow.length]						=row["fullStock_routineVisitForm"];
+
+stockOnHand_sickChildForm_nextRow[stockOnHand_sickChildForm_nextRow.length]							=row["stockOnHand_sickChildForm"];
+restockType_sickChildForm_nextRow[restockType_sickChildForm_nextRow.length]							=row["restockType_sickChildForm"];
+partialRestock_sickChildForm_nextRow[partialRestock_sickChildForm_nextRow.length]					=row["partialRestock_sickChildForm"];
+stockOutReason_sickChildForm_nextRow[stockOutReason_sickChildForm_nextRow.length]					=row["stockOutReason_sickChildForm"];
+fullStock_sickChildForm_nextRow[fullStock_sickChildForm_nextRow.length]								=row["fullStock_sickChildForm"];
+
+stockOnHand_chwWorkPlan_nextRow[stockOnHand_chwWorkPlan_nextRow.length]								=row["stockOnHand_chwWorkPlan"];
+restockType_chwWorkPlan_nextRow[restockType_chwWorkPlan_nextRow.length]								=row["restockType_chwWorkPlan"];
+partialRestock_chwWorkPlan_nextRow[partialRestock_chwWorkPlan_nextRow.length]						=row["partialRestock_chwWorkPlan"];
+stockOutReason_chwWorkPlan_nextRow[stockOutReason_chwWorkPlan_nextRow.length]						=row["stockOutReason_chwWorkPlan"];
+fullStock_chwWorkPlan_nextRow[fullStock_chwWorkPlan_nextRow.length]									=row["fullStock_chwWorkPlan"];
+
+stockOnHand_CommunityReferralForm_nextRow[stockOnHand_CommunityReferralForm_nextRow.length]			=row["stockOnHand_CommunityReferralForm"];
+restockType_CommunityReferralForm_nextRow[restockType_CommunityReferralForm_nextRow.length]			=row["restockType_CommunityReferralForm"];
+partialRestock_CommunityReferralForm_nextRow[partialRestock_CommunityReferralForm_nextRow.length]	=row["partialRestock_CommunityReferralForm"];
+stockOutReason_CommunityReferralForm_nextRow[stockOutReason_CommunityReferralForm_nextRow.length]	=row["stockOutReason_CommunityReferralForm"];
+fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.length]				=row["fullStock_CommunityReferralForm"];
+]]></method>
             <property name="dataSource">lastmile_chwdb</property>
             <list-property name="resultSet">
                 <structure>
@@ -5339,6 +5533,55 @@ if ( consumptionVal &lt; 0 ) { &#13;
                     <property name="dataType">integer</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">consumption_Paracetamol120mg</property>
+                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+if(  fullStock_Paracetamol120mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+    if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
+       &#13;
+        consumptionVal = null;&#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
+   &#13;
+    }&#13;
+    &#13;
+/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+    } else {&#13;
+        &#13;
+        consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
+        &#13;
+    }&#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
+    &#13;
+    consumptionVal = restock_currentStockLevel( restockType_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                fullStock_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                partialRestock_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                stockOnHand_Paracetamol120mg_nextRow[ row.__rownum + 1 ] ) &#13;
+                    - row["stockOnHand_Paracetamol120mg"];&#13;
+    &#13;
+} else {&#13;
+&#13;
+    consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
+ &#13;
+};&#13;
+&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = null;&#13;
+};</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <method name="onPrepare"><![CDATA[/* previousItem = []; */
 ]]></method>
@@ -7275,6 +7518,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="625">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_Paracetamol120mg</property>
+                                    </data>
                                 </cell>
                                 <cell id="553">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7468,6 +7715,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="626">
+                                        <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_Paracetamol120mg"] , &#13;
+										row["fullStock_Paracetamol120mg"] , &#13;
+										row["partialRestock_Paracetamol120mg"] , &#13;
+										row["stockOnHand_Paracetamol120mg"]  	)</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="576">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7476,6 +7730,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="627">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ORS"] , &#13;
+                            			row["fullStock_ORS"] , &#13;
+                            			row["partialRestock_ORS"] , &#13;
+                            			row["stockOnHand_ORS"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="577">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7484,6 +7745,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="628">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ZincSulfate"] , &#13;
+                            			row["fullStock_ZincSulfate"] , &#13;
+                            			row["partialRestock_ZincSulfate"] , &#13;
+                            			row["stockOnHand_ZincSulfate"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="578">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7492,6 +7760,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="629">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_amoxicillin250mg"] , &#13;
+                            			row["fullStock_amoxicillin250mg"] , &#13;
+                            			row["partialRestock_amoxicillin250mg"] , &#13;
+                            			row["stockOnHand_amoxicillin250mg"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="579">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7500,6 +7775,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="630">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_amoxicillin125mg"] , &#13;
+                            			row["fullStock_amoxicillin125mg"] , &#13;
+                            			row["partialRestock_amoxicillin125mg"] , &#13;
+                            			row["stockOnHand_amoxicillin125mg"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="580">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7508,6 +7790,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="631">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_muacStrap"] , &#13;
+                            			row["fullStock_muacStrap"] , &#13;
+                            			null ,&#13;
+                            			row["stockOnHand_muacStrap"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="581">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7516,6 +7805,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="632">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_MalariaRDT"] , &#13;
+                            			row["fullStock_MalariaRDT"] , &#13;
+                            			row["partialRestock_MalariaRDT"] , &#13;
+                            			row["stockOnHand_MalariaRDT"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="582">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7524,6 +7820,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="633">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_stethoscope"] , &#13;
+                            			row["fullStock_stethoscope"] , &#13;
+                            			null, &#13;
+                            			row["stockOnHand_stethoscope"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="583">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7532,6 +7835,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="634">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_digitalThermometer"], &#13;
+                            			row["fullStock_digitalThermometer"], &#13;
+                            			null, &#13;
+                            			row["stockOnHand_digitalThermometer"]  )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="584">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7540,6 +7850,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="635">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_disposableGloves"], &#13;
+                            			row["fullStock_disposableGloves"], &#13;
+                            			row["partialRestock_disposableGloves"], &#13;
+                            			row["stockOnHand_disposableGloves"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="585">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7548,6 +7865,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="636">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_plasticCup"], &#13;
+                            			row["fullStock_plasticCup"], &#13;
+                            			null, &#13;
+                            			row["stockOnHand_plasticCup"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="586">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7556,6 +7880,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="637">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_doseCard"], &#13;
+                            			row["fullStock_doseCard"], &#13;
+                            			null, &#13;
+                            			row["stockOnHand_doseCard"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="587">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7564,6 +7895,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="638">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ebolaScreeningTool"], &#13;
+                            			row["fullStock_ebolaScreeningTool"], &#13;
+                            			null, &#13;
+                            			row["stockOnHand_ebolaScreeningTool"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="588">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7572,6 +7910,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="639">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_routineVisitForm"], &#13;
+                            			row["fullStock_routineVisitForm"], &#13;
+                            			row["partialRestock_routineVisitForm"], &#13;
+                            			row["stockOnHand_routineVisitForm"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="589">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7580,6 +7925,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="640">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_sickChildForm"], &#13;
+                            			row["fullStock_sickChildForm"], &#13;
+                            			row["partialRestock_sickChildForm"], &#13;
+                            			row["stockOnHand_sickChildForm"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="590">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7588,6 +7940,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="641">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_chwWorkPlan"], &#13;
+                            			row["fullStock_chwWorkPlan"], &#13;
+                            			row["partialRestock_chwWorkPlan"], &#13;
+                            			row["stockOnHand_chwWorkPlan"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                                 <cell id="591">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7596,6 +7955,13 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <text-data id="642">
+                                        <expression name="valueExpr">restock_currentStockLevel(  row["restockType_CommunityReferralForm"], &#13;
+                            			row["fullStock_CommunityReferralForm"], &#13;
+                            			row["partialRestock_CommunityReferralForm"], &#13;
+                            			row["stockOnHand_CommunityReferralForm"] )</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
                                 </cell>
                             </row>
                             <row id="390">
