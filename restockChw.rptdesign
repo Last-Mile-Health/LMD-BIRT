@@ -190,7 +190,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://lastmiledata.org:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -8461,6 +8461,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="647">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_ACT50mg"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_ACT50mg</property>
                                     </data>
                                 </cell>
@@ -8473,6 +8484,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="653">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption__Paracetamol120mg"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption__Paracetamol120mg</property>
                                     </data>
                                 </cell>
@@ -8485,6 +8507,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="654">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_ORS"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_ORS</property>
                                     </data>
                                 </cell>
@@ -8497,6 +8530,18 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="655">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontStyle">normal</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_ZincSulfate"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_ZincSulfate</property>
                                     </data>
                                 </cell>
@@ -8509,6 +8554,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="656">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_amoxicillin250mg"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_amoxicillin250mg</property>
                                     </data>
                                 </cell>
@@ -8521,6 +8577,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="657">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_amoxicillin125mg"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_amoxicillin125mg</property>
                                     </data>
                                 </cell>
@@ -8533,6 +8600,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="658">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_muacStrap"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_muacStrap</property>
                                     </data>
                                 </cell>
@@ -8545,6 +8623,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="659">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_MalariaRDT"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_MalariaRDT</property>
                                     </data>
                                 </cell>
@@ -8557,6 +8646,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="660">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_stethoscope"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_stethoscope</property>
                                     </data>
                                 </cell>
@@ -8569,6 +8669,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="661">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_digitalThermometer"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_digitalThermometer</property>
                                     </data>
                                 </cell>
@@ -8581,6 +8692,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="662">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_disposableGloves"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_disposableGloves</property>
                                     </data>
                                 </cell>
@@ -8593,6 +8715,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="663">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_plasticCup"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_plasticCup</property>
                                     </data>
                                 </cell>
@@ -8605,6 +8738,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="664">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_doseCard"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_doseCard</property>
                                     </data>
                                 </cell>
@@ -8617,6 +8761,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="665">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_ebolaScreeningTool"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_ebolaScreeningTool</property>
                                     </data>
                                 </cell>
@@ -8629,6 +8784,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="666">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_routineVisitForm"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_routineVisitForm</property>
                                     </data>
                                 </cell>
@@ -8641,6 +8807,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="668">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_sickChildForm"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_sickChildForm</property>
                                     </data>
                                 </cell>
@@ -8653,6 +8830,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="669">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_chwWorkPlan"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_chwWorkPlan</property>
                                     </data>
                                 </cell>
@@ -8665,6 +8853,17 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <data id="670">
                                         <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_CommunityReferralForm"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_CommunityReferralForm</property>
                                     </data>
                                 </cell>
