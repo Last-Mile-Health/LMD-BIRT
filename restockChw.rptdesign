@@ -119,9 +119,22 @@ stockOutReason_CommunityReferralForm_nextRow = [];
 fullStock_CommunityReferralForm_nextRow = [];
 	
 	
+/* Note: For items with full stock level of 1 like muacStrap, meaning no partial restocks, 
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just 
+ * put the "null" string in the paramterss for partial restock.
+ */
+	
 function restock_consumption( restockType, fullStock, partialRestock, stockOnHand ) {
 
-	return fullStock - stockOnHand;
+	if( ( fullStock == null ) || ( stockOnHand == null ) ) {
+	
+		return null;
+	
+	} else {
+	
+		return fullStock - stockOnHand
+		
+	}
 
 }
 
@@ -135,18 +148,21 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                 break; 
 
         case "partial":
+
         
                 returnValue = partialRestock + stockOnHand;
+
                 break; 
 
         case "none":
 
-                returnValue = stockOnHand;
+                returnValue = stockOnHand;               
                 break;
 
         default:    
-            
+                    
                 returnValue = stockOnHand;
+               
     }
     
     return returnValue;
@@ -2398,7 +2414,7 @@ fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.
 		fullStock_CommunityReferralForm
 
 from view_chwRestockReport
-order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
+order by countyList asc, chwl asc, chw asc, manualDate desc]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -5394,192 +5410,1116 @@ order by countyList asc, chwl asc, chw asc, manualDate asc]]></xml-property>
                 </structure>
                 <structure>
                     <property name="name">consumption_ACT25mg</property>
-                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 if(  fullStock_ACT25mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
     &#13;
-    if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
-       &#13;
         consumptionVal = null;&#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
-   &#13;
-    }&#13;
-    &#13;
-/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 } else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
-        &#13;
-        if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
         &#13;
         consumptionVal = null; &#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
-        &#13;
-    }&#13;
 /* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
  * the difference between nextRow current stock level and current item stock on hand. */&#13;
-} else if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
-    &#13;
-    consumptionVal = restock_currentStockLevel( restockType_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                fullStock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                partialRestock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                stockOnHand_ACT25mg_nextRow[ row.__rownum + 1 ] ) &#13;
-                    - row["stockOnHand_ACT25mg"];&#13;
-    &#13;
 } else {&#13;
 &#13;
-    consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_ACT25mg_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_ACT25mg_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_ACT25mg"]; &#13;
+           &#13;
+       }&#13;
  &#13;
 };&#13;
 &#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
 if ( consumptionVal &lt; 0 ) { &#13;
-    consumptionVal = null;&#13;
-};/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
-if(  fullStock_ACT25mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
-    &#13;
-    if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
-       &#13;
-        consumptionVal = null;&#13;
-        &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
-   &#13;
-    }&#13;
-    &#13;
-/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
-} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
-        &#13;
-        if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
-        &#13;
-        consumptionVal = null; &#13;
-        &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
-        &#13;
-    }&#13;
-/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
- * the difference between nextRow current stock level and current item stock on hand. */&#13;
-} else if( row["stockOnHand_ACT25mg"] > row["fullStock_ACT25mg"] ){&#13;
-    &#13;
-    consumptionVal = restock_currentStockLevel( restockType_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                fullStock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                partialRestock_ACT25mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                stockOnHand_ACT25mg_nextRow[ row.__rownum + 1 ] ) &#13;
-                    - row["stockOnHand_ACT25mg"];&#13;
-    &#13;
-} else {&#13;
-&#13;
-    consumptionVal = restock_consumption( row["restockType_ACT25mg"], row["fullStock_ACT25mg"], row["partialRestock_ACT25mg"], row["stockOnHand_ACT25mg"] );&#13;
- &#13;
-};&#13;
-&#13;
-if ( consumptionVal &lt; 0 ) { &#13;
-    consumptionVal = null;&#13;
+    consumptionVal = "X";&#13;
 };</expression>
-                    <property name="dataType">integer</property>
+                    <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">consumption_ACT50mg</property>
-                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 if(  fullStock_ACT50mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
     &#13;
-    if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
-       &#13;
         consumptionVal = null;&#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
-   &#13;
-    }&#13;
-    &#13;
-/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 } else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
-        &#13;
-        if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
         &#13;
         consumptionVal = null; &#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
-        &#13;
-    }&#13;
 /* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
  * the difference between nextRow current stock level and current item stock on hand. */&#13;
-} else if( row["stockOnHand_ACT50mg"] > row["fullStock_ACT50mg"] ){&#13;
-    &#13;
-    consumptionVal = restock_currentStockLevel( restockType_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                fullStock_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                partialRestock_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                stockOnHand_ACT50mg_nextRow[ row.__rownum + 1 ] ) &#13;
-                    - row["stockOnHand_ACT50mg"];&#13;
-    &#13;
 } else {&#13;
 &#13;
-    consumptionVal = restock_consumption( row["restockType_ACT50mg"], row["fullStock_ACT50mg"], row["partialRestock_ACT50mg"], row["stockOnHand_ACT50mg"] );&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_ACT50mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_ACT50mg_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_ACT50mg_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_ACT50mg"]; &#13;
+           &#13;
+       }&#13;
  &#13;
 };&#13;
 &#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
 if ( consumptionVal &lt; 0 ) { &#13;
-    consumptionVal = null;&#13;
+    consumptionVal = "X";&#13;
 };</expression>
-                    <property name="dataType">integer</property>
+                    <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">consumption_Paracetamol120mg</property>
-                    <expression name="expression" type="javascript">/* Case: Last record in the report.  Just run basic consumption calculation against current row's data */   &#13;
+                    <property name="name">consumption__Paracetamol120mg</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 if(  fullStock_Paracetamol120mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
     &#13;
-    if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
-       &#13;
         consumptionVal = null;&#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
-   &#13;
-    }&#13;
-    &#13;
-/* Case: Last record for chwlID/chwID  Just run basic consumption calculation against current row's data */  &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
 } else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
-        &#13;
-        if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
         &#13;
         consumptionVal = null; &#13;
         &#13;
-    } else {&#13;
-        &#13;
-        consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
-        &#13;
-    }&#13;
 /* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
  * the difference between nextRow current stock level and current item stock on hand. */&#13;
-} else if( row["stockOnHand_Paracetamol120mg"] > row["fullStock_Paracetamol120mg"] ){&#13;
-    &#13;
-    consumptionVal = restock_currentStockLevel( restockType_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                fullStock_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                partialRestock_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
-                                                stockOnHand_Paracetamol120mg_nextRow[ row.__rownum + 1 ] ) &#13;
-                    - row["stockOnHand_Paracetamol120mg"];&#13;
-    &#13;
 } else {&#13;
 &#13;
-    consumptionVal = restock_consumption( row["restockType_Paracetamol120mg"], row["fullStock_Paracetamol120mg"], row["partialRestock_Paracetamol120mg"], row["stockOnHand_Paracetamol120mg"] );&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_Paracetamol120mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_Paracetamol120mg_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_Paracetamol120mg_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_Paracetamol120mg"]; &#13;
+           &#13;
+       }&#13;
  &#13;
 };&#13;
 &#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
 if ( consumptionVal &lt; 0 ) { &#13;
-    consumptionVal = null;&#13;
+    consumptionVal = "X";&#13;
 };</expression>
-                    <property name="dataType">integer</property>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_ORS</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_ORS_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_ORS_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_ORS_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_ORS_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_ORS_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_ORS"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_ZincSulfate</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_ZincSulfate_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_ZincSulfate_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_ZincSulfate_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_ZincSulfate_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_ZincSulfate_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_ZincSulfate"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_amoxicillin250mg</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_amoxicillin250mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_amoxicillin250mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_amoxicillin250mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_amoxicillin250mg_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_amoxicillin250mg_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_amoxicillin250mg"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_amoxicillin125mg</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_amoxicillin125mg_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_amoxicillin125mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_amoxicillin125mg_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_amoxicillin125mg_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_amoxicillin125mg_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_amoxicillin125mg"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_muacStrap</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_muacStrap_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_muacStrap_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_muacStrap_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_muacStrap_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_muacStrap"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_muacStrap_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_muacStrap_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_muacStrap_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_muacStrap_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_muacStrap"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_MalariaRDT</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_MalariaRDT_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_MalariaRDT_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_MalariaRDT_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_MalariaRDT_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_MalariaRDT_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_MalariaRDT"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_stethoscope</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_stethoscope_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_stethoscope_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_stethoscope_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_stethoscope_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_stethoscope"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_digitalThermometer</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_digitalThermometer_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_digitalThermometer_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_digitalThermometer_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_digitalThermometer_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_digitalThermometer"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_disposableGloves</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_disposableGloves_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_disposableGloves_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_disposableGloves_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_disposableGloves_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_disposableGloves_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_disposableGloves"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_plasticCup</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_plasticCup_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_plasticCup_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_plasticCup_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_plasticCup_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_plasticCup"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_doseCard</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_doseCard_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_doseCard_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_doseCard_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_doseCard_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_doseCard"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_ebolaScreeningTool</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_ebolaScreeningTool_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_ebolaScreeningTool_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_ebolaScreeningTool_nextRow[ row.__rownum + 1 ], &#13;
+                                                											null, &#13;
+                                                            								stockOnHand_ebolaScreeningTool_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_ebolaScreeningTool"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_routineVisitForm</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_routineVisitForm_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_routineVisitForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_routineVisitForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_routineVisitForm_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_routineVisitForm_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_routineVisitForm"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_sickChildForm</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_sickChildForm_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_sickChildForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_sickChildForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_sickChildForm_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_sickChildForm_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_sickChildForm"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_chwWorkPlan</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_chwWorkPlan_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_chwWorkPlan_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_chwWorkPlan_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_chwWorkPlan_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_chwWorkPlan_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_chwWorkPlan"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">consumption_CommunityReferralForm</property>
+                    <expression name="expression" type="javascript">/* Note: When items have a full stock level of 1 like muacStrap, meaning no partial restocks, &#13;
+ * both the the restock_consumption() and restock_currentStockLevel() should  work, just &#13;
+ * put the "null" string in the paramterss for partial restock.&#13;
+ */&#13;
+ &#13;
+/* Case: This is the condition for the last record in the entire resultset.  As with all cases of the &#13;
+ * first restock (last record for chwID/pair) to be recorded for a chwID, it is impossible to &#13;
+ * definitively say what was consumed, so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+if(  fullStock_CommunityReferralForm_nextRow[ row.__rownum + 1 ] == null ) {&#13;
+    &#13;
+        consumptionVal = null;&#13;
+        &#13;
+/* Case: The last record for a chwlID/chwID pair.  As with all cases of the first restock (last record &#13;
+ * for chwID/pair) to be recorded for a chwID, it is impossible to definitively say what was consumed, &#13;
+ * so in these cases, always consumption is always set to null.&#13;
+ */   &#13;
+} else if( ! ( ( chwlID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwlID"] ) &amp;&amp; ( chwID_nextRow[ row.__rownum + 1 ] == dataSetRow["chwID"]  ) ) ) {&#13;
+        &#13;
+        consumptionVal = null; &#13;
+        &#13;
+/* Case: Overstock during last restock or the full stock value has changed downward since the last restock. Instead, use&#13;
+ * the difference between nextRow current stock level and current item stock on hand. */&#13;
+} else {&#13;
+&#13;
+		nextRowCurrentStockLevel = restock_currentStockLevel(	restockType_CommunityReferralForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											fullStock_CommunityReferralForm_nextRow[ row.__rownum + 1 ], &#13;
+                                                											partialRestock_CommunityReferralForm_nextRow[ row.__rownum + 1], &#13;
+                                                            								stockOnHand_CommunityReferralForm_nextRow[ row.__rownum + 1 ] ) ;    &#13;
+ &#13;
+                                                           &#13;
+        if( nextRowCurrentStockLevel == 0  ) {&#13;
+        &#13;
+        	consumptionVal = null&#13;
+        	&#13;
+        } else {  &#13;
+                                      											&#13;
+           consumptionVal = nextRowCurrentStockLevel - row["stockOnHand_CommunityReferralForm"]; &#13;
+           &#13;
+       }&#13;
+ &#13;
+};&#13;
+&#13;
+/* Something's gone hinky, just set consumption to X if it is less than zero.  Possible reasons for consumption&#13;
+ * being less than zero are the stock on hand is greater than the current stock level of the previous restock event. &#13;
+  * Possible reasons for this are there was an unrecorded restock event in the meantime or the stock on hand &#13;
+  * or the previous current stock level was not counted correctly.&#13;
+ */&#13;
+if ( consumptionVal &lt; 0 ) { &#13;
+    consumptionVal = "X";&#13;
+};</expression>
+                    <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
@@ -6565,7 +7505,7 @@ if ( consumptionVal &lt; 0 ) { &#13;
                 </header>
                 <footer>
                     <row id="71">
-                        <property name="height">0.03125in</property>
+                        <property name="height">0.010416666666666666in</property>
                         <cell id="72"/>
                         <cell id="73"/>
                     </row>
@@ -6601,12 +7541,12 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                     <property name="borderRightStyle">none</property>
                     <property name="borderTopStyle">none</property>
                     <property name="textAlign">center</property>
-                    <property name="height">0.9166666666666666in</property>
+                    <property name="height">0.9479166666666666in</property>
                     <cell id="44"/>
                     <cell id="45">
                         <grid id="219">
                             <property name="textAlign">center</property>
-                            <property name="height">0.8854166666666666in</property>
+                            <property name="height">0.9270833333333334in</property>
                             <property name="width">7.979166666666667in</property>
                             <column id="220">
                                 <property name="textAlign">left</property>
@@ -7496,6 +8436,19 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <data id="623">
+                                        <property name="fontSize">9pt</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontStyle">normal</property>
+                                                <property name="fontWeight">bold</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["consumption_ACT25mg"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"X"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">consumption_ACT25mg</property>
                                     </data>
                                 </cell>
@@ -7506,7 +8459,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
-                                    <data id="624">
+                                    <data id="647">
                                         <property name="fontSize">9pt</property>
                                         <property name="resultSetColumn">consumption_ACT50mg</property>
                                     </data>
@@ -7518,9 +8471,9 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
-                                    <data id="625">
+                                    <data id="653">
                                         <property name="fontSize">9pt</property>
-                                        <property name="resultSetColumn">consumption_Paracetamol120mg</property>
+                                        <property name="resultSetColumn">consumption__Paracetamol120mg</property>
                                     </data>
                                 </cell>
                                 <cell id="553">
@@ -7530,6 +8483,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="654">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_ORS</property>
+                                    </data>
                                 </cell>
                                 <cell id="554">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7538,6 +8495,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="655">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_ZincSulfate</property>
+                                    </data>
                                 </cell>
                                 <cell id="555">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7546,6 +8507,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="656">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_amoxicillin250mg</property>
+                                    </data>
                                 </cell>
                                 <cell id="556">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7554,6 +8519,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="657">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_amoxicillin125mg</property>
+                                    </data>
                                 </cell>
                                 <cell id="557">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7562,6 +8531,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="658">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_muacStrap</property>
+                                    </data>
                                 </cell>
                                 <cell id="558">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7570,6 +8543,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="659">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_MalariaRDT</property>
+                                    </data>
                                 </cell>
                                 <cell id="559">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7578,6 +8555,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="660">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_stethoscope</property>
+                                    </data>
                                 </cell>
                                 <cell id="560">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7586,6 +8567,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="661">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_digitalThermometer</property>
+                                    </data>
                                 </cell>
                                 <cell id="561">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7594,6 +8579,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="662">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_disposableGloves</property>
+                                    </data>
                                 </cell>
                                 <cell id="562">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7602,6 +8591,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="663">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_plasticCup</property>
+                                    </data>
                                 </cell>
                                 <cell id="563">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7610,6 +8603,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="664">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_doseCard</property>
+                                    </data>
                                 </cell>
                                 <cell id="564">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7618,6 +8615,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="665">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_ebolaScreeningTool</property>
+                                    </data>
                                 </cell>
                                 <cell id="565">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7626,6 +8627,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="666">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_routineVisitForm</property>
+                                    </data>
                                 </cell>
                                 <cell id="566">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7634,6 +8639,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="668">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_sickChildForm</property>
+                                    </data>
                                 </cell>
                                 <cell id="567">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7642,6 +8651,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="669">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_chwWorkPlan</property>
+                                    </data>
                                 </cell>
                                 <cell id="568">
                                     <property name="backgroundColor">#FFFFFF</property>
@@ -7650,6 +8663,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderRightStyle">none</property>
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
+                                    <data id="670">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="resultSetColumn">consumption_CommunityReferralForm</property>
+                                    </data>
                                 </cell>
                             </row>
                             <row id="570">
@@ -7665,7 +8682,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                         <property name="fontSize">9pt</property>
                                         <property name="fontStyle">italic</property>
                                         <property name="textAlign">right</property>
-                                        <text-property name="text">Stock Level</text-property>
+                                        <text-property name="text">Current Stock</text-property>
                                     </label>
                                 </cell>
                                 <cell id="572">
@@ -7701,10 +8718,10 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="597">
                                         <property name="fontSize">9pt</property>
-                                        <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_ACT25mg"] , &#13;
-										row["fullStock_ACT25mg"] , &#13;
-										row["partialRestock_ACT25mg"] , &#13;
-										row["stockOnHand_ACT25mg"]  	)</expression>
+                                        <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_ACT50mg"] , &#13;
+										row["fullStock_ACT50mg"] , &#13;
+										row["partialRestock_ACT50mg"] , &#13;
+										row["stockOnHand_ACT50mg"]  	)</expression>
                                         <property name="contentType">html</property>
                                     </text-data>
                                 </cell>
@@ -7716,6 +8733,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="626">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel( 	row["restockType_Paracetamol120mg"] , &#13;
 										row["fullStock_Paracetamol120mg"] , &#13;
 										row["partialRestock_Paracetamol120mg"] , &#13;
@@ -7731,6 +8749,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="627">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ORS"] , &#13;
                             			row["fullStock_ORS"] , &#13;
                             			row["partialRestock_ORS"] , &#13;
@@ -7746,6 +8765,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="628">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ZincSulfate"] , &#13;
                             			row["fullStock_ZincSulfate"] , &#13;
                             			row["partialRestock_ZincSulfate"] , &#13;
@@ -7761,6 +8781,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="629">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_amoxicillin250mg"] , &#13;
                             			row["fullStock_amoxicillin250mg"] , &#13;
                             			row["partialRestock_amoxicillin250mg"] , &#13;
@@ -7776,6 +8797,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="630">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_amoxicillin125mg"] , &#13;
                             			row["fullStock_amoxicillin125mg"] , &#13;
                             			row["partialRestock_amoxicillin125mg"] , &#13;
@@ -7791,6 +8813,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="631">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_muacStrap"] , &#13;
                             			row["fullStock_muacStrap"] , &#13;
                             			null ,&#13;
@@ -7806,6 +8829,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="632">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_MalariaRDT"] , &#13;
                             			row["fullStock_MalariaRDT"] , &#13;
                             			row["partialRestock_MalariaRDT"] , &#13;
@@ -7821,6 +8845,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="633">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_stethoscope"] , &#13;
                             			row["fullStock_stethoscope"] , &#13;
                             			null, &#13;
@@ -7836,6 +8861,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="634">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_digitalThermometer"], &#13;
                             			row["fullStock_digitalThermometer"], &#13;
                             			null, &#13;
@@ -7851,6 +8877,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="635">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_disposableGloves"], &#13;
                             			row["fullStock_disposableGloves"], &#13;
                             			row["partialRestock_disposableGloves"], &#13;
@@ -7866,6 +8893,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="636">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_plasticCup"], &#13;
                             			row["fullStock_plasticCup"], &#13;
                             			null, &#13;
@@ -7881,6 +8909,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="637">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_doseCard"], &#13;
                             			row["fullStock_doseCard"], &#13;
                             			null, &#13;
@@ -7896,6 +8925,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="638">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_ebolaScreeningTool"], &#13;
                             			row["fullStock_ebolaScreeningTool"], &#13;
                             			null, &#13;
@@ -7911,6 +8941,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="639">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_routineVisitForm"], &#13;
                             			row["fullStock_routineVisitForm"], &#13;
                             			row["partialRestock_routineVisitForm"], &#13;
@@ -7926,6 +8957,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="640">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_sickChildForm"], &#13;
                             			row["fullStock_sickChildForm"], &#13;
                             			row["partialRestock_sickChildForm"], &#13;
@@ -7941,6 +8973,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="641">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_chwWorkPlan"], &#13;
                             			row["fullStock_chwWorkPlan"], &#13;
                             			row["partialRestock_chwWorkPlan"], &#13;
@@ -7956,6 +8989,7 @@ previousItem.push( new Array( 	restockType_ACT25mg,
                                     <property name="borderTopStyle">none</property>
                                     <property name="verticalAlign">middle</property>
                                     <text-data id="642">
+                                        <property name="fontSize">9pt</property>
                                         <expression name="valueExpr">restock_currentStockLevel(  row["restockType_CommunityReferralForm"], &#13;
                             			row["fullStock_CommunityReferralForm"], &#13;
                             			row["partialRestock_CommunityReferralForm"], &#13;
