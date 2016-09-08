@@ -171,6 +171,54 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
+    <parameters>
+        <cascading-parameter-group name="countyChwl" id="677">
+            <property name="dataSet">county</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+                <scalar-parameter name="county" id="678">
+                    <text-property name="promptText">County</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">county</property>
+                    <expression name="valueExpr">row["county"]</expression>
+                    <expression name="labelExpr">row["county"]</expression>
+                    <expression name="sortByColumn">dataSetRow["county"]</expression>
+                    <property name="sortDirection">asc</property>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="javascript">defaultValue = "ALL";</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="concealValue">false</property>
+                    <property name="controlType">list-box</property>
+                    <property name="mustMatch">true</property>
+                    <property name="fixedOrder">false</property>
+                    <structure name="format">
+                        <property name="category">Unformatted</property>
+                    </structure>
+                </scalar-parameter>
+                <scalar-parameter name="chwl" id="679">
+                    <text-property name="promptText">CHW-L</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">countyChwl</property>
+                    <expression name="valueExpr">row["chwl"]</expression>
+                    <expression name="labelExpr">row["chwl"]</expression>
+                    <expression name="sortByColumn">dataSetRow["chwl"]</expression>
+                    <property name="sortDirection">asc</property>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="javascript">defaultValue = "ALL";</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">false</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+    </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="lastmile_chwdb" id="7">
             <list-property name="privateDriverProperties">
@@ -859,7 +907,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     <structure>
                         <property name="position">1</property>
                         <property name="name">chwlID</property>
-                        <property name="dataType">decimal</property>
+                        <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">2</property>
@@ -869,7 +917,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     <structure>
                         <property name="position">3</property>
                         <property name="name">chwID</property>
-                        <property name="dataType">decimal</property>
+                        <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
@@ -954,7 +1002,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     <structure>
                         <property name="position">20</property>
                         <property name="name">dateMatch</property>
-                        <property name="dataType">integer</property>
+                        <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">21</property>
@@ -1403,6 +1451,12 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     </structure>
                 </list-property>
             </structure>
+            <method name="beforeOpen"><![CDATA[this.queryText = this.queryText + 
+" where " + 
+/* " countyList 	like '"	+ params["county"].value	+ "'"	+ " and " + */
+" chwl 			like '" + params["chwl"].value 		+ "'" +
+" order by countyList asc, chwl asc, chw asc, manualDate desc";
+]]></method>
             <method name="onFetch"><![CDATA[chwlID_nextRow[chwlID_nextRow.length]																=row["chwlID"];
 chwID_nextRow[chwID_nextRow.length] 																=row["chwID"];
 
@@ -1520,8 +1574,8 @@ fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.
                     <property name="position">1</property>
                     <property name="name">chwlID</property>
                     <property name="nativeName">chwlID</property>
-                    <property name="dataType">decimal</property>
-                    <property name="nativeDataType">-5</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
                     <property name="position">2</property>
@@ -1534,8 +1588,8 @@ fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.
                     <property name="position">3</property>
                     <property name="name">chwID</property>
                     <property name="nativeName">chwID</property>
-                    <property name="dataType">decimal</property>
-                    <property name="nativeDataType">-5</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
@@ -1653,8 +1707,8 @@ fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.
                     <property name="position">20</property>
                     <property name="name">dateMatch</property>
                     <property name="nativeName">dateMatch</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
                     <property name="position">21</property>
@@ -2413,8 +2467,7 @@ fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.
 		stockOutReason_CommunityReferralForm,
 		fullStock_CommunityReferralForm
 
-from view_chwRestockReport
-order by countyList asc, chwl asc, chw asc, manualDate desc]]></xml-property>
+from view_chwRestockReport]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -4644,6 +4697,237 @@ order by countyList asc, chwl asc, chw asc, manualDate desc]]></xml-property>
             <design:label>fullStock_CommunityReferralForm</design:label>
             <design:formattingHints>
               <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="countyChwl" id="671">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">county</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">county</text-property>
+                    <text-property name="heading">county</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">chwl</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">chwl</text-property>
+                    <text-property name="heading">chwl</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">param_county</property>
+                    <property name="paramName">county</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">-1</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">county</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">chwl</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">lastmile_chwdb</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">county</property>
+                    <property name="nativeName">county</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">chwl</property>
+                    <property name="nativeName">chwl</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 'ALL' as county, 'ALL' as chwl
+
+union
+
+( 
+  select trim( substring_index( countyList, ',', 1 ) ) as county, chwl
+  from view_chwRestockReport
+  
+  where not ( ( countyList 	is null ) or ( trim( countyList )	  like '' ) ) and
+		not ( ( chwl 		is null ) or ( trim( chwl 		)	  like '' ) ) and
+		( trim( substring_index( countyList, ',', 1 ) ) like replace( trim( ? ), 'ALL', '%' ) )
+  group by trim( substring_index( countyList, ',', 1 ) ) asc, chwl asc
+)
+
+order by county, chwl asc
+;
+
+-- In order to get countyList equal to ALL to return a list of all the CHW-Ls in the for all the counties,
+-- we need to be sure that the countyList is only one county and not a list of counties.  If countyList is 
+-- a list of counties, then just return the first one.  Likewise, we need to map ALL to % so the dataset shows
+-- all CHW-Ls.  If there is no matching string of ALL in countyList then just evalute the where clause against
+-- the actual string, meaning nothing gets replace.  There is a extremely small chance that counties with almost
+-- similar identical names with the string ALL into would cause a false match.  e.g. counties waterfall and 
+-- waterfell, but every other character in the string would have to match.  So waterf% matches both waterfall and
+-- waterfell. I'm not going to worry about this right now.   ]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <DataSetParameters>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name></design:name>
+            <design:position>1</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>-1</design:nativeDataTypeCode>
+          <design:precision>0</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Unknown</design:nullability>
+        </design:attributes>
+      </design:ParameterDefinition>
+    </parameter>
+  </DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>countyList</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>65535</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>county</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>county</design:label>
+            <design:formattingHints>
+              <design:displaySize>65535</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>chwl</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>101</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>chwl</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>chwl</design:label>
+            <design:formattingHints>
+              <design:displaySize>101</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="county" id="674">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">county</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">county</text-property>
+                    <text-property name="heading">county</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">county</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">lastmile_chwdb</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">county</property>
+                    <property name="nativeName">county</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 'ALL' as county
+union
+( 
+  select trim( substring_index( countyList, ',', 1 ) ) as county
+  from view_chwRestockReport
+  where not ( ( countyList is null ) or ( trim( countyList ) like '' ) )
+  group by trim( substring_index( countyList, ',', 1 ) ) asc
+)
+order by county
+;
+-- In MySQL you CAN use a column alias, such as county, in the group by clause.  However, this not starndard sql,
+-- so I repeat the trim-substring_index code in the group by clause.  Mostquery optimizers are smart enough to 
+-- recognize that the group by trim-substring_index code is the same as what's in the select column list, 
+-- Remember, the query optimizer is tying what's in the group by clause to what's in select column list anyway.
+-- So it will recognize the string and not recalculate and rerun the functions a second time.]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>countyList</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>65535</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>countyList</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>countyList</design:label>
+            <design:formattingHints>
+              <design:displaySize>65535</design:displaySize>
             </design:formattingHints>
           </design:usageHints>
         </design:resultColumnDefinitions>
