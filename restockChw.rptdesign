@@ -211,7 +211,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     <simple-property-list name="defaultValue">
                         <value type="javascript">defaultValue = "ALL";</value>
                     </simple-property-list>
-                    <property name="paramType">simple</property>
+                    <property name="paramType">multi-value</property>
                     <property name="controlType">list-box</property>
                     <property name="fixedOrder">false</property>
                     <structure name="format"/>
@@ -1451,11 +1451,24 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     </structure>
                 </list-property>
             </structure>
-            <method name="beforeOpen"><![CDATA[this.queryText = this.queryText + 
-" where " + 
-/* " countyList 	like '"	+ params["county"].value	+ "'"	+ " and " + */
-" chwl 			like '" + params["chwl"].value 		+ "'" +
-" order by countyList asc, chwl asc, chw asc, manualDate desc";
+            <method name="beforeOpen"><![CDATA[
+
+if ( !( ( params["county"].value == 'ALL' ) &amp;&amp; ( params[ "chwl" ].value[ 0 ] == 'ALL' ) ) ) {
+    
+    
+    if ( params[ "chwl" ].value[ 0 ] == 'ALL' ) {
+    
+        this.queryText = this.queryText + " where countyList like '" + params["county"].value + "'"
+    
+    } else {
+
+  		this.queryText = this.queryText + " where chwl in ( '" + params[ "chwl" ].value.join("', '") + "' ) ";
+   
+    }
+	
+};
+
+this.queryText = this.queryText + " order by countyList asc, chwl asc, chw asc, manualDate desc";
 ]]></method>
             <method name="onFetch"><![CDATA[chwlID_nextRow[chwlID_nextRow.length]																=row["chwlID"];
 chwID_nextRow[chwID_nextRow.length] 																=row["chwID"];
@@ -4765,13 +4778,11 @@ from view_chwRestockReport]]></xml-property>
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[select 'ALL' as county, 'ALL' as chwl
-
 union
 
 ( 
   select trim( substring_index( countyList, ',', 1 ) ) as county, chwl
   from view_chwRestockReport
-  
   where not ( ( countyList 	is null ) or ( trim( countyList )	  like '' ) ) and
 		not ( ( chwl 		is null ) or ( trim( chwl 		)	  like '' ) ) and
 		( trim( substring_index( countyList, ',', 1 ) ) like replace( trim( ? ), 'ALL', '%' ) )
@@ -4781,14 +4792,20 @@ union
 order by county, chwl asc
 ;
 
--- In order to get countyList equal to ALL to return a list of all the CHW-Ls in the for all the counties,
--- we need to be sure that the countyList is only one county and not a list of counties.  If countyList is 
--- a list of counties, then just return the first one.  Likewise, we need to map ALL to % so the dataset shows
--- all CHW-Ls.  If there is no matching string of ALL in countyList then just evalute the where clause against
--- the actual string, meaning nothing gets replace.  There is a extremely small chance that counties with almost
--- similar identical names with the string ALL into would cause a false match.  e.g. counties waterfall and 
--- waterfell, but every other character in the string would have to match.  So waterf% matches both waterfall and
--- waterfell. I'm not going to worry about this right now.   ]]></xml-property>
+-- In order to get countyList equal to ALL to cascade and return a list of all the CHW-Ls in all the counties,
+-- we need to be sure that the countyList is only one county and not a list of counties, which, to be frank, is 
+-- highly unlikely.  
+
+-- If countyList is a list of counties, then just return the first one, using the substring_index function.
+-- Also, we need to map ALL to % so the dataset shows all the CHW-Ls in all counties.  If there is no match 
+-- of the string ALL in the countyList, then just evalute the where clause against the actual string, meaning 
+-- nothing gets replace.  
+
+-- There is a extremely small chance that counties with almost identical names with the string ALL in then will
+-- cause a false match, but every character except the string ALL would have to match, including the orderr of
+-- the characters.  So, for example, the the counties waterfall and waterfell would give a false match, since the
+-- replace function would match waterf% against both waterfall and waterfell. I'm not going to worry about this 
+-- right now.    ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
