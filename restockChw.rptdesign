@@ -218,6 +218,45 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                 </scalar-parameter>
             </parameters>
         </cascading-parameter-group>
+        <parameter-group name="beginEndDatesGroup" id="680">
+            <text-property name="displayName">Begin and End Dates (GMT)</text-property>
+            <parameters>
+                <scalar-parameter name="beginDate" id="681">
+                    <text-property name="helpText">YYYY-MM-DD</text-property>
+                    <text-property name="promptText">Begin Date</text-property>
+                    <property name="valueType">static</property>
+                    <property name="dataType">date</property>
+                    <property name="distinct">true</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="constant">2016-03-01</value>
+                    </simple-property-list>
+                    <list-property name="selectionList"/>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">text-box</property>
+                    <structure name="format">
+                        <property name="category">Custom</property>
+                        <property name="pattern">yyyy-MM-dd</property>
+                    </structure>
+                </scalar-parameter>
+                <scalar-parameter name="endDate" id="682">
+                    <text-property name="helpText">YYYY-MM-DD</text-property>
+                    <text-property name="promptText">End Date</text-property>
+                    <property name="valueType">static</property>
+                    <property name="dataType">date</property>
+                    <property name="distinct">true</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="javascript">BirtDateTime.today()</value>
+                    </simple-property-list>
+                    <list-property name="selectionList"/>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">text-box</property>
+                    <structure name="format">
+                        <property name="category">Custom</property>
+                        <property name="pattern">yyyy-MM-dd</property>
+                    </structure>
+                </scalar-parameter>
+            </parameters>
+        </parameter-group>
     </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="lastmile_chwdb" id="7">
@@ -1451,21 +1490,69 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                     </structure>
                 </list-property>
             </structure>
-            <method name="beforeOpen"><![CDATA[
+            <method name="beforeOpen"><![CDATA[/* 	Only display manualDate records that fall within begin and end dates.  The problem with displaying records 
+	that match either manualDate and meta_autoDate begin and end dates is that some of the boundary condition 
+	records that get displayed are ones we clearly don't want to show.  
+	
+	So, for example, a record with a manualDate of 2016-08-16 and a meta_autoDate of 2013-01-13 is valid for 
+	begin and end dates of 2016-05-01 and 2016-05-30.  This will clutter up the report.
+	
+	We could, however, condition on a manualDate and meta_autoDate that are within a specific plus or minus 
+	value of each other.  But for now, the manualDate is probably the best date to condition the report on.
+*/
+
+/*
+var beginEndDateClause = " ( " + 
+								" ( " +
+									
+									" ( " + " manualDate >= " 		+ " '" + params["beginDate"].value + "' " + " ) " +
+									
+									" or " +
+									
+									" ( " + " meta_autoDate >= " 	+ " '" + params["beginDate"].value + "' " + " ) " +
+									
+								" ) " +
+
+
+								" and " + 
+								
+								" ( " +
+									
+									" ( " + " manualDate <= " 		+ " '" + params["endDate"].value + "' " + " ) " +
+									
+									" or " +
+									
+									" ( " + " meta_autoDate <= " 	+ " '" + params["endDate"].value + "' " + " ) " +
+									
+								" ) " + 
+
+						" ) ";
+
+*/
+
+var beginEndDateClause =	" ( " + 
+								" ( " +	" manualDate >= '" + params["beginDate"].value	+ "' " + " ) " + 
+								" and " + 
+								" ( " +	" manualDate <= '" + params["endDate"].value 	+ "' " + " ) " + 
+							" ) ";
 
 if ( !( ( params["county"].value == 'ALL' ) &amp;&amp; ( params[ "chwl" ].value[ 0 ] == 'ALL' ) ) ) {
     
     
     if ( params[ "chwl" ].value[ 0 ] == 'ALL' ) {
     
-        this.queryText = this.queryText + " where countyList like '" + params["county"].value + "'"
+        this.queryText = this.queryText + " where ( countyList like '" + params["county"].value + "' ) and " + beginEndDateClause;
     
     } else {
 
-  		this.queryText = this.queryText + " where chwl in ( '" + params[ "chwl" ].value.join("', '") + "' ) ";
-   
+  		this.queryText = this.queryText + " where ( chwl in ( '" + params[ "chwl" ].value.join("', '") + "' ) ) and " + beginEndDateClause;
+
     }
 	
+} else {
+
+	this.queryText = this.queryText + " where "	+ beginEndDateClause;
+   		
 };
 
 this.queryText = this.queryText + " order by countyList asc, chwl asc, chw asc, manualDate desc";
