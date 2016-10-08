@@ -1500,41 +1500,41 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
 	We could, however, condition on a manualDate and meta_autoDate that are within a specific plus or minus 
 	value of each other.  But for now, the manualDate is probably the best date to condition the report on.
 */
-
 /*
-var beginEndDateClause = " ( " + 
-								" ( " +
-									
-									" ( " + " manualDate >= " 		+ " '" + params["beginDate"].value + "' " + " ) " +
-									
-									" or " +
-									
-									" ( " + " meta_autoDate >= " 	+ " '" + params["beginDate"].value + "' " + " ) " +
-									
-								" ) " +
-
-
-								" and " + 
-								
-								" ( " +
-									
-									" ( " + " manualDate <= " 		+ " '" + params["endDate"].value + "' " + " ) " +
-									
-									" or " +
-									
-									" ( " + " meta_autoDate <= " 	+ " '" + params["endDate"].value + "' " + " ) " +
-									
-								" ) " + 
-
-						" ) ";
-
-*/
-
 var beginEndDateClause =	" ( " + 
 								" ( " +	" manualDate >= '" + params["beginDate"].value	+ "' " + " ) " + 
 								" and " + 
 								" ( " +	" manualDate <= '" + params["endDate"].value 	+ "' " + " ) " + 
 							" ) ";
+
+*/
+
+var beginEndDateClause = " ( " + 
+								" ( " +
+									
+									" ( " + " manualDate >= " + " '" + params["beginDate"].value + "' " + " ) " +
+									
+									" and " +
+									
+									" ( " + " manualDate <= " + " '" + params["endDate"].value + "' " + " ) " +
+									
+								" ) " +
+
+
+								" or " + 
+								
+								" ( " +
+									
+									" ( " + " meta_autoDate >= " + " '" + params["beginDate"].value + "' " + " ) " +
+									
+									" and " +
+									
+									" ( " + " meta_autoDate <= " + " '" + params["endDate"].value + "' " + " ) " +
+									
+								" ) " + 
+
+						" ) ";
+
 
 if ( !( ( params["county"].value == 'ALL' ) &amp;&amp; ( params[ "chwl" ].value[ 0 ] == 'ALL' ) ) ) {
     
