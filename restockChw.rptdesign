@@ -5135,7 +5135,7 @@ order by county
         </simple-master-page>
     </page-setup>
     <body>
-        <table id="39">
+        <table name="restockChwDataset" id="39">
             <property name="width">8.041666666666666in</property>
             <property name="dataSet">view_chwRestockReport</property>
             <list-property name="boundDataColumns">
