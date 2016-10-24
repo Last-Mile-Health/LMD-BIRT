@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
-    <text-property name="title">RM&amp;E —  Data Entry Clerk Record</text-property>
+    <text-property name="title">BIRT —  Data Entry Clerk Record</text-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -17,7 +17,7 @@
                     <property name="dataType">date</property>
                     <property name="distinct">true</property>
                     <simple-property-list name="defaultValue">
-                        <value type="javascript">BirtDateTime.today()</value>
+                        <value type="javascript">BirtDateTime.firstDayOfMonth( BirtDateTime.today( ) )</value>
                     </simple-property-list>
                     <list-property name="selectionList"/>
                     <property name="paramType">simple</property>
@@ -33,7 +33,7 @@
                     <property name="dataType">date</property>
                     <property name="distinct">true</property>
                     <simple-property-list name="defaultValue">
-                        <value type="javascript">BirtDateTime.today()</value>
+                        <value type="javascript">BirtDateTime.addDay( BirtDateTime.addMonth(  BirtDateTime.firstDayOfMonth( BirtDateTime.today(  )  ) , 1 ), -1 )</value>
                     </simple-property-list>
                     <list-property name="selectionList"/>
                     <property name="paramType">simple</property>
@@ -65,7 +65,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://lastmiledata.org:3306/lastmile_chwdb</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -223,8 +223,9 @@ this.queryText = this.queryText + " group by username order by fullName asc ";]]
       sum( if(        e.formType like 'odk', 1 , 0 ) )                        	as sumOdkRecords,
       sum( if( not    e.qualityAssuranceUser is null, 1 , 0 ) )               	as sumQARecords,
       
+      round(
       ( sum( if( not  e.qualityAssuranceUser is null, 1 , 0 ) ) / 
-        sum( if(      e.formType like 'web', 1 , 0 ) )               ) * 100  	as percentQA
+        sum( if(      e.formType like 'web', 1 , 0 ) )               ) * 100, 1 )  	as percentQA
 
 from view_dataEntry as e
 	left outer join lastmile_db.tbl_utility_users as u on e.dataEntryUser = u.username]]></xml-property>
@@ -412,7 +413,7 @@ from view_dataEntry as e
         </simple-master-page>
     </page-setup>
     <body>
-        <table id="13">
+        <table name="dataEntryClerkRecord" id="13">
             <property name="textAlign">center</property>
             <property name="dataSet">view_dataEntry</property>
             <list-property name="boundDataColumns">
@@ -462,32 +463,53 @@ from view_dataEntry as e
             <column id="40"/>
             <header>
                 <row id="14">
-                    <property name="height">1.125in</property>
+                    <property name="height">1.0833333333333333in</property>
                     <cell id="20">
                         <property name="textAlign">center</property>
                         <grid id="114">
+                            <property name="height">1.0416666666666667in</property>
                             <column id="115"/>
                             <row id="116">
+                                <property name="height">0.6041666666666666in</property>
                                 <cell id="117">
                                     <grid id="89">
-                                        <column id="90"/>
-                                        <column id="91"/>
-                                        <column id="92"/>
+                                        <property name="height">0.5625in</property>
+                                        <property name="width">7.802083333333333in</property>
+                                        <column id="90">
+                                            <property name="width">1.625in</property>
+                                        </column>
+                                        <column id="91">
+                                            <property name="width">3.9895833333333335in</property>
+                                        </column>
+                                        <column id="92">
+                                            <property name="width">2.1875in</property>
+                                        </column>
                                         <row id="93">
                                             <cell id="94"/>
                                             <cell id="95">
-                                                <label name="dataEntryClerkRecord" id="107">
+                                                <property name="textAlign">right</property>
+                                                <label id="107">
+                                                    <property name="fontSize">12pt</property>
                                                     <property name="fontWeight">bold</property>
+                                                    <property name="textAlign">center</property>
                                                     <text-property name="text">RM&amp;E —  Data Entry Clerk Record</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="96"/>
                                         </row>
                                         <row id="97">
+                                            <property name="height">0.28125in</property>
                                             <cell id="98"/>
                                             <cell id="99">
                                                 <text-data id="144">
-                                                    <expression name="valueExpr">params["beginDate"].value + " " + params["endDate"].value</expression>
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="fontStyle">italic</property>
+                                                    <property name="textAlign">center</property>
+                                                    <expression name="valueExpr">beginDateFormat 	= new java.text.SimpleDateFormat("MMMMM d, yyyy");&#13;
+endDateFormat 		= new java.text.SimpleDateFormat("MMMMM d, yyyy");&#13;
+&#13;
+beginDateFormat.format( params["beginDate"].value ) + " to " + endDateFormat.format( params["endDate"].value );</expression>
                                                     <property name="contentType">html</property>
                                                 </text-data>
                                             </cell>
@@ -497,49 +519,77 @@ from view_dataEntry as e
                                 </cell>
                             </row>
                             <row id="118">
+                                <property name="height">0.4375in</property>
                                 <cell id="119">
                                     <grid id="120">
-                                        <column id="121"/>
-                                        <column id="122"/>
-                                        <column id="123"/>
-                                        <column id="124"/>
-                                        <column id="125"/>
-                                        <column id="126"/>
+                                        <property name="height">0.3958333333333333in</property>
+                                        <property name="width">7.802083333333333in</property>
+                                        <column id="121">
+                                            <property name="width">1.5in</property>
+                                        </column>
+                                        <column id="122">
+                                            <property name="width">1.5in</property>
+                                        </column>
+                                        <column id="123">
+                                            <property name="width">1.2083333333333333in</property>
+                                        </column>
+                                        <column id="124">
+                                            <property name="width">1.2083333333333333in</property>
+                                        </column>
+                                        <column id="125">
+                                            <property name="width">1.2083333333333333in</property>
+                                        </column>
+                                        <column id="126">
+                                            <property name="width">1.1770833333333333in</property>
+                                        </column>
                                         <row id="127">
                                             <property name="fontWeight">bold</property>
+                                            <property name="height">0.3958333333333333in</property>
                                             <cell id="128">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="134">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">left</property>
                                                     <text-property name="text">Username</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="129">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="135">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">left</property>
                                                     <text-property name="text">Name</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="130">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="136">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">center</property>
                                                     <text-property name="text">Total Forms Entered</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="131">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="137">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">center</property>
                                                     <text-property name="text">mHealth Forms Submitted</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="132">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="138">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">center</property>
                                                     <text-property name="text">Paper Forms Entered</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="133">
                                                 <property name="verticalAlign">bottom</property>
                                                 <label id="139">
+                                                    <property name="fontSize">11pt</property>
+                                                    <property name="textAlign">center</property>
                                                     <text-property name="text">Percentage QA</text-property>
                                                 </label>
                                             </cell>
@@ -553,53 +603,83 @@ from view_dataEntry as e
             </header>
             <detail>
                 <row id="21">
-                    <property name="height">0.28125in</property>
+                    <property name="height">0.3229166666666667in</property>
                     <cell id="27">
-                        <property name="textAlign">right</property>
+                        <property name="textAlign">left</property>
                         <grid id="72">
                             <property name="height">0.28125in</property>
-                            <column id="112"/>
-                            <column id="73"/>
-                            <column id="74"/>
-                            <column id="75"/>
-                            <column id="76"/>
-                            <column id="77"/>
+                            <property name="width">7.739583333333333in</property>
+                            <column id="112">
+                                <property name="width">1.5in</property>
+                            </column>
+                            <column id="73">
+                                <property name="width">1.5in</property>
+                            </column>
+                            <column id="74">
+                                <property name="width">1.2083333333333333in</property>
+                            </column>
+                            <column id="75">
+                                <property name="width">1.2083333333333333in</property>
+                            </column>
+                            <column id="76">
+                                <property name="width">1.2083333333333333in</property>
+                            </column>
+                            <column id="77">
+                                <property name="width">1.1145833333333333in</property>
+                            </column>
                             <row id="78">
                                 <property name="height">0.28125in</property>
                                 <cell id="111">
                                     <property name="textAlign">center</property>
                                     <data id="84">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">left</property>
+                                        <list-property name="highlightRules">
+                                            <structure>
+                                                <property name="operator">eq</property>
+                                                <property name="fontStyle">italic</property>
+                                                <property name="color">#FF0000</property>
+                                                <expression name="testExpr" type="javascript">row["username"]</expression>
+                                                <simple-property-list name="value1">
+                                                    <value type="javascript">"unknown"</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
                                         <property name="resultSetColumn">username</property>
                                     </data>
                                 </cell>
                                 <cell id="79">
                                     <property name="textAlign">center</property>
                                     <data id="113">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">left</property>
                                         <property name="resultSetColumn">fullName</property>
                                     </data>
                                 </cell>
                                 <cell id="80">
                                     <data id="85">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">center</property>
                                         <property name="resultSetColumn">totalSendRecords</property>
                                     </data>
                                 </cell>
                                 <cell id="81">
                                     <data id="86">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">center</property>
                                         <property name="resultSetColumn">sumOdkRecords</property>
                                     </data>
                                 </cell>
                                 <cell id="82">
                                     <data id="87">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">center</property>
                                         <property name="resultSetColumn">sumPaperRecords</property>
                                     </data>
                                 </cell>
                                 <cell id="83">
                                     <data id="88">
+                                        <property name="fontWeight">bold</property>
                                         <property name="textAlign">center</property>
                                         <property name="resultSetColumn">percentQA</property>
                                     </data>
@@ -611,6 +691,7 @@ from view_dataEntry as e
             </detail>
             <footer>
                 <row id="28">
+                    <property name="height">0.010416666666666666in</property>
                     <cell id="34">
                         <property name="textAlign">right</property>
                     </cell>
