@@ -1509,7 +1509,13 @@ var beginEndDateClause =	" ( " +
 
 */
 
+/* Note this code is actually the logic we want, but I modified it to display sixty days prior to the begin
+	date so the first restock in the date range range won't get cropped because of how I handled the first restock's
+	previous current stock level as non-existent.
+*/
+/*
 var beginEndDateClause = " ( " + 
+
 								" ( " +
 									
 									" ( " + " manualDate >= " + " '" + params["beginDate"].value + "' " + " ) " +
@@ -1535,6 +1541,35 @@ var beginEndDateClause = " ( " +
 
 						" ) ";
 
+*/
+
+var beginEndDateClause = " ( " + 
+
+								" ( " +
+									
+									" ( " + " manualDate >= " + " date_sub( '" + params["beginDate"].value + "' , interval 32 day ) " + " ) " +
+									
+									" and " +
+									
+									" ( " + " manualDate <= " + " '" + params["endDate"].value + "' " + " ) " +
+									
+								" ) " +
+
+
+								" or " + 
+								
+								" ( " +
+									
+									" ( " + " meta_autoDate >= " + " date_sub( '" + params["beginDate"].value + "' , interval 32 day ) " + " ) " +
+									
+									" and " +
+									
+									" ( " + " meta_autoDate <= " + " '" + params["endDate"].value + "' " + " ) " +
+									
+								" ) " + 
+
+						" ) ";
+                                               						
 
 if ( !( ( params["county"].value == 'ALL' ) &amp;&amp; ( params[ "chwl" ].value[ 0 ] == 'ALL' ) ) ) {
     
