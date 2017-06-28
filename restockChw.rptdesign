@@ -259,7 +259,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
         </parameter-group>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="lastmile_chwdb" id="7">
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="lastmile_archive" id="7">
             <list-property name="privateDriverProperties">
                 <ex-property>
                     <name>metadataBidiFormatStr</name>
@@ -277,7 +277,7 @@ function restock_currentStockLevel( restockType, fullStock, partialRestock, stoc
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://lastmiledata.org:3306/lastmile_chwdb</property>
+            <property name="odaURL">jdbc:mysql://lastmiledata.org:3306/lastmile_archive</property>
             <property name="odaUser">lastmile_admin</property>
             <encrypted-property name="odaPassword" encryptionID="base64">TGFzdE1pbGUxNA==</encrypted-property>
         </oda-data-source>
@@ -1703,7 +1703,7 @@ partialRestock_CommunityReferralForm_nextRow[partialRestock_CommunityReferralFor
 stockOutReason_CommunityReferralForm_nextRow[stockOutReason_CommunityReferralForm_nextRow.length]	=row["stockOutReason_CommunityReferralForm"];
 fullStock_CommunityReferralForm_nextRow[fullStock_CommunityReferralForm_nextRow.length]				=row["fullStock_CommunityReferralForm"];
 ]]></method>
-            <property name="dataSource">lastmile_chwdb</property>
+            <property name="dataSource">lastmile_archive</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -4882,7 +4882,7 @@ from view_chwRestockReport]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">lastmile_chwdb</property>
+            <property name="dataSource">lastmile_archive</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -5018,7 +5018,7 @@ order by county, chwl asc
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">lastmile_chwdb</property>
+            <property name="dataSource">lastmile_archive</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
